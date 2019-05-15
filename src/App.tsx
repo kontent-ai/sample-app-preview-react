@@ -20,18 +20,31 @@ const HomePage = (): JSX.Element => {
 
 const LandingPage = (): JSX.Element => {
   return (
-  <div>
-    <h1>Landing page</h1>
-    <p></p>
-  </div>)
+  <PageContent>
+    <h1>🚀 A landing page! 🚀 This page is built by linking other content</h1>
+    <div className="product-list">
+      Linked products:
+      <ol>
+        <li>
+          <Link to="/product">
+            <div className="product-list__item">
+              <img src="https://dev-preview-assets-eu-01.global.ssl.fastly.net:443/a7e13f86-7f42-0047-0e15-cdde6e902aca/8c81fa7b-6727-44d8-ab72-341dac7c6153/headless_horseman.png" width="50px" height="50px"/>
+              <span>An amazing product that's great for everyone</span>
+            </div>
+          </Link>
+        </li>
+      </ol>
+    </div>
+  </PageContent>)
 }
 
-const ProductPage = (): JSX.Element => {
+const ProductDetailsPage = (): JSX.Element => {
   return (
-  <div>
-    <h1>Product page</h1>
-    <p></p>
-  </div>)
+  <PageContent>
+    <h1>An amazing product that's great for everyone</h1>
+    <img src="https://dev-preview-assets-eu-01.global.ssl.fastly.net:443/a7e13f86-7f42-0047-0e15-cdde6e902aca/8c81fa7b-6727-44d8-ab72-341dac7c6153/headless_horseman.png"/>
+    <p>Each content item has its own workflow. That means products like this one can be at a different stage than the listing that contains them. So you can start describing a new product and include it in the listing but only publish it when it's ready. In the meantime, your landing page can show all your other great products.</p>
+  </PageContent>)
 }
 
 function App() {
@@ -46,7 +59,7 @@ function App() {
       <div className="app-content-wrapper">
         <Route path="/" exact component={HomePage}/>
         <Route path="/landing-page" component={LandingPage}/>
-        <Route path="/product" component={ProductPage}/>
+        <Route path="/product" component={ProductDetailsPage}/>
       </div>
     </div>
   );
