@@ -16,13 +16,11 @@ import { HomePage } from './components/HomePage';
 import { LandingPage } from './components/LandingPage';
 import { ProductDetailsPage } from './components/ProductDetailsPage';
 import {
-  projectIdKey,
   silentLoginKey,
 } from './constants/localStorageKeys';
 
 const handleAuth = ({ location }: any) => {
   if (/access_token|id_token|error/.test(location.hash)) {
-    debugger;
     handleAuthentication();
   }
 };
