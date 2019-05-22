@@ -19,19 +19,20 @@ import {
   silentLoginKey,
 } from './constants/localStorageKeys';
 
+
 const handleAuth = ({ location }: any) => {
   if (/access_token|id_token|error/.test(location.hash)) {
     handleAuthentication();
   }
 };
 
+
 export class App extends React.PureComponent {
   componentDidMount() {
-
     if (isAuthenticated()) {
       //renewSession();
     }
-    else if (localStorage.getItem(silentLoginKey) == undefined) {
+    else if (!localStorage.getItem(silentLoginKey)) {
       silentLogin();
     }
   }
