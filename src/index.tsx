@@ -2,12 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import { App } from './App';
+import { WebAuth } from './authorization/WebAuth';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router } from 'react-router-dom';
 
+const webAuth = new WebAuth();
+
 ReactDOM.render(
   <Router>
-    <App />
+    <App auth={webAuth} />
   </Router>
   , document.getElementById('root'));
 

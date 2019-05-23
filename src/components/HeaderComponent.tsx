@@ -1,13 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import {
-  isAuthenticated,
-  login,
-  logout,
-} from '../authorization/authentication';
 
-export class HeaderComponent extends React.PureComponent {
+export interface IHeaderComponentProps {
+  readonly isLoggedIn: boolean;
+  readonly previewApiKey: string;
+  readonly login: () => void;
+  readonly logout: () => void;
+}
+
+export class HeaderComponent extends React.PureComponent<IHeaderComponentProps> {
   render() {
+    const { isLoggedIn, previewApiKey, login, logout } = this.props;
     return (
       <>
         <nav className="app-menu">
@@ -17,11 +20,12 @@ export class HeaderComponent extends React.PureComponent {
         </nav>
 
         <div>
-          {isAuthenticated()
+          {isLoggedIn
             ? <p>Logged in <button onClick={logout}>Log out</button></p>
             : <p>Logged out <button onClick={login}>Log in</button></p>
           }
         </div>
+        <p>PreviewAPIKey:<br />{previewApiKey}</p>
       </>
     );
   }

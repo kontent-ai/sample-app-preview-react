@@ -1,5 +1,6 @@
+/* eslint-disable */
 import React from 'react';
-import { PageContent } from './PageContentWrapper';
+import { PageContent } from './PageContent';
 
 export const ProductDetailsPage = (): JSX.Element => {
   return (
