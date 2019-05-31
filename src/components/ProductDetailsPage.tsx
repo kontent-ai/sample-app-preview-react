@@ -1,12 +1,37 @@
-/* eslint-disable */
 import React from 'react';
+import {
+  AppContextConsumer,
+  IProduct,
+} from '../context/AppContext';
 import { PageContent } from './PageContent';
+import './ProductDetailPage.css';
 
-export const ProductDetailsPage = (): JSX.Element => {
-  return (
-    <PageContent>
-      <h1>An amazing product that's great for everyone</h1>
-      <img src="https://dev-preview-assets-eu-01.global.ssl.fastly.net:443/a7e13f86-7f42-0047-0e15-cdde6e902aca/8c81fa7b-6727-44d8-ab72-341dac7c6153/headless_horseman.png"/>
-      <p>Each content item has its own workflow. That means products like this one can be at a different stage than the listing that contains them. So you can start describing a new product and include it in the listing but only publish it when it's ready. In the meantime, your landing page can show all your other great products.</p>
-    </PageContent>)
+interface IProductRouteParams {
+  readonly match: {
+    readonly params: {
+      readonly productId: string;
+    }
+  }
 }
+
+export const ProductDetailsPage = ({ match: { params } }: IProductRouteParams): JSX.Element => {
+  return (
+    <AppContextConsumer>
+      {appContext => {
+        const product = appContext.products.find(product => product.productId === params.productId) as IProduct;
+        if (product) {
+          return (
+            <PageContent title={product.title}>
+              <img
+                className="product-image"
+                alt={product.title}
+                src={product.pictureUrl}
+              />
+              {/* TODO: Check if using dangerouslySetInnerHTML is the best practice to shown html content received from Deliver */}
+              <div dangerouslySetInnerHTML={{ __html: product.description }} />
+            </PageContent>);
+        }
+      }}
+    </AppContextConsumer>
+  );
+};

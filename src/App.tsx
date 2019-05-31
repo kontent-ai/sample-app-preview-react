@@ -10,10 +10,20 @@ import {
   IWebAuth,
 } from './authorization/WebAuth';
 import { Callback } from './components/Callback';
-import { HeaderComponent } from './components/HeaderComponent';
-import { HomePage } from './components/HomePage';
+import { NavigationBar } from './components/NavigationBar';
+import { WelcomePage } from './components/WelcomePage';
 import { LandingPage } from './components/LandingPage';
 import { ProductDetailsPage } from './components/ProductDetailsPage';
+import {
+  ProductsPage,
+} from './components/ProductsPage';
+import {
+  CallbackRoute,
+  LogoutRoute,
+  ProductDetailRoute,
+  ProductsRoute,
+  RootRoute,
+} from './constants/routePaths';
 import {
   getPreviewApiKey,
   IPreviewApiKey,
@@ -90,44 +100,41 @@ export class App extends React.PureComponent<IAppDataProps, IAppStateProps> {
   };
 
   render() {
-    const { login, logout } = this.props.auth;
-    const { previewApiKey, isLoggedIn, expiresAt } = this.state;
+    const { isLoggedIn } = this.state;
 
     return (
       <div className="App">
+        {/* TODO: If silent login is processing, could also be shown "Loading..." to avoid blinking the browser screen */}
         <Route
-          path="/"
-          render={() =>
-            <HeaderComponent
-              previewApiKey={previewApiKey}
-              isLoggedIn={isLoggedIn}
-              login={login}
-              logout={logout}
-            />
-          }
+          path={RootRoute}
+          component={NavigationBar}
         />
         <div className="app-content-wrapper">
           <Switch>
             <Route
-              path="/"
+              path={RootRoute}
               exact
-              component={HomePage}
+              component={WelcomePage}
             />
             <Route
               path="/landing-page"
               component={LandingPage}
             />
             <Route
-              path="/product"
+              path={ProductDetailRoute}
               component={ProductDetailsPage}
+            />
+            <Route
+              path={ProductsRoute}
+              component={ProductsPage}
             />
             {isLoggedIn ?
               <Redirect
-                from="/callback"
+                from={CallbackRoute}
                 to="/"
               /> :
               <Route
-                path="/callback"
+                path={CallbackRoute}
                 render={props => {
                   this.handleAuth(props);
                   return <Callback />;
@@ -135,8 +142,8 @@ export class App extends React.PureComponent<IAppDataProps, IAppStateProps> {
               />
             }
             <Redirect
-              from="/logout"
-              to="/"
+              from={LogoutRoute}
+              to={RootRoute}
             />
           </Switch>
         </div>

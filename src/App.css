@@ -1,20 +1,43 @@
 .App {
-  text-align: center;
+	font-family: "PT Sans", sans-serif;
+	min-width: 360px;
 }
 
-.app-menu a {
-  padding: 10px;
+
+a {
+	color: #4a90e2;
 }
+
+
+.app-title {
+	width: 100%;
+	height: 190px;
+	background-color: #F6F6F6;
+	text-align: center;
+	font-size: 61px;
+	line-height: 190px;
+	font-weight: bold;
+}
+
 
 .app-content-wrapper {
-  display: flex;
-  justify-content: center;
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: column;
+	align-items: center;
 }
+
 
 .app-content {
-  max-width: 800px;
+	box-sizing: border-box;
+	width: 100%;
+	max-width: 948px;
+	text-align: justify;
+	font-size: 22px;
+	padding: 24px;
 }
 
+
 .product-list {
-  text-align: initial;
+	text-align: initial;
 }

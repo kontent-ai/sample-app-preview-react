@@ -1,0 +1,22 @@
+.app-menu {
+	background-color: #333333;
+	display: flex;
+}
+.app-menu a {
+	display: block;
+	padding: 26px 40px;
+	font-size: 25px;
+	line-height: 20px;
+	color: #FFFFFF;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.app-menu a:hover {
+	background-color: #444444;
+}
+
+.app-menu a.active {
+	background-color: #F6F6F6;
+	color: #333333;
+}
