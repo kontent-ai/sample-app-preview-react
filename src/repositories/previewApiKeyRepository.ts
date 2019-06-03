@@ -17,7 +17,7 @@ export const getPreviewApiKey = (authToken: string): Promise<IPreviewApiKey> => 
   };
 
   // TODO: get project id from URL
-  const url = `https://qa-draft.global.ssl.fastly.net/api/project-management/555320bb-658d-00e5-2e91-8e9bd448a98c/keys/content-management-api`;
+  const url = `https://qa-draft.global.ssl.fastly.net/api/project-management/0a657fe4-a314-00ac-e539-81e78251686c/keys/content-management-api`;
 
   return restProvider.post(url, null, requestContext);
 };

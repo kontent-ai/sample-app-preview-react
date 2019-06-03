@@ -64,7 +64,7 @@ const AppContextProvider = context.Provider;
 
 export const AppContextConsumer = context.Consumer;
 
-export class AppContextComponent extends React.PureComponent<{}, IAppContextComponentState> {
+export class AppContext extends React.PureComponent<{}, IAppContextComponentState> {
   readonly state = {
     pages: dummyPages,
     products: dummyProducts,

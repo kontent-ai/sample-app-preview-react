@@ -5,15 +5,18 @@ import { App } from './App';
 import { WebAuth } from './authorization/WebAuth';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router } from 'react-router-dom';
-import {AppContextComponent} from "./context/AppContext";
+import { AppContext } from "./context/AppContext";
+import { AuthContext } from "./context/AuthContext";
 
 const webAuth = new WebAuth();
 
 ReactDOM.render(
   <Router>
-    <AppContextComponent>
-      <App auth={webAuth} />
-    </AppContextComponent>
+    <AuthContext auth={webAuth}>
+      <AppContext>
+        <App/>
+      </AppContext>
+    </AuthContext>
   </Router>
   , document.getElementById('root'));
 
