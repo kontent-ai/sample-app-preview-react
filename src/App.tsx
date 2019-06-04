@@ -1,15 +1,14 @@
 import React from 'react';
 import './App.css';
 import {
-  Redirect,
   Route,
   Switch,
 } from 'react-router-dom';
 import { NavigationBar } from './components/NavigationBar';
-import { WelcomePage } from './components/WelcomePage';
 import { LandingPage } from './components/LandingPage';
 import { ProductDetailsPage } from './components/ProductDetailsPage';
 import {AuthContextConsumer} from "./context/AuthContext";
+import {
   ProductsPage,
 } from './components/ProductsPage';
 import {
@@ -19,7 +18,7 @@ import {
   ProductsRoute,
   RootRoute,
 } from './constants/routePaths';
-import {
+import {WelcomePage} from "./components/WelcomePage";
 
 export class App extends React.PureComponent<{}, {}> {
   render() {
@@ -30,29 +29,28 @@ export class App extends React.PureComponent<{}, {}> {
           {authContext => (
             <>
               <Route
-          path={RootRoute}
-          component={NavigationBar}
-
+                path={RootRoute}
+                component={NavigationBar}
               />
               <div className="app-content-wrapper">
                 <Switch>
                   <Route
-              path={RootRoute}
+                    path={RootRoute}
                     exact
-                    component={HomePage}
+                    component={WelcomePage}
                   />
                   <Route
                     path="/landing-page"
                     component={LandingPage}
                   />
                   <Route
-              path={ProductDetailRoute}
+                    path={ProductDetailRoute}
                     component={ProductDetailsPage}
                   />
-            <Route
-              path={ProductsRoute}
-              component={ProductsPage}
-            />
+                  <Route
+                    path={ProductsRoute}
+                    component={ProductsPage}
+                  />
                 </Switch>
               </div>
             </>

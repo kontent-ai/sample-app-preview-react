@@ -3,6 +3,7 @@ import {IAccessToken, IWebAuth} from "../authorization/WebAuth";
 import {getPreviewApiKey, IPreviewApiKey} from "../repositories/previewApiKeyRepository";
 import {Redirect, Route, Switch} from "react-router";
 import {Callback} from "../components/Callback";
+import {CallbackRoute, LogoutRoute, RootRoute} from "../constants/routePaths";
 
 interface IAuthContextProps {
   readonly auth: IWebAuth;
@@ -110,11 +111,11 @@ export class AuthContext extends React.PureComponent<IAuthContextProps, IAuthCon
         <Switch>
           {isLoggedIn ?
             <Redirect
-              from="/callback"
-              to="/"
+              from={CallbackRoute}
+              to={RootRoute}
             /> :
             <Route
-              path="/callback"
+              path={CallbackRoute}
               render={props => {
                 this.handleAuth(props);
                 return <Callback />;
@@ -122,14 +123,17 @@ export class AuthContext extends React.PureComponent<IAuthContextProps, IAuthCon
             />
           }
           <Redirect
-            from="/logout"
-            to="/"
+            from={LogoutRoute}
+            to={RootRoute}
           />
-          <Route render={() => (
-            <AuthContextProvider value={context}>
-              {this.props.children}
-            </AuthContextProvider>
-          )}/>
+
+          {isLoggedIn && (
+            <Route render={() => (
+              <AuthContextProvider value={context}>
+                {this.props.children}
+              </AuthContextProvider>
+            )}/>
+          )}
         </Switch>
     )
   }
