@@ -107,6 +107,9 @@ export class AuthContext extends React.PureComponent<IAuthContextProps, IAuthCon
     };
 
     const { isLoggedIn } = this.state;
+
+    /* TODO: If silent login is processing, could also be shown "Loading..." to avoid blinking the browser screen */
+
     return (
         <Switch>
           {isLoggedIn ?

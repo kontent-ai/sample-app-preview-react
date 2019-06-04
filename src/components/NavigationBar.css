@@ -1,8 +1,13 @@
-.app-menu {
+.navigation-bar {
 	background-color: #333333;
 	display: flex;
+	justify-content: space-between;
 }
-.app-menu a {
+
+.navigation-bar__app-menu {
+	display: flex;
+}
+.navigation-bar__app-menu a {
 	display: block;
 	padding: 26px 40px;
 	font-size: 25px;
@@ -12,11 +17,26 @@
 	text-decoration: none;
 }
 
-.app-menu a:hover {
+.navigation-bar__app-menu a:hover {
 	background-color: #444444;
 }
 
-.app-menu a.active {
+.navigation-bar__app-menu a.active {
 	background-color: #F6F6F6;
 	color: #333333;
+}
+
+.navigation-bar__user-menu {
+	display: flex;
+}
+
+.navigation-bar__user-menu a {
+	color: #FFFFFF;
+	font-size: 16px;
+	padding: 26px 40px;
+	cursor: pointer;
+}
+
+.navigation-bar__user-menu a:hover {
+	background-color: #444444;
 }
