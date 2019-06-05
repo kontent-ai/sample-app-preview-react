@@ -11,13 +11,13 @@ export interface IPreviewApiKey {
   readonly expiresAt: string;
 }
 
-export const getPreviewApiKey = (authToken: string): Promise<IPreviewApiKey> => {
+export const getPreviewApiKey = (authToken: string, projectId: string): Promise<IPreviewApiKey> => {
   const requestContext: IRequestContext = {
     authToken: authToken,
   };
 
   // TODO: get project id from URL
-  const url = `https://qa-draft.global.ssl.fastly.net/api/project-management/0a657fe4-a314-00ac-e539-81e78251686c/keys/content-management-api`;
+  const url = `https://qa-draft.global.ssl.fastly.net/api/project-management/${projectId}/keys/content-management-api`;
 
   return restProvider.post(url, null, requestContext);
 };

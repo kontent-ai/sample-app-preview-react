@@ -1,8 +1,9 @@
 import React from 'react';
-import {IAccessToken, WebAuth} from "../authorization/WebAuth";
+import {IAccessToken, WebAuth} from "../authentication/WebAuth";
 import {Redirect, Route, RouteComponentProps, Switch, withRouter} from "react-router";
 import {Callback} from "../components/Callback";
 import {CallbackRoute, RootRoute} from "../constants/routePaths";
+import {getPreviewApiKey, IPreviewApiKey} from "../repositories/previewApiKeyRepository";
 
 interface IAuthContextState {
   readonly accessToken: string;
@@ -11,11 +12,9 @@ interface IAuthContextState {
   readonly previewApiKey: string;
 }
 
-interface IAuthContext extends IAuthContextState {
-  readonly login: () => void;
+export interface IAuthContext extends IAuthContextState {
   readonly logout: () => void;
-  readonly silentLogin: () => void;
-  readonly isAuthenticated: (expiresIn: number) => boolean;
+  readonly loadPreviewApiKey: (projectId: string) => void;
 }
 
 const defaultAuthContext: IAuthContext = {
@@ -23,10 +22,8 @@ const defaultAuthContext: IAuthContext = {
   expiresAt: 0,
   isLoggedIn: false,
   previewApiKey: '',
-  login: () => undefined,
   logout: () => undefined,
-  silentLogin: () => undefined,
-  isAuthenticated: () => false,
+  loadPreviewApiKey: () => undefined,
 };
 
 const context = React.createContext<IAuthContext>(defaultAuthContext);
@@ -88,13 +85,29 @@ class AuthContext extends React.Component<RouteComponentProps, IAuthContextState
   //   // }
   // }
 
+  loadPreviewApiKey = (projectId: string): void => {
+    console.log('should load preview api key for project id ', projectId);
+
+    const { accessToken } = this.state;
+    if (accessToken !== '') {
+      getPreviewApiKey(accessToken, projectId)
+        .then((response: IPreviewApiKey) => {
+          console.log('preview api key loaded');
+          this.setState({
+            previewApiKey: response.api_key,
+          });
+        })
+        .catch((error) => {
+          console.error('There was error loading preview api key', error);
+        });
+    }
+  };
+
   render() {
     const context: IAuthContext = {
       ...this.state,
-      login: this.webAuth.login,
-      silentLogin: this.webAuth.silentLogin,
       logout: this.webAuth.logout,
-      isAuthenticated: this.webAuth.isAuthenticated,
+      loadPreviewApiKey: this.loadPreviewApiKey,
     };
 
     const { isLoggedIn } = this.state;

@@ -15,7 +15,7 @@ export interface IWebAuth {
   readonly login: () => void;
   readonly logout: () => void;
   readonly silentLogin: () => void;
-  readonly handleAuthentication: (onSuccessLogin: (accessToken: IAccessToken) => void, onFailedLogin: () => void) => void;
+  readonly handleAuthentication: (onSuccessLogin: (accessToken: IAccessToken, redirectUri: string) => void, onFailedLogin: () => void) => void;
   readonly isAuthenticated: (expiresIn: number) => boolean;
 }
 

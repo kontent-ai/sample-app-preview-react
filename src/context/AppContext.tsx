@@ -1,11 +1,17 @@
 import React from 'react';
 import {getProjectIdFromUrl} from "../utils/projectIdUtil";
 import {RouteComponentProps, withRouter} from "react-router";
+import {AuthContextConsumer, IAuthContext} from "./AuthContext";
+import {Callback} from "../components/Callback";
 
 interface IAppContextComponentState {
   readonly projectId: string;
   readonly pages: Array<IPage>;
   readonly products: Array<IProduct>;
+}
+
+interface IAppContextComponentProps extends RouteComponentProps {
+  readonly authContext: IAuthContext;
 }
 
 export interface IProduct {
@@ -68,7 +74,7 @@ const AppContextProvider = context.Provider;
 
 export const AppContextConsumer = context.Consumer;
 
-class AppContext extends React.PureComponent<RouteComponentProps, IAppContextComponentState> {
+class AppContext extends React.PureComponent<IAppContextComponentProps, IAppContextComponentState> {
   readonly state = {
     projectId: '',
     pages: dummyPages,
@@ -79,11 +85,40 @@ class AppContext extends React.PureComponent<RouteComponentProps, IAppContextCom
     this.setState((state) => ({ products: state.products.concat(product) }));
   };
 
+  componentDidUpdate(prevProps: IAppContextComponentProps): void {
+    if (this.state.projectId === '') {
+      const projectIdFromUrl = getProjectIdFromUrl();
+      this.setState({
+        projectId: projectIdFromUrl ? projectIdFromUrl : '',
+      })
+    } else {
+      const { authContext } = this.props;
+      const { projectId } = this.state;
+      console.log('previewApiKey:', authContext.previewApiKey);
+
+      if (authContext.previewApiKey === '') {
+        this.props.authContext.loadPreviewApiKey(projectId);
+      }
+
+      if (prevProps.authContext.previewApiKey === '' && this.props.authContext.previewApiKey !== '') {
+        this.fetchData();
+      }
+    }
+  }
+
+  fetchData = () => {
+    console.log('now fetch data');
+  };
+
   render() {
-    const { products, pages } = this.state;
-    const projectIdFromUrl = getProjectIdFromUrl();
+    const { products, pages, projectId } = this.state;
+
+    if (projectId === '') {
+      return <Callback/>
+    }
+
     const contextValue: IAppContext = {
-      projectId: projectIdFromUrl ? projectIdFromUrl : '',
+      projectId,
       pages,
       products,
       addProduct: this.addProduct,
@@ -97,5 +132,11 @@ class AppContext extends React.PureComponent<RouteComponentProps, IAppContextCom
   }
 }
 
-const AppContextWithRouter = withRouter<RouteComponentProps>(AppContext);
+const AppContextWithAuthContext = (props: any) => (
+  <AuthContextConsumer>
+    {authContext => (<AppContext authContext={authContext} {...props}/> )}
+  </AuthContextConsumer>
+);
+
+const AppContextWithRouter = withRouter<RouteComponentProps>(AppContextWithAuthContext);
 export { AppContextWithRouter as AppContext };
