@@ -102,31 +102,29 @@ class AuthContext extends React.Component<RouteComponentProps, IAuthContextState
     /* TODO: If silent login is processing, could also be shown "Loading..." to avoid blinking the browser screen */
 
     return (
-      <>
-        <Switch>
-          {isLoggedIn ?
-            <Redirect
-              from={CallbackRoute}
-              to={RootRoute}
-            /> :
-            <Route
-              path={CallbackRoute}
-              render={props => {
-                this.handleAuthCallback(props);
-                return <Callback />;
-              }}
-            />
-          }
+      <Switch>
+        {isLoggedIn ?
+          <Redirect
+            from={CallbackRoute}
+            to={RootRoute}
+          /> :
+          <Route
+            path={CallbackRoute}
+            render={props => {
+              this.handleAuthCallback(props);
+              return <Callback />;
+            }}
+          />
+        }
 
-          {isLoggedIn && (
-            <Route render={() => (
-              <AuthContextProvider value={context}>
-                {this.props.children}
-              </AuthContextProvider>
-            )}/>
-          )}
-        </Switch>
-      </>
+        {isLoggedIn && (
+          <Route render={() => (
+            <AuthContextProvider value={context}>
+              {this.props.children}
+            </AuthContextProvider>
+          )}/>
+        )}
+      </Switch>
     )
   }
 }

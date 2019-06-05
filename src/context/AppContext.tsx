@@ -1,6 +1,9 @@
 import React from 'react';
+import {getProjectIdFromUrl} from "../utils/projectIdUtil";
+import {RouteComponentProps, withRouter} from "react-router";
 
 interface IAppContextComponentState {
+  readonly projectId: string;
   readonly pages: Array<IPage>;
   readonly products: Array<IProduct>;
 }
@@ -23,6 +26,7 @@ interface IAppContext extends IAppContextComponentState {
 }
 
 const defaultAppContext: IAppContext = {
+  projectId: '',
   pages: new Array<IPage>(),
   products: new Array<IProduct>(),
   addProduct: () => undefined,
@@ -64,8 +68,9 @@ const AppContextProvider = context.Provider;
 
 export const AppContextConsumer = context.Consumer;
 
-export class AppContext extends React.PureComponent<{}, IAppContextComponentState> {
+class AppContext extends React.PureComponent<RouteComponentProps, IAppContextComponentState> {
   readonly state = {
+    projectId: '',
     pages: dummyPages,
     products: dummyProducts,
   };
@@ -76,7 +81,9 @@ export class AppContext extends React.PureComponent<{}, IAppContextComponentStat
 
   render() {
     const { products, pages } = this.state;
+    const projectIdFromUrl = getProjectIdFromUrl();
     const contextValue: IAppContext = {
+      projectId: projectIdFromUrl ? projectIdFromUrl : '',
       pages,
       products,
       addProduct: this.addProduct,
@@ -89,3 +96,6 @@ export class AppContext extends React.PureComponent<{}, IAppContextComponentStat
     );
   }
 }
+
+const AppContextWithRouter = withRouter<RouteComponentProps>(AppContext);
+export { AppContextWithRouter as AppContext };

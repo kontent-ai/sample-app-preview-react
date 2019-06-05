@@ -3,26 +3,34 @@ import { Link } from 'react-router-dom';
 import './NavigationBar.css';
 import {
   ProductsRoute,
-  RootRoute,
+  ProjectRoute,
+  ProjectRouteParams,
 } from '../constants/routePaths';
 import {AuthContextConsumer} from "../context/AuthContext";
+import {buildPath} from "../utils/routeTransitionUtils";
+import {AppContextConsumer} from "../context/AppContext";
 
 export class NavigationBar extends React.PureComponent {
   render() {
     return (
-      <div className="navigation-bar">
-        <nav className="navigation-bar__app-menu">
-          <Link className="navigation-bar__app-menu-button" to={RootRoute}>Welcome</Link>
-          <Link className="navigation-bar__app-menu-button" to={ProductsRoute}>Products</Link>
-        </nav>
-        <AuthContextConsumer>
-          {authContext => (
-            <div className="navigation-bar__user-menu">
-              <button className="navigation-bar__user-menu-button" onClick={authContext.logout}>Logout</button>
-            </div>
-          )}
-        </AuthContextConsumer>
-      </div>
-    );
+      <AppContextConsumer>
+        {appContext => (
+          <AuthContextConsumer>
+            {authContext => (
+              <div className="navigation-bar">
+                <nav className="navigation-bar__app-menu">
+                  <Link className="navigation-bar__app-menu-button" to={buildPath<ProjectRouteParams>(ProjectRoute, { projectId: appContext.projectId })}>Welcome</Link>
+                  <Link className="navigation-bar__app-menu-button" to={buildPath<ProjectRouteParams>(ProductsRoute, { projectId: appContext.projectId })}>Products</Link>
+                </nav>
+                <div className="navigation-bar__user-menu">
+                  <button className="navigation-bar__user-menu-button" onClick={authContext.logout}>Logout</button>
+                </div>
+              </div>
+            )}
+          </AuthContextConsumer>
+        )}
+      </AppContextConsumer>
+    )
   }
 }
+

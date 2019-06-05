@@ -17,12 +17,12 @@ import {
 } from './constants/routePaths';
 import {WelcomePage} from "./components/WelcomePage";
 
-export class App extends React.PureComponent<{}, {}> {
+export class App extends React.PureComponent {
   render() {
     return (
       <div className="App">
         <Route
-          path={RootRoute}
+          path={ProjectRoute}
           component={NavigationBar}
         />
         <div className="app-content-wrapper">
@@ -44,7 +44,7 @@ export class App extends React.PureComponent<{}, {}> {
               render={() => (
                 <>
                   <p>Ooops, missing page!</p>
-                  <p>Did you forget to Project Id in url? E.g. <i>https://kentico.github.io/cloud-preview-sample-app/your_project_id</i></p>
+                  <p>Didn't you forget to provide Project Id in url? E.g. <i>https://kentico.github.io/cloud-preview-sample-app/your_project_id</i></p>
                   <p>Default: <Link to={RootRoute + "0a657fe4-a314-00ac-e539-81e78251686c"}>0a657fe4-a314-00ac-e539-81e78251686c</Link></p>
                 </>
               )}
