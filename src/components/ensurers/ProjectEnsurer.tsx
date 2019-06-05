@@ -40,16 +40,14 @@ class ProjectEnsurer extends React.PureComponent<RouteComponentProps, IProjectEn
 
       const projectIdInLocalStorage = getProjectIdFromLocalStorage();
       if (projectIdInLocalStorage && projectIdInLocalStorage !== '') {
-        console.log('project id is in local storage and not in url -> ensure project ic');
-        this.setState(() => ({
-          ensureProjectId: projectIdInLocalStorage,
-        }));
+        console.log('project id is in local storage and not in url -> ensure project id');
+        this.props.history.push(RootRoute + projectIdInLocalStorage)
         return;
       }
 
       this.setError('There is no project id in url nor local storage');
     }
-  }
+  };
 
   setError = (errorMessage: string): void => {
     this.setState(() => ({ error: errorMessage }));
@@ -73,14 +71,7 @@ class ProjectEnsurer extends React.PureComponent<RouteComponentProps, IProjectEn
       );
     }
 
-    if (ensureProjectId) {
-      console.log('will ensure new project id: ' + ensureProjectId);
-      return (
-        <Redirect exact from={RootRoute} to={RootRoute + ensureProjectId} />
-      )
-    }
-
-    return <div>wut</div>;
+    return <div>Loading</div>;
   }
 }
 
