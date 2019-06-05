@@ -1,21 +1,15 @@
 import React from 'react';
-import {IAccessToken, IWebAuth} from "../authorization/WebAuth";
-import {getPreviewApiKey, IPreviewApiKey} from "../repositories/previewApiKeyRepository";
-import {match, matchPath, Redirect, Route, RouteComponentProps, RouteProps, Switch, withRouter} from "react-router";
+import {IAccessToken, WebAuth} from "../authorization/WebAuth";
+import {Redirect, Route, RouteComponentProps, Switch, withRouter} from "react-router";
 import {Callback} from "../components/Callback";
-import {CallbackRoute, LogoutRoute, ProjectRoute, ProjectRouteParams, RootRoute} from "../constants/routePaths";
+import {CallbackRoute, RootRoute} from "../constants/routePaths";
 import {getProjectIdFromUrl, saveProjectIdToLocalStorage} from "../utils/projectIdUtil";
-
-interface IAuthContextProps {
-  readonly auth: IWebAuth;
-}
 
 interface IAuthContextState {
   readonly accessToken: string;
   readonly expiresAt: number;
   readonly isLoggedIn: boolean;
   readonly previewApiKey: string;
-  readonly silentLoginFailed: boolean;
 }
 
 interface IAuthContext extends IAuthContextState {
@@ -31,12 +25,11 @@ const defaultAuthContext: IAuthContext = {
   expiresAt: 0,
   isLoggedIn: false,
   previewApiKey: '',
-  silentLoginFailed: false,
   login: () => undefined,
   logout: () => undefined,
   silentLogin: () => undefined,
-  handleAuthentication: (props: any) => undefined,
-  isAuthenticated: (expiresIn: number) => false,
+  handleAuthentication: () => undefined,
+  isAuthenticated: () => false,
 };
 
 const context = React.createContext<IAuthContext>(defaultAuthContext);
@@ -44,11 +37,11 @@ const AuthContextProvider = context.Provider;
 
 export const AuthContextConsumer = context.Consumer;
 
-interface IAuthContextAllProps extends IAuthContextProps, RouteComponentProps {
-}
+class AuthContext extends React.Component<RouteComponentProps, IAuthContextState> {
 
-class AuthContext extends React.Component<IAuthContextAllProps, IAuthContextState> {
-  constructor(props: IAuthContextAllProps) {
+  private webAuth = new WebAuth();
+
+  constructor(props: RouteComponentProps) {
     super(props);
 
     this.state = {
@@ -56,7 +49,6 @@ class AuthContext extends React.Component<IAuthContextAllProps, IAuthContextStat
       isLoggedIn: false,
       previewApiKey: '',
       expiresAt: 0,
-      silentLoginFailed: false,
     };
 
     const projectIdInUrl = getProjectIdFromUrl();
@@ -68,54 +60,53 @@ class AuthContext extends React.Component<IAuthContextAllProps, IAuthContextStat
   private isAuthUrlHash = (hash: string): boolean => /access_token|id_token|error/.test(hash);
 
   handleAuth = ({ location }: any) => {
+    console.log('handleAuth()');
     if (this.isAuthUrlHash(location.hash)) {
-      this.props.auth.handleAuthentication(this.onSuccessLogin, this.onFailedLogin);
+      this.webAuth.handleAuthentication(this.onSuccessLogin, this.onFailedLogin);
     }
   };
 
   onSuccessLogin = (accessToken: IAccessToken) => {
+    console.warn('on success login');
     this.setState({
       accessToken: accessToken.accessToken,
       expiresAt: accessToken.expiresAt,
       isLoggedIn: true,
-      silentLoginFailed: false,
     });
   };
 
   onFailedLogin = () => {
-    this.setState({
-      silentLoginFailed: true,
-    });
+    console.warn('on failed login');
   };
 
   componentDidMount() {
-    const { silentLogin } = this.props.auth;
-    const { silentLoginFailed } = this.state;
+    console.warn('component did mount');
+    const { silentLogin } = this.webAuth;
 
-    if (!silentLoginFailed && !this.isAuthUrlHash(window.location.hash)) {
+    if (!this.isAuthUrlHash(window.location.hash)) {
       silentLogin();
     }
   }
 
-  componentDidUpdate(): void {
-    // const { accessToken, previewApiKey } = this.state;
-    // if (accessToken !== '' && previewApiKey === '') {
-    //   getPreviewApiKey(accessToken).then((response: IPreviewApiKey) => {
-    //     this.setState({
-    //       previewApiKey: response.api_key,
-    //     });
-    //   });
-    // }
-  }
+  // componentDidUpdate(): void {
+  //   // const { accessToken, previewApiKey } = this.state;
+  //   // if (accessToken !== '' && previewApiKey === '') {
+  //   //   getPreviewApiKey(accessToken).then((response: IPreviewApiKey) => {
+  //   //     this.setState({
+  //   //       previewApiKey: response.api_key,
+  //   //     });
+  //   //   });
+  //   // }
+  // }
 
   render() {
     const context: IAuthContext = {
       ...this.state,
-      login: this.props.auth.login,
-      silentLogin: this.props.auth.silentLogin,
-      logout: this.props.auth.logout,
+      login: this.webAuth.login,
+      silentLogin: this.webAuth.silentLogin,
+      logout: this.webAuth.logout,
       handleAuthentication: this.handleAuth,
-      isAuthenticated: this.props.auth.isAuthenticated,
+      isAuthenticated: this.webAuth.isAuthenticated,
     };
 
     const { isLoggedIn } = this.state;
@@ -138,16 +129,6 @@ class AuthContext extends React.Component<IAuthContextAllProps, IAuthContextStat
               }}
             />
           }
-          <Redirect
-            from={LogoutRoute}
-            to={RootRoute}
-          />
-
-          {/*{isLoggedIn && projectId === '' && (*/}
-          {/*  <Route exact path={RootRoute} render={() => (*/}
-          {/*    <div>Logged in but no project id specified!</div>*/}
-          {/*  )}/>*/}
-          {/*)}*/}
 
           {isLoggedIn && (
             <Route render={() => (
@@ -163,5 +144,5 @@ class AuthContext extends React.Component<IAuthContextAllProps, IAuthContextStat
 }
 
 
-const AuthContextWithRouter = withRouter<IAuthContextAllProps>(AuthContext);
+const AuthContextWithRouter = withRouter(AuthContext);
 export { AuthContextWithRouter as AuthContext };

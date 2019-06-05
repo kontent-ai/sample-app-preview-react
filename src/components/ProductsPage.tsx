@@ -25,6 +25,7 @@ const ProductPreview = (props: IProduct): JSX.Element => {
       <img
         className="product-thumbnail"
         src={props.pictureUrl}
+        alt="product thumbnail"
       />
       <Link to={`${ProductsRoute}/${props.productId}`}>
         {props.title}

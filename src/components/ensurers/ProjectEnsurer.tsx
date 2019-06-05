@@ -1,5 +1,5 @@
 import React from "react";
-import {Redirect, RouteComponentProps, withRouter} from "react-router";
+import {RouteComponentProps, withRouter} from "react-router";
 import {RootRoute} from "../../constants/routePaths";
 import {getProjectIdFromLocalStorage, getProjectIdFromUrl} from "../../utils/projectIdUtil";
 

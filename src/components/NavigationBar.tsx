@@ -12,13 +12,13 @@ export class NavigationBar extends React.PureComponent {
     return (
       <div className="navigation-bar">
         <nav className="navigation-bar__app-menu">
-          <Link to={RootRoute}>Welcome</Link>
-          <Link to={ProductsRoute}>Products</Link>
+          <Link className="navigation-bar__app-menu-button" to={RootRoute}>Welcome</Link>
+          <Link className="navigation-bar__app-menu-button" to={ProductsRoute}>Products</Link>
         </nav>
         <AuthContextConsumer>
           {authContext => (
             <div className="navigation-bar__user-menu">
-              <a onClick={authContext.logout}>Logout</a>
+              <button className="navigation-bar__user-menu-button" onClick={authContext.logout}>Logout</button>
             </div>
           )}
         </AuthContextConsumer>
