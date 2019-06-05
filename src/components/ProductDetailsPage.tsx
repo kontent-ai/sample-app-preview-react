@@ -4,7 +4,7 @@ import {
   IProduct,
 } from '../context/AppContext';
 import { PageContent } from './PageContent';
-import './ProductDetailPage.css';
+import './ProductDetailsPage.css';
 
 interface IProductRouteParams {
   readonly match: {

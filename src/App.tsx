@@ -11,8 +11,9 @@ import {
   ProductsPage,
 } from './components/ProductsPage';
 import {
-  ProductDetailRoute,
-  ProductsRoute, ProjectRoute,
+  ProductDetailsRoute,
+  ProductsRoute,
+  ProjectRoute,
   RootRoute,
 } from './constants/routePaths';
 import {WelcomePage} from "./components/WelcomePage";
@@ -33,7 +34,7 @@ export class App extends React.PureComponent {
               component={WelcomePage}
             />
             <Route
-              path={ProductDetailRoute}
+              path={ProductDetailsRoute}
               component={ProductDetailsPage}
             />
             <Route
