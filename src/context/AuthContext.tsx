@@ -1,9 +1,10 @@
 import React from 'react';
 import {IAccessToken, IWebAuth} from "../authorization/WebAuth";
 import {getPreviewApiKey, IPreviewApiKey} from "../repositories/previewApiKeyRepository";
-import {Redirect, Route, Switch} from "react-router";
+import {match, matchPath, Redirect, Route, RouteComponentProps, RouteProps, Switch, withRouter} from "react-router";
 import {Callback} from "../components/Callback";
-import {CallbackRoute, LogoutRoute, RootRoute} from "../constants/routePaths";
+import {CallbackRoute, LogoutRoute, ProjectRoute, ProjectRouteParams, RootRoute} from "../constants/routePaths";
+import {getProjectIdFromUrl, saveProjectIdToLocalStorage} from "../utils/projectIdUtil";
 
 interface IAuthContextProps {
   readonly auth: IWebAuth;
@@ -11,9 +12,9 @@ interface IAuthContextProps {
 
 interface IAuthContextState {
   readonly accessToken: string;
+  readonly expiresAt: number;
   readonly isLoggedIn: boolean;
   readonly previewApiKey: string;
-  readonly expiresAt: number;
   readonly silentLoginFailed: boolean;
 }
 
@@ -27,9 +28,9 @@ interface IAuthContext extends IAuthContextState {
 
 const defaultAuthContext: IAuthContext = {
   accessToken: '',
+  expiresAt: 0,
   isLoggedIn: false,
   previewApiKey: '',
-  expiresAt: 0,
   silentLoginFailed: false,
   login: () => undefined,
   logout: () => undefined,
@@ -43,14 +44,26 @@ const AuthContextProvider = context.Provider;
 
 export const AuthContextConsumer = context.Consumer;
 
-export class AuthContext extends React.PureComponent<IAuthContextProps, IAuthContextState> {
-  readonly state = {
-    accessToken: '',
-    isLoggedIn: false,
-    previewApiKey: '',
-    expiresAt: 0,
-    silentLoginFailed: false,
-  };
+interface IAuthContextAllProps extends IAuthContextProps, RouteComponentProps {
+}
+
+class AuthContext extends React.Component<IAuthContextAllProps, IAuthContextState> {
+  constructor(props: IAuthContextAllProps) {
+    super(props);
+
+    this.state = {
+      accessToken: '',
+      isLoggedIn: false,
+      previewApiKey: '',
+      expiresAt: 0,
+      silentLoginFailed: false,
+    };
+
+    const projectIdInUrl = getProjectIdFromUrl();
+    if (projectIdInUrl && projectIdInUrl !== '') {
+      saveProjectIdToLocalStorage(projectIdInUrl);
+    }
+  }
 
   private isAuthUrlHash = (hash: string): boolean => /access_token|id_token|error/.test(hash);
 
@@ -85,16 +98,15 @@ export class AuthContext extends React.PureComponent<IAuthContextProps, IAuthCon
   }
 
   componentDidUpdate(): void {
-      const { accessToken } = this.state;
-
-      if (accessToken !== '') {
-        getPreviewApiKey(accessToken).then((response: IPreviewApiKey) => {
-          this.setState({
-            previewApiKey: response.api_key,
-          });
-        });
-      }
-    }
+    // const { accessToken, previewApiKey } = this.state;
+    // if (accessToken !== '' && previewApiKey === '') {
+    //   getPreviewApiKey(accessToken).then((response: IPreviewApiKey) => {
+    //     this.setState({
+    //       previewApiKey: response.api_key,
+    //     });
+    //   });
+    // }
+  }
 
   render() {
     const context: IAuthContext = {
@@ -111,6 +123,7 @@ export class AuthContext extends React.PureComponent<IAuthContextProps, IAuthCon
     /* TODO: If silent login is processing, could also be shown "Loading..." to avoid blinking the browser screen */
 
     return (
+      <>
         <Switch>
           {isLoggedIn ?
             <Redirect
@@ -130,6 +143,12 @@ export class AuthContext extends React.PureComponent<IAuthContextProps, IAuthCon
             to={RootRoute}
           />
 
+          {/*{isLoggedIn && projectId === '' && (*/}
+          {/*  <Route exact path={RootRoute} render={() => (*/}
+          {/*    <div>Logged in but no project id specified!</div>*/}
+          {/*  )}/>*/}
+          {/*)}*/}
+
           {isLoggedIn && (
             <Route render={() => (
               <AuthContextProvider value={context}>
@@ -138,6 +157,11 @@ export class AuthContext extends React.PureComponent<IAuthContextProps, IAuthCon
             )}/>
           )}
         </Switch>
+      </>
     )
   }
 }
+
+
+const AuthContextWithRouter = withRouter<IAuthContextAllProps>(AuthContext);
+export { AuthContextWithRouter as AuthContext };

@@ -7,16 +7,19 @@ import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { AppContext } from "./context/AppContext";
 import { AuthContext } from "./context/AuthContext";
+import {ProjectEnsurer} from "./components/ensurers/ProjectEnsurer";
 
 const webAuth = new WebAuth();
 
 ReactDOM.render(
   <Router>
-    <AuthContext auth={webAuth}>
-      <AppContext>
-        <App/>
-      </AppContext>
-    </AuthContext>
+      <AuthContext auth={webAuth}>
+        <ProjectEnsurer>
+          <AppContext>
+            <App/>
+          </AppContext>
+        </ProjectEnsurer>
+      </AuthContext>
   </Router>
   , document.getElementById('root'));
 

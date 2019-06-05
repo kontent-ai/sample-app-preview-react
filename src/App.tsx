@@ -5,15 +5,11 @@ import {
   Switch,
 } from 'react-router-dom';
 import { NavigationBar } from './components/NavigationBar';
-import { LandingPage } from './components/LandingPage';
 import { ProductDetailsPage } from './components/ProductDetailsPage';
-import {AuthContextConsumer} from "./context/AuthContext";
 import {
   ProductsPage,
 } from './components/ProductsPage';
 import {
-  CallbackRoute,
-  LogoutRoute,
   ProductDetailRoute,
   ProductsRoute,
   RootRoute,
@@ -34,10 +30,6 @@ export class App extends React.PureComponent<{}, {}> {
               path={RootRoute}
               exact
               component={WelcomePage}
-            />
-            <Route
-              path="/landing-page"
-              component={LandingPage}
             />
             <Route
               path={ProductDetailRoute}
