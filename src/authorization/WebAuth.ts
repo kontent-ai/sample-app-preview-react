@@ -3,6 +3,7 @@ import {
   authOptions,
   logoutOptions,
 } from './authOptions';
+import {Auth0RedirectUriStorageKey} from "../constants/localStorageKeys";
 
 export interface IAccessToken {
   readonly accessToken: string;
@@ -21,10 +22,13 @@ export class WebAuth implements IWebAuth {
   private webAuth = new auth0.WebAuth(authOptions);
 
   login = (): void => {
+    console.log('[WebAuth] Request regular login');
     this.webAuth.authorize();
   };
 
   silentLogin = (): void => {
+    console.log('[WebAuth] request silent login, store redirect uri: ', window.location.pathname);
+    localStorage.setItem(Auth0RedirectUriStorageKey, window.location.pathname);
     this.webAuth.authorize({
       prompt: 'none',
     });
@@ -34,14 +38,20 @@ export class WebAuth implements IWebAuth {
     this.webAuth.logout(logoutOptions);
   };
 
-  handleAuthentication = (onSuccessLogin: (accessToken: IAccessToken) => void, onFailedLogin: () => void): void => {
+  handleAuthentication = (onSuccessLogin: (accessToken: IAccessToken, redirectUri: string) => void, onFailedLogin: () => void): void => {
+    console.log('[WebAuth] handle authentication');
     this.webAuth.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         const accessToken: IAccessToken = {
           accessToken: authResult.accessToken as string,
           expiresAt: ((authResult.expiresIn || 0) * 1000) + new Date().getTime(),
         };
-        onSuccessLogin(accessToken);
+
+        const redirectUriFromStorage = localStorage.getItem(Auth0RedirectUriStorageKey);
+        localStorage.removeItem(Auth0RedirectUriStorageKey);
+        const redirectUri = redirectUriFromStorage ? redirectUriFromStorage : '/';
+
+        onSuccessLogin(accessToken, redirectUri);
       }
       else if (err) {
         onFailedLogin();

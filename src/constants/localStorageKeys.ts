@@ -1,1 +1,2 @@
-export const projectIdLocalStorageKey = 'projectId';
+export const ProjectIdLocalStorageKey = 'projectId';
+export const Auth0RedirectUriStorageKey = 'redirectUri';

@@ -3,7 +3,6 @@ import {IAccessToken, WebAuth} from "../authorization/WebAuth";
 import {Redirect, Route, RouteComponentProps, Switch, withRouter} from "react-router";
 import {Callback} from "../components/Callback";
 import {CallbackRoute, RootRoute} from "../constants/routePaths";
-import {getProjectIdFromUrl, saveProjectIdToLocalStorage} from "../utils/projectIdUtil";
 
 interface IAuthContextState {
   readonly accessToken: string;
@@ -16,7 +15,6 @@ interface IAuthContext extends IAuthContextState {
   readonly login: () => void;
   readonly logout: () => void;
   readonly silentLogin: () => void;
-  readonly handleAuthentication: ({ location }: any) => void;
   readonly isAuthenticated: (expiresIn: number) => boolean;
 }
 
@@ -28,7 +26,6 @@ const defaultAuthContext: IAuthContext = {
   login: () => undefined,
   logout: () => undefined,
   silentLogin: () => undefined,
-  handleAuthentication: () => undefined,
   isAuthenticated: () => false,
 };
 
@@ -50,29 +47,23 @@ class AuthContext extends React.Component<RouteComponentProps, IAuthContextState
       previewApiKey: '',
       expiresAt: 0,
     };
-
-    const projectIdInUrl = getProjectIdFromUrl();
-    if (projectIdInUrl && projectIdInUrl !== '') {
-      saveProjectIdToLocalStorage(projectIdInUrl);
-    }
   }
 
   private isAuthUrlHash = (hash: string): boolean => /access_token|id_token|error/.test(hash);
 
-  handleAuth = ({ location }: any) => {
-    console.log('handleAuth()');
+  handleAuthCallback = ({ location }: any) => {
     if (this.isAuthUrlHash(location.hash)) {
       this.webAuth.handleAuthentication(this.onSuccessLogin, this.onFailedLogin);
     }
   };
 
-  onSuccessLogin = (accessToken: IAccessToken) => {
-    console.warn('on success login');
+  onSuccessLogin = (accessToken: IAccessToken, redirectUri: string) => {
     this.setState({
       accessToken: accessToken.accessToken,
       expiresAt: accessToken.expiresAt,
       isLoggedIn: true,
     });
+    this.props.history.push(redirectUri);
   };
 
   onFailedLogin = () => {
@@ -80,9 +71,7 @@ class AuthContext extends React.Component<RouteComponentProps, IAuthContextState
   };
 
   componentDidMount() {
-    console.warn('component did mount');
     const { silentLogin } = this.webAuth;
-
     if (!this.isAuthUrlHash(window.location.hash)) {
       silentLogin();
     }
@@ -105,7 +94,6 @@ class AuthContext extends React.Component<RouteComponentProps, IAuthContextState
       login: this.webAuth.login,
       silentLogin: this.webAuth.silentLogin,
       logout: this.webAuth.logout,
-      handleAuthentication: this.handleAuth,
       isAuthenticated: this.webAuth.isAuthenticated,
     };
 
@@ -124,7 +112,7 @@ class AuthContext extends React.Component<RouteComponentProps, IAuthContextState
             <Route
               path={CallbackRoute}
               render={props => {
-                this.handleAuth(props);
+                this.handleAuthCallback(props);
                 return <Callback />;
               }}
             />
@@ -142,7 +130,6 @@ class AuthContext extends React.Component<RouteComponentProps, IAuthContextState
     )
   }
 }
-
 
 const AuthContextWithRouter = withRouter(AuthContext);
 export { AuthContextWithRouter as AuthContext };
