@@ -6,28 +6,42 @@ import {
 } from '../constants/routePaths';
 import {
   AppContextConsumer,
-  IProduct,
 } from '../context/AppContext';
 import { PageContent } from './PageContent';
 import './ProductsPage.css';
 import {buildPath} from "../utils/routeTransitionUtils";
+import {ProductExampleContentType} from "../models/Product";
 
-export const ProductsPage: React.FunctionComponent = () => (
-  <PageContent title="Products">
-    <AppContextConsumer>
-      {appContext => (
-        <div className="product-list">
-          {appContext.products.map((product: IProduct) => (
-            <ProductPreview
-              {...product}
-              projectId={appContext.projectId}
-              key={product.productId}
-            />)
-          )}
-        </div>)}
-    </AppContextConsumer>
-  </PageContent>
-);
+interface IProductsPageProps {
+  readonly init: () => void;
+}
+
+class ProductsPage extends React.PureComponent<IProductsPageProps> {
+  componentDidMount(): void {
+    this.props.init();
+  }
+
+  render() {
+    return (
+      <PageContent title="Products">
+        <AppContextConsumer>
+          {appContext => (
+            <div className="product-list">
+              {appContext.products.map((product: ProductExampleContentType) => (
+                <ProductPreview
+                  title={product.name.value}
+                  pictureUrl={product.image.value}
+                  productId='123'
+                  projectId={appContext.projectId}
+                  key='123'
+                />)
+              )}
+            </div>)}
+        </AppContextConsumer>
+      </PageContent>
+    );
+  }
+}
 
 interface IProductPreviewProps {
   readonly projectId: string;
@@ -51,3 +65,13 @@ const ProductPreview = (props: IProductPreviewProps): JSX.Element => {
     </div>
   );
 };
+
+const ProductsPageConnected = () => (
+  <AppContextConsumer>
+    {appContext => (
+      <ProductsPage init={appContext.loadProducts} />
+    )}
+  </AppContextConsumer>
+);
+
+export { ProductsPageConnected as ProductsPage };

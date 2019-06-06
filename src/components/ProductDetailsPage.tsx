@@ -18,20 +18,9 @@ export const ProductDetailsPage = ({ match: { params } }: IProductRouteParams): 
   return (
     <AppContextConsumer>
       {appContext => {
-        const product = appContext.products.find(product => product.productId === params.productId) as IProduct;
-        if (product) {
-          return (
-            <PageContent title={product.title}>
-              <img
-                className="product-image"
-                alt={product.title}
-                src={product.pictureUrl}
-              />
-              {/* TODO: Check if using dangerouslySetInnerHTML is the best practice to shown html content received from Deliver */}
-              <div dangerouslySetInnerHTML={{ __html: product.description }} />
-            </PageContent>);
+        return <p>hm</p>;
         }
-      }}
+      }
     </AppContextConsumer>
   );
 };

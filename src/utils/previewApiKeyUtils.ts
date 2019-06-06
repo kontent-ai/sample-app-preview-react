@@ -22,9 +22,6 @@ export const createLoadPreviewApiKey = (props: ILoadPreviewApiKeyDeps): () => Pr
     })
 };
 
-interface ICreateFetchData {
-}
-
 export const createFetchData = () => (): string => {
   console.log('fetch data');
   return "have some data";
@@ -39,7 +36,7 @@ interface ILoadApplicationDataDeps {
 
 export const createLoadApplicationData = (deps: ILoadApplicationDataDeps) => async (): Promise<void> => {
   const { appContext, loadPreviewApikey, fetchData } = deps;
-  if (appContext.projectIdLoadingStatus === LoadingStatus.NotLoaded && appContext.projectId === '') {
+  if (appContext.projectIdLoadingStatus === LoadingStatus.NotLoaded) {
     const projectIdFromUrl = getProjectIdFromUrl();
     if (projectIdFromUrl) {
       appContext.setProjectId(projectIdFromUrl);

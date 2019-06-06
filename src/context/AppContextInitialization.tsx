@@ -23,7 +23,7 @@ class AppContextInitialization extends React.PureComponent<IAppContextInitializa
   }
 
   render() {
-    const { projectIdLoadingStatus, projectId, previewApiKeyLoadingStatus, dataLoadingStatus } = this.props.appContext;
+    const { projectIdLoadingStatus, previewApiKeyLoadingStatus, dataLoadingStatus } = this.props.appContext;
     if (projectIdLoadingStatus === LoadingStatus.Failed) {
       return <ErrorPage type={ErrorPageType.MissingProjectId}/>
     }

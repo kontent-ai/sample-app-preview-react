@@ -1,5 +1,8 @@
 import React from 'react';
 import {LoadingStatus} from "../enums/LoadingStatus";
+import {getAllArticles, getProductsPage} from "../repositories/contentItemRepository";
+import {ArticleExampleContentType} from "../models/Article";
+import {ProductExampleContentType} from "../models/Product";
 
 interface IAppContextState {
   readonly dataLoadingStatus: LoadingStatus;
@@ -7,12 +10,14 @@ interface IAppContextState {
   readonly previewApiKeyLoadingStatus: LoadingStatus;
   readonly projectId: string;
   readonly projectIdLoadingStatus: LoadingStatus;
-  readonly pages: Array<IPage>;
-  readonly products: Array<IProduct>;
+  readonly pages: Array<ArticleExampleContentType>;
+  readonly products: Array<ProductExampleContentType>;
 }
 
 interface IAppContextProps {
-  readonly addProduct: (product: IProduct) => void;
+  readonly loadWelcomePage: () => void;
+  readonly loadProducts: () => void;
+
   readonly setProjectId: (projectId: string) => void;
   readonly setLoadingStatus: (loadingStatus: LoadingStatus) => void;
   readonly setProjectIdLoadingStatus: (projectIdLoadingStatus: LoadingStatus) => void;
@@ -42,9 +47,10 @@ const defaultAppContext: IAppContext = {
   previewApiKeyLoadingStatus: LoadingStatus.NotLoaded,
   projectId: '',
   projectIdLoadingStatus: LoadingStatus.NotLoaded,
-  pages: new Array<IPage>(),
-  products: new Array<IProduct>(),
-  addProduct: () => undefined,
+  pages: new Array<ArticleExampleContentType>(),
+  products: new Array<ProductExampleContentType>(),
+  loadWelcomePage: () => undefined,
+  loadProducts: () => undefined,
   setProjectId: () => undefined,
   setLoadingStatus: () => undefined,
   setProjectIdLoadingStatus: () => undefined,
@@ -52,59 +58,25 @@ const defaultAppContext: IAppContext = {
   setPreviewApiKeyLoadingStatus: () => undefined,
 };
 
-const dummyProducts: Array<IProduct> =
-  [
-    {
-      productId: '1',
-      title: 'Product 1',
-      pictureUrl: 'https://assets-us-01.kc-usercontent.com/4e9bdd7a-2db8-4c33-a13a-0c368ec2f108/6ccdb516-f4f7-408c-aa99-efb669a30c16/develop-with-ease.svg',
-      description: '<p>Product description 1</p>',
-    },
-    {
-      productId: '2',
-      title: 'Product 2',
-      pictureUrl: 'https://assets-us-01.kc-usercontent.com/4e9bdd7a-2db8-4c33-a13a-0c368ec2f108/ca553e07-ae21-434d-85bc-fcfbecb528ce/create-even-more.svg',
-      description: '<p>Product description 2</p>',
-    },
-    {
-      productId: '3',
-      title: 'Product 3',
-      pictureUrl: 'https://assets-us-01.kc-usercontent.com/4e9bdd7a-2db8-4c33-a13a-0c368ec2f108/af74e81a-f17b-408c-a673-50134c15abb7/integrate-with-existing.svg',
-      description: '<p>Product description 3</p>',
-    },
-  ];
-
-const dummyPages: Array<IPage> = [
-  {
-    codename: 'welcome',
-    title: 'Welcome',
-    content: '<p>This is a&nbsp;<strong>content item</strong>, which holds your content based on templates you define in your&nbsp;<strong>content types.</strong>&nbsp;To see how this one is defined, click&nbsp;<em>Content models</em>&nbsp;in the left menu and look at&nbsp;<em>Article—example content type</em>.</p><p>In this content item, you can add the actual content that will be displayed in your final app. Your content can include formatted text and images.</p><p>\n<a href="https://docs.kenticocloud.com/tutorials/compose-and-link-content/create-content/composing-content-in-the-rich-text-editor#a-adding-images">Add an image</a>&nbsp;below this paragraph.</p><p><br /></p>\n<p>To make your content available outside of Kentico Cloud, click <strong>Change workflow or publish </strong>on the right of the screen and then&nbsp;<strong>Publish</strong>&nbsp;your content.</p>',
-  },
-];
-
-
 const context = React.createContext<IAppContext>(defaultAppContext);
 const AppContextProvider = context.Provider;
 
 export const AppContextConsumer = context.Consumer;
 
 export class AppContext extends React.PureComponent<{}, IAppContextState> {
+
   readonly state = {
     dataLoadingStatus: LoadingStatus.NotLoaded,
     previewApiKey: '',
     previewApiKeyLoadingStatus: LoadingStatus.NotLoaded,
     projectId: '',
     projectIdLoadingStatus: LoadingStatus.NotLoaded,
-    pages: dummyPages,
-    products: dummyProducts,
+    pages: new Array<ArticleExampleContentType>(),
+    products: new Array<ProductExampleContentType>(),
   };
 
   setProjectId = (projectId: string) => {
     this.setState({ projectId });
-  };
-
-  addProduct = (product: IProduct) => {
-    this.setState((state) => ({ products: state.products.concat(product) }));
   };
 
   setLoadingStatus = (loadingStatus: LoadingStatus) => {
@@ -123,6 +95,24 @@ export class AppContext extends React.PureComponent<{}, IAppContextState> {
     this.setState({ previewApiKeyLoadingStatus });
   };
 
+  loadWelcomePage = async () => {
+    console.log('load welcome page');
+    const articles = await getAllArticles(this.state.projectId, this.state.previewApiKey);
+    this.setState({ pages: articles });
+  };
+
+  loadProducts = async () => {
+    console.log('load products page');
+    const productsPage = await getProductsPage(this.state.projectId, this.state.previewApiKey);
+
+    console.log(productsPage);
+    console.log(productsPage[0]);
+    console.log(productsPage[0].productList);
+    if (productsPage && productsPage[0]) {
+      this.setState({ products: productsPage[0].productList });
+    }
+  };
+
   render() {
     const { products, pages, projectId, dataLoadingStatus, projectIdLoadingStatus, previewApiKey, previewApiKeyLoadingStatus } = this.state;
     const contextValue: IAppContext = {
@@ -133,7 +123,8 @@ export class AppContext extends React.PureComponent<{}, IAppContextState> {
       projectIdLoadingStatus,
       pages,
       products,
-      addProduct: this.addProduct,
+      loadWelcomePage: this.loadWelcomePage,
+      loadProducts: this.loadProducts,
       setProjectId: this.setProjectId,
       setLoadingStatus: this.setLoadingStatus,
       setProjectIdLoadingStatus: this.setProjectIdLoadingStatus,
