@@ -4,7 +4,7 @@ import {AuthContextConsumer, IAuthContext} from "./AuthContext";
 import {AppContextConsumer, IAppContext} from "./AppContext";
 import {Callback} from "../components/Callback";
 
-import {ErrorPage} from "../components/ErrorPage";
+import {ErrorPage, ErrorPageType} from "../components/ErrorPage";
 import {createFetchData, createLoadApplicationData, createLoadPreviewApiKey} from "../utils/previewApiKeyUtils";
 import {getPreviewApiKey} from "../repositories/previewApiKeyRepository";
 import {LoadingStatus} from "../enums/LoadingStatus";
@@ -18,20 +18,25 @@ interface IAppContextInitializationProps extends RouteComponentProps {
 class AppContextInitialization extends React.PureComponent<IAppContextInitializationProps, {}> {
 
   componentDidUpdate(prevProps: IAppContextInitializationProps): void {
+    // todo solve
     this.props.loadApplicationData();
   }
 
   render() {
-    const { projectIdLoadingStatus, projectId } = this.props.appContext;
+    const { projectIdLoadingStatus, projectId, previewApiKeyLoadingStatus, dataLoadingStatus } = this.props.appContext;
     if (projectIdLoadingStatus === LoadingStatus.Failed) {
-      return <ErrorPage/>
+      return <ErrorPage type={ErrorPageType.MissingProjectId}/>
     }
 
-    if (projectId === '') {
-      return <Callback/>
+    if (previewApiKeyLoadingStatus === LoadingStatus.Failed) {
+      return <ErrorPage type={ErrorPageType.UnableToGetPreviewApiKey}/>
     }
 
-    return this.props.children;
+    if (dataLoadingStatus === LoadingStatus.Finished) {
+      return this.props.children;
+    }
+
+    return <Callback/>
   }
 }
 

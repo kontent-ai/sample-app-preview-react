@@ -10,12 +10,15 @@ interface ILoadPreviewApiKeyDeps {
   readonly getPreviewApiKey: (authToken: string, projectId: string) => Promise<IPreviewApiKey>;
 }
 
-export const createLoadPreviewApiKey = (props: ILoadPreviewApiKeyDeps): () => Promise<string> => {
+export const createLoadPreviewApiKey = (props: ILoadPreviewApiKeyDeps): () => Promise<string | null> => {
   const { accessToken } = props.authContext;
   const { projectId } = props.appContext;
   return () => getPreviewApiKey(accessToken, projectId)
     .then((response: IPreviewApiKey) => {
       return response.api_key;
+    })
+    .catch(() => {
+      return null;
     })
 };
 
@@ -31,7 +34,7 @@ interface ILoadApplicationDataDeps {
   readonly appContext: IAppContext;
   readonly authContext: IAuthContext;
   readonly fetchData: () => string;
-  readonly loadPreviewApikey: () => Promise<string>;
+  readonly loadPreviewApikey: () => Promise<string | null>;
 }
 
 export const createLoadApplicationData = (deps: ILoadApplicationDataDeps) => async (): Promise<void> => {
@@ -46,10 +49,20 @@ export const createLoadApplicationData = (deps: ILoadApplicationDataDeps) => asy
     }
   }
 
-  if (appContext.projectIdLoadingStatus === LoadingStatus.Finished && appContext.dataLoadingStatus === LoadingStatus.NotLoaded) {
-    appContext.setLoadingStatus(LoadingStatus.InProgress);
+  if (appContext.projectIdLoadingStatus === LoadingStatus.Finished && appContext.previewApiKeyLoadingStatus === LoadingStatus.NotLoaded) {
+    appContext.setPreviewApiKeyLoadingStatus(LoadingStatus.InProgress);
     const previewApiKey = await loadPreviewApikey();
-    appContext.setPreviewApiKey(previewApiKey);
+    if (previewApiKey) {
+      appContext.setPreviewApiKey(previewApiKey);
+      appContext.setPreviewApiKeyLoadingStatus(LoadingStatus.Finished);
+    }
+    else {
+      appContext.setPreviewApiKeyLoadingStatus(LoadingStatus.Failed);
+    }
+  }
+
+  if (appContext.previewApiKeyLoadingStatus === LoadingStatus.Finished && appContext.dataLoadingStatus === LoadingStatus.NotLoaded) {
+    appContext.setLoadingStatus(LoadingStatus.InProgress);
     const data = fetchData();
     appContext.setLoadingStatus(LoadingStatus.Finished);
   }

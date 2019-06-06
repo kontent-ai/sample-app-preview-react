@@ -4,6 +4,7 @@ import {LoadingStatus} from "../enums/LoadingStatus";
 interface IAppContextState {
   readonly dataLoadingStatus: LoadingStatus;
   readonly previewApiKey: string;
+  readonly previewApiKeyLoadingStatus: LoadingStatus;
   readonly projectId: string;
   readonly projectIdLoadingStatus: LoadingStatus;
   readonly pages: Array<IPage>;
@@ -16,6 +17,7 @@ interface IAppContextProps {
   readonly setLoadingStatus: (loadingStatus: LoadingStatus) => void;
   readonly setProjectIdLoadingStatus: (projectIdLoadingStatus: LoadingStatus) => void;
   readonly setPreviewApiKey: (previewApiKey: string) => void;
+  readonly setPreviewApiKeyLoadingStatus: (previewApiKeyLoadingStatus: LoadingStatus) => void;
 }
 
 export interface IAppContext extends IAppContextState, IAppContextProps {
@@ -37,6 +39,7 @@ export interface IPage {
 const defaultAppContext: IAppContext = {
   dataLoadingStatus: LoadingStatus.NotLoaded,
   previewApiKey: '',
+  previewApiKeyLoadingStatus: LoadingStatus.NotLoaded,
   projectId: '',
   projectIdLoadingStatus: LoadingStatus.NotLoaded,
   pages: new Array<IPage>(),
@@ -46,6 +49,7 @@ const defaultAppContext: IAppContext = {
   setLoadingStatus: () => undefined,
   setProjectIdLoadingStatus: () => undefined,
   setPreviewApiKey: () => undefined,
+  setPreviewApiKeyLoadingStatus: () => undefined,
 };
 
 const dummyProducts: Array<IProduct> =
@@ -88,6 +92,7 @@ export class AppContext extends React.PureComponent<{}, IAppContextState> {
   readonly state = {
     dataLoadingStatus: LoadingStatus.NotLoaded,
     previewApiKey: '',
+    previewApiKeyLoadingStatus: LoadingStatus.NotLoaded,
     projectId: '',
     projectIdLoadingStatus: LoadingStatus.NotLoaded,
     pages: dummyPages,
@@ -114,11 +119,16 @@ export class AppContext extends React.PureComponent<{}, IAppContextState> {
     this.setState({ previewApiKey });
   };
 
+  setPreviewApiKeyLoadingStatus = (previewApiKeyLoadingStatus: LoadingStatus) => {
+    this.setState({ previewApiKeyLoadingStatus });
+  };
+
   render() {
-    const { products, pages, projectId, dataLoadingStatus, projectIdLoadingStatus, previewApiKey } = this.state;
+    const { products, pages, projectId, dataLoadingStatus, projectIdLoadingStatus, previewApiKey, previewApiKeyLoadingStatus } = this.state;
     const contextValue: IAppContext = {
       dataLoadingStatus,
       previewApiKey,
+      previewApiKeyLoadingStatus,
       projectId,
       projectIdLoadingStatus,
       pages,
@@ -128,6 +138,7 @@ export class AppContext extends React.PureComponent<{}, IAppContextState> {
       setLoadingStatus: this.setLoadingStatus,
       setProjectIdLoadingStatus: this.setProjectIdLoadingStatus,
       setPreviewApiKey: this.setPreviewApiKey,
+      setPreviewApiKeyLoadingStatus: this.setPreviewApiKeyLoadingStatus,
     };
 
     return (
