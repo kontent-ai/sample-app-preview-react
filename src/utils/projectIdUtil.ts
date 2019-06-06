@@ -1,6 +1,5 @@
 import {matchPath} from "react-router";
 import {ProjectRoute, ProjectRouteParams} from "../constants/routePaths";
-import {ProjectIdLocalStorageKey} from "../constants/localStorageKeys";
 
 export const getProjectIdFromUrl = (): string | null => {
   console.log(`get project id from url (${window.location})`);
@@ -15,13 +14,4 @@ export const getProjectIdFromUrl = (): string | null => {
   }
 
   return null;
-};
-
-export const saveProjectIdToLocalStorage = (projectId: string): void => {
-  console.log('save project id to local storage', projectId);
-  localStorage.setItem(ProjectIdLocalStorageKey, projectId);
-};
-
-export const getProjectIdFromLocalStorage = (): string | null => {
-  return localStorage.getItem(ProjectIdLocalStorageKey);
 };

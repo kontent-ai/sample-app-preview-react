@@ -6,14 +6,17 @@ import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { AppContext } from "./context/AppContext";
 import { AuthContext } from "./context/AuthContext";
+import {AppContextInitialization} from "./context/AppContextInitialization";
 
 ReactDOM.render(
   <Router>
-      <AuthContext>
-        <AppContext>
+    <AuthContext>
+      <AppContext>
+        <AppContextInitialization>
           <App/>
-        </AppContext>
-      </AuthContext>
+        </AppContextInitialization>
+      </AppContext>
+    </AuthContext>
   </Router>
   , document.getElementById('root'));
 

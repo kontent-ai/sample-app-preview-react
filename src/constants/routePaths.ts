@@ -8,6 +8,8 @@ export const ProjectRoute = `${RootRoute}:projectId(${uuidPattern})`;
 export const ProductsRoute = `${ProjectRoute}/products`;
 export const ProductDetailsRoute = `${ProductsRoute}/:productId`;
 
+export const ErrorRoute = `${RootRoute}error`;
+
 export type ProjectRouteParams = {
   readonly projectId: string;
 };

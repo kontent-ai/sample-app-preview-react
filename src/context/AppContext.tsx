@@ -1,17 +1,22 @@
 import React from 'react';
-import {getProjectIdFromUrl} from "../utils/projectIdUtil";
-import {RouteComponentProps, withRouter} from "react-router";
-import {AuthContextConsumer, IAuthContext} from "./AuthContext";
-import {Callback} from "../components/Callback";
+import {LoadingStatus} from "../enums/LoadingStatus";
 
-interface IAppContextComponentState {
+interface IAppContextState {
+  readonly dataLoadingStatus: LoadingStatus;
   readonly projectId: string;
+  readonly projectIdLoadingStatus: LoadingStatus;
   readonly pages: Array<IPage>;
   readonly products: Array<IProduct>;
 }
 
-interface IAppContextComponentProps extends RouteComponentProps {
-  readonly authContext: IAuthContext;
+interface IAppContextProps {
+  readonly addProduct: (product: IProduct) => void;
+  readonly setProjectId: (projectId: string) => void;
+  readonly setLoadingStatus: (loadingStatus: LoadingStatus) => void;
+  readonly setProjectIdLoadingStatus: (projectIdLoadingStatus: LoadingStatus) => void;
+}
+
+export interface IAppContext extends IAppContextState, IAppContextProps {
 }
 
 export interface IProduct {
@@ -27,15 +32,16 @@ export interface IPage {
   readonly content: string;
 }
 
-interface IAppContext extends IAppContextComponentState {
-  readonly addProduct: (product: IProduct) => void;
-}
-
 const defaultAppContext: IAppContext = {
+  dataLoadingStatus: LoadingStatus.NotLoaded,
   projectId: '',
+  projectIdLoadingStatus: LoadingStatus.NotLoaded,
   pages: new Array<IPage>(),
   products: new Array<IProduct>(),
   addProduct: () => undefined,
+  setProjectId: () => undefined,
+  setLoadingStatus: () => undefined,
+  setProjectIdLoadingStatus: () => undefined,
 };
 
 const dummyProducts: Array<IProduct> =
@@ -74,54 +80,67 @@ const AppContextProvider = context.Provider;
 
 export const AppContextConsumer = context.Consumer;
 
-class AppContext extends React.PureComponent<IAppContextComponentProps, IAppContextComponentState> {
+export class AppContext extends React.PureComponent<{}, IAppContextState> {
   readonly state = {
+    dataLoadingStatus: LoadingStatus.NotLoaded,
     projectId: '',
+    projectIdLoadingStatus: LoadingStatus.NotLoaded,
     pages: dummyPages,
     products: dummyProducts,
+  };
+
+  setProjectId = (projectId: string) => {
+    this.setState({ projectId });
   };
 
   addProduct = (product: IProduct) => {
     this.setState((state) => ({ products: state.products.concat(product) }));
   };
 
-  componentDidUpdate(prevProps: IAppContextComponentProps): void {
-    if (this.state.projectId === '') {
-      const projectIdFromUrl = getProjectIdFromUrl();
-      this.setState({
-        projectId: projectIdFromUrl ? projectIdFromUrl : '',
-      })
-    } else {
-      const { authContext } = this.props;
-      const { projectId } = this.state;
-      console.log('previewApiKey:', authContext.previewApiKey);
-
-      if (authContext.previewApiKey === '') {
-        this.props.authContext.loadPreviewApiKey(projectId);
-      }
-
-      if (prevProps.authContext.previewApiKey === '' && this.props.authContext.previewApiKey !== '') {
-        this.fetchData();
-      }
-    }
-  }
-
-  fetchData = () => {
-    console.log('now fetch data');
+  setLoadingStatus = (loadingStatus: LoadingStatus) => {
+    this.setState({ dataLoadingStatus: loadingStatus })
   };
 
+  setProjectIdLoadingStatus = (projectIdLoadingStatus: LoadingStatus) => {
+    this.setState({ projectIdLoadingStatus });
+  };
+
+  // componentDidUpdate(prevProps: IAppContextComponentProps): void {
+  //   if (this.state.projectId === '') {
+  //     const projectIdFromUrl = getProjectIdFromUrl();
+  //     this.setState({
+  //       projectId: projectIdFromUrl ? projectIdFromUrl : '',
+  //     })
+  //   } else {
+  //     const { authContext } = this.props;
+  //     const { projectId } = this.state;
+  //
+  //     if (authContext.previewApiKey === '') {
+  //       this.props.authContext.loadPreviewApiKey(projectId);
+  //     }
+  //
+  //     if (prevProps.authContext.previewApiKey === '' && this.props.authContext.previewApiKey !== '') {
+  //       this.fetchData();
+  //     }
+  //   }
+  // }
+  //
+  // fetchData = () => {
+  //   console.log('now fetch data');
+  // };
+
   render() {
-    const { products, pages, projectId } = this.state;
-
-    if (projectId === '') {
-      return <Callback/>
-    }
-
+    const { products, pages, projectId, dataLoadingStatus, projectIdLoadingStatus } = this.state;
     const contextValue: IAppContext = {
+      dataLoadingStatus,
       projectId,
+      projectIdLoadingStatus,
       pages,
       products,
       addProduct: this.addProduct,
+      setProjectId: this.setProjectId,
+      setLoadingStatus: this.setLoadingStatus,
+      setProjectIdLoadingStatus: this.setProjectIdLoadingStatus,
     };
 
     return (
@@ -132,11 +151,11 @@ class AppContext extends React.PureComponent<IAppContextComponentProps, IAppCont
   }
 }
 
-const AppContextWithAuthContext = (props: any) => (
-  <AuthContextConsumer>
-    {authContext => (<AppContext authContext={authContext} {...props}/> )}
-  </AuthContextConsumer>
-);
-
-const AppContextWithRouter = withRouter<RouteComponentProps>(AppContextWithAuthContext);
-export { AppContextWithRouter as AppContext };
+// const AppContextWithAuthContext = (props: any) => (
+//   <AuthContextConsumer>
+//     {authContext => (<AppContext authContext={authContext} {...props}/> )}
+//   </AuthContextConsumer>
+// );
+//
+// const AppContextWithRouter = withRouter<RouteComponentProps>(AppContext);
+// export { AppContextWithRouter as AppContext };
