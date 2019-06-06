@@ -8,12 +8,11 @@ interface ILoadPreviewApiKeyDeps {
   readonly appContext: IAppContext;
   readonly authContext: IAuthContext;
   readonly getPreviewApiKey: (authToken: string, projectId: string) => Promise<IPreviewApiKey>;
-  readonly projectId: string;
 }
 
 export const createLoadPreviewApiKey = (props: ILoadPreviewApiKeyDeps): () => Promise<string> => {
-  const { projectId } = props;
   const { accessToken } = props.authContext;
+  const { projectId } = props.appContext;
   return () => getPreviewApiKey(accessToken, projectId)
     .then((response: IPreviewApiKey) => {
       return response.api_key;
@@ -36,7 +35,7 @@ interface ILoadApplicationDataDeps {
 }
 
 export const createLoadApplicationData = (deps: ILoadApplicationDataDeps) => async (): Promise<void> => {
-  const { appContext, authContext, loadPreviewApikey, fetchData } = deps;
+  const { appContext, loadPreviewApikey, fetchData } = deps;
   if (appContext.projectIdLoadingStatus === LoadingStatus.NotLoaded && appContext.projectId === '') {
     const projectIdFromUrl = getProjectIdFromUrl();
     if (projectIdFromUrl) {
@@ -50,7 +49,7 @@ export const createLoadApplicationData = (deps: ILoadApplicationDataDeps) => asy
   if (appContext.projectIdLoadingStatus === LoadingStatus.Finished && appContext.dataLoadingStatus === LoadingStatus.NotLoaded) {
     appContext.setLoadingStatus(LoadingStatus.InProgress);
     const previewApiKey = await loadPreviewApikey();
-    authContext.setPreviewApiKey(previewApiKey);
+    appContext.setPreviewApiKey(previewApiKey);
     const data = fetchData();
     appContext.setLoadingStatus(LoadingStatus.Finished);
   }

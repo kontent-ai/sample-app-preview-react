@@ -3,6 +3,7 @@ import {LoadingStatus} from "../enums/LoadingStatus";
 
 interface IAppContextState {
   readonly dataLoadingStatus: LoadingStatus;
+  readonly previewApiKey: string;
   readonly projectId: string;
   readonly projectIdLoadingStatus: LoadingStatus;
   readonly pages: Array<IPage>;
@@ -14,6 +15,7 @@ interface IAppContextProps {
   readonly setProjectId: (projectId: string) => void;
   readonly setLoadingStatus: (loadingStatus: LoadingStatus) => void;
   readonly setProjectIdLoadingStatus: (projectIdLoadingStatus: LoadingStatus) => void;
+  readonly setPreviewApiKey: (previewApiKey: string) => void;
 }
 
 export interface IAppContext extends IAppContextState, IAppContextProps {
@@ -34,6 +36,7 @@ export interface IPage {
 
 const defaultAppContext: IAppContext = {
   dataLoadingStatus: LoadingStatus.NotLoaded,
+  previewApiKey: '',
   projectId: '',
   projectIdLoadingStatus: LoadingStatus.NotLoaded,
   pages: new Array<IPage>(),
@@ -42,6 +45,7 @@ const defaultAppContext: IAppContext = {
   setProjectId: () => undefined,
   setLoadingStatus: () => undefined,
   setProjectIdLoadingStatus: () => undefined,
+  setPreviewApiKey: () => undefined,
 };
 
 const dummyProducts: Array<IProduct> =
@@ -83,6 +87,7 @@ export const AppContextConsumer = context.Consumer;
 export class AppContext extends React.PureComponent<{}, IAppContextState> {
   readonly state = {
     dataLoadingStatus: LoadingStatus.NotLoaded,
+    previewApiKey: '',
     projectId: '',
     projectIdLoadingStatus: LoadingStatus.NotLoaded,
     pages: dummyPages,
@@ -105,34 +110,15 @@ export class AppContext extends React.PureComponent<{}, IAppContextState> {
     this.setState({ projectIdLoadingStatus });
   };
 
-  // componentDidUpdate(prevProps: IAppContextComponentProps): void {
-  //   if (this.state.projectId === '') {
-  //     const projectIdFromUrl = getProjectIdFromUrl();
-  //     this.setState({
-  //       projectId: projectIdFromUrl ? projectIdFromUrl : '',
-  //     })
-  //   } else {
-  //     const { authContext } = this.props;
-  //     const { projectId } = this.state;
-  //
-  //     if (authContext.previewApiKey === '') {
-  //       this.props.authContext.loadPreviewApiKey(projectId);
-  //     }
-  //
-  //     if (prevProps.authContext.previewApiKey === '' && this.props.authContext.previewApiKey !== '') {
-  //       this.fetchData();
-  //     }
-  //   }
-  // }
-  //
-  // fetchData = () => {
-  //   console.log('now fetch data');
-  // };
+  setPreviewApiKey = (previewApiKey: string) => {
+    this.setState({ previewApiKey });
+  };
 
   render() {
-    const { products, pages, projectId, dataLoadingStatus, projectIdLoadingStatus } = this.state;
+    const { products, pages, projectId, dataLoadingStatus, projectIdLoadingStatus, previewApiKey } = this.state;
     const contextValue: IAppContext = {
       dataLoadingStatus,
+      previewApiKey,
       projectId,
       projectIdLoadingStatus,
       pages,
@@ -141,6 +127,7 @@ export class AppContext extends React.PureComponent<{}, IAppContextState> {
       setProjectId: this.setProjectId,
       setLoadingStatus: this.setLoadingStatus,
       setProjectIdLoadingStatus: this.setProjectIdLoadingStatus,
+      setPreviewApiKey: this.setPreviewApiKey,
     };
 
     return (
@@ -150,12 +137,3 @@ export class AppContext extends React.PureComponent<{}, IAppContextState> {
     );
   }
 }
-
-// const AppContextWithAuthContext = (props: any) => (
-//   <AuthContextConsumer>
-//     {authContext => (<AppContext authContext={authContext} {...props}/> )}
-//   </AuthContextConsumer>
-// );
-//
-// const AppContextWithRouter = withRouter<RouteComponentProps>(AppContext);
-// export { AppContextWithRouter as AppContext };
