@@ -5,10 +5,10 @@ import {
   Switch,
 } from 'react-router-dom';
 import { NavigationBar } from './components/NavigationBar';
-import { ProductDetailsPage } from './components/ProductDetailsPage';
+import { ProductDetailsPage } from './components/Product/ProductDetailsPage';
 import {
   ProductsPage,
-} from './components/ProductsPage';
+} from './components/Product/ProductsPage';
 import {
   ProductDetailsRoute,
   ProductsRoute,

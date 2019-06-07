@@ -2,8 +2,7 @@ import React from 'react';
 import {
   AppContextConsumer,
   IProduct,
-} from '../context/AppContext';
-import { PageContent } from './PageContent';
+} from '../../context/AppContext';
 import './ProductDetailsPage.css';
 
 interface IProductRouteParams {
