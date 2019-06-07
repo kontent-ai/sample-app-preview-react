@@ -4,14 +4,14 @@ import {ProductDetailsRoute, ProductDetailsRouteParams} from "../../constants/ro
 import React from "react";
 import './ProductCard.css';
 
-interface IProductPreviewProps {
+interface IProductCardProps {
   readonly projectId: string;
   readonly productId: string;
   readonly title: string;
   readonly pictureUrl: string;
 }
 
-export const ProductCard: React.FunctionComponent<IProductPreviewProps> =
+export const ProductCard: React.FunctionComponent<IProductCardProps> =
   ({ projectId, productId, pictureUrl, title }) => {
     return (
       <div className="product-card">
