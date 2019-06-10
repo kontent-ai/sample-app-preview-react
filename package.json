@@ -24,7 +24,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy-surge": "surge --project ./build --domain cloud-preview-sample-app.surge.sh"
+    "deploy-surge": "surge --project ./build --domain cloud-preview-sample-app.surge.sh",
+    "deploy-github": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -40,5 +41,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^2.0.1"
   }
 }
