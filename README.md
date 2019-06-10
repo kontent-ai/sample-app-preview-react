@@ -44,3 +44,5 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 Deploys the ./build folder to cloud-preview-sample-app.surge.sh.
 
 You need to run `npm run build` before to have production build ready. You also need an account (free) on surge.sh.
+
+![Analytics](https://kentico-ga-beacon.azurewebsites.net/api/UA-69014260-4/Kentico/cloud-sample-app-preview-react?pixel)
