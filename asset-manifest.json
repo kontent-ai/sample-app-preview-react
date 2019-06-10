@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/static/css/main.1db09e5a.chunk.css",
-    "main.js": "/static/js/main.8cc359fa.chunk.js",
-    "main.js.map": "/static/js/main.8cc359fa.chunk.js.map",
-    "runtime~main.js": "/static/js/runtime~main.a8a9905a.js",
-    "runtime~main.js.map": "/static/js/runtime~main.a8a9905a.js.map",
-    "static/js/2.8d9b07ec.chunk.js": "/static/js/2.8d9b07ec.chunk.js",
-    "static/js/2.8d9b07ec.chunk.js.map": "/static/js/2.8d9b07ec.chunk.js.map",
-    "index.html": "/index.html",
-    "precache-manifest.8660cf83c08967c3b1150440e9bfd8ed.js": "/precache-manifest.8660cf83c08967c3b1150440e9bfd8ed.js",
-    "service-worker.js": "/service-worker.js",
-    "static/css/main.1db09e5a.chunk.css.map": "/static/css/main.1db09e5a.chunk.css.map"
+    "main.css": "/cloud-sample-app-preview-react/static/css/main.1db09e5a.chunk.css",
+    "main.js": "/cloud-sample-app-preview-react/static/js/main.d181b795.chunk.js",
+    "main.js.map": "/cloud-sample-app-preview-react/static/js/main.d181b795.chunk.js.map",
+    "runtime~main.js": "/cloud-sample-app-preview-react/static/js/runtime~main.101a9e22.js",
+    "runtime~main.js.map": "/cloud-sample-app-preview-react/static/js/runtime~main.101a9e22.js.map",
+    "static/js/2.2d3896a5.chunk.js": "/cloud-sample-app-preview-react/static/js/2.2d3896a5.chunk.js",
+    "static/js/2.2d3896a5.chunk.js.map": "/cloud-sample-app-preview-react/static/js/2.2d3896a5.chunk.js.map",
+    "index.html": "/cloud-sample-app-preview-react/index.html",
+    "precache-manifest.e16b83ddadf10f63477c6263ee18a570.js": "/cloud-sample-app-preview-react/precache-manifest.e16b83ddadf10f63477c6263ee18a570.js",
+    "service-worker.js": "/cloud-sample-app-preview-react/service-worker.js",
+    "static/css/main.1db09e5a.chunk.css.map": "/cloud-sample-app-preview-react/static/css/main.1db09e5a.chunk.css.map"
   }
 }
