@@ -2,7 +2,7 @@
   "name": "cloud-preview-sample-app",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://kentico.github.io/cloud-sample-app-preview-react",
+  "homepage": "https://kentico.github.io/cloud-sample-app-preview-react/",
   "dependencies": {
     "@types/auth0-js": "^9.10.2",
     "@types/jest": "^24.0.13",
@@ -26,6 +26,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "deploy-surge": "surge --project ./build --domain cloud-preview-sample-app.surge.sh",
+    "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
   "eslintConfig": {

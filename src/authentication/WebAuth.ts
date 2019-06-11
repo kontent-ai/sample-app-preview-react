@@ -37,6 +37,19 @@ export class WebAuth implements IWebAuth {
     this.webAuth.logout(logoutOptions);
   };
 
+  private getRedirectUri = () => {
+    const redirectUriFromStorage = localStorage.getItem(Auth0RedirectUriStorageKey);
+    localStorage.removeItem(Auth0RedirectUriStorageKey);
+    const redirectUri = redirectUriFromStorage ? redirectUriFromStorage : RootRoute;
+
+    if (redirectUri.startsWith("/cloud-sample-app-preview-react")) {
+      console.log('redirect starts with /cloud..., remove that');
+      return redirectUri.slice(31);
+    }
+
+    return redirectUri;
+  };
+
   handleAuthentication = (onSuccessLogin: (accessToken: IAccessToken, redirectUri: string) => void, onFailedLogin: () => void): void => {
     this.webAuth.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
@@ -44,11 +57,7 @@ export class WebAuth implements IWebAuth {
           accessToken: authResult.accessToken as string,
           expiresAt: ((authResult.expiresIn || 0) * 1000) + new Date().getTime(),
         };
-
-        const redirectUriFromStorage = localStorage.getItem(Auth0RedirectUriStorageKey);
-        localStorage.removeItem(Auth0RedirectUriStorageKey);
-        const redirectUri = redirectUriFromStorage ? redirectUriFromStorage : RootRoute;
-
+        const redirectUri = this.getRedirectUri();
         onSuccessLogin(accessToken, redirectUri);
       }
       else if (err) {

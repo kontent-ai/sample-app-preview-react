@@ -8,8 +8,10 @@ import { AppContext } from "./context/AppContext";
 import { AuthContext } from "./context/AuthContext";
 import {AppContextInitialization} from "./context/AppContextInitialization";
 
+console.warn('app v-3');
+
 ReactDOM.render(
-  <Router>
+  <Router basename={"/" + process.env.REACT_APP_PROJECT_ROUTE}>
     <AuthContext>
       <AppContext>
         <AppContextInitialization>
