@@ -9,7 +9,7 @@
 	<meta name="theme-color" content="#000000" />
 	<script type="text/javascript">
 		! function(i) {
-			console.log('run params replace script');
+			console.log('run params replace script', window.location);
 			if (i.search) {
 				var l = {};
 				i.search.slice(1).split("&").forEach(function(i) {
@@ -29,7 +29,7 @@
 <div id="root"></div>
 <script>
 	! function(a) {
-		console.log('run index.html main script');
+		console.log('run index.html main script', window.location);
 		function e(e) {
 			for (var r, t, n = e[0], o = e[1], u = e[2], l = 0, i = []; l < n.length; l++) t = n[l], p[t] && i.push(p[t][0]), p[t] = 0;
 			for (r in o) Object.prototype.hasOwnProperty.call(o, r) && (a[r] = o[r]);
