@@ -7,11 +7,12 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { AppContext } from "./context/AppContext";
 import { AuthContext } from "./context/AuthContext";
 import {AppContextInitialization} from "./context/AppContextInitialization";
+import {DeployedProjectRootRoute} from "./constants/routePaths";
 
-console.warn('app v-3');
+console.warn('app v-4');
 
 ReactDOM.render(
-  <Router basename={"/" + process.env.REACT_APP_PROJECT_ROUTE}>
+  <Router basename={DeployedProjectRootRoute}>
     <AuthContext>
       <AppContext>
         <AppContextInitialization>
