@@ -25,17 +25,7 @@
 		// Otherwise, leave segmentCount as 0.
 		var segmentCount = 1;
 
-		console.log('V2 - 404');
-
 		var l = window.location;
-		var replaceWith = l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-			l.pathname.split('/').slice(0, 1 + segmentCount).join('/') + '/?p=/' +
-			l.pathname.slice(1).split('/').slice(segmentCount).join('/').replace(/&/g, '~and~') +
-			(l.search ? '&q=' + l.search.slice(1).replace(/&/g, '~and~') : '') +
-			l.hash;
-
-		console.log('404 error page replace with', replaceWith);
-
 		l.replace(
 			l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
 			l.pathname.split('/').slice(0, 1 + segmentCount).join('/') + '/?p=/' +
