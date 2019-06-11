@@ -9,7 +9,7 @@
 	<meta name="theme-color" content="#000000" />
 	<script type="text/javascript">
 		! function(i) {
-			console.log('V2 - index.html');
+			console.log('V3 - index.html');
 			console.log('run params replace script, current location:', window.location);
 			if (i.search) {
 				var l = {};
@@ -20,7 +20,7 @@
 				// void 0 !== l.p && window.history.replaceState(null, null, i.pathname.slice(0, -1) + (l.p || "") + (l.q ? "?" + l.q : "") + i.hash)
 				if (0 !== l.p) {
 					console.log('replace with ', i.pathname.slice(0, -1) + (l.p || "") + (l.q ? "?" + l.q : "") + i.hash);
-					window.history.replaceState(null, null, i.pathname.slice(0, -1) + (l.p || "") + (l.q ? "?" + l.q : "") + i.hash)
+					// window.history.replaceState(null, null, i.pathname.slice(0, -1) + (l.p || "") + (l.q ? "?" + l.q : "") + i.hash)
 				}
 			}
 		}(window.location)
