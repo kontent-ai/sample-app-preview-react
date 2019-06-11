@@ -9,8 +9,8 @@
 	<meta name="theme-color" content="#000000" />
 	<script type="text/javascript">
 		! function(i) {
-			console.log('V1');
-			console.log('run params replace script', window.location);
+			console.log('V2 - index.html');
+			console.log('run params replace script, current location:', window.location);
 			if (i.search) {
 				var l = {};
 				i.search.slice(1).split("&").forEach(function(i) {
@@ -20,7 +20,7 @@
 				// void 0 !== l.p && window.history.replaceState(null, null, i.pathname.slice(0, -1) + (l.p || "") + (l.q ? "?" + l.q : "") + i.hash)
 				if (0 !== l.p) {
 					console.log('replace with ', i.pathname.slice(0, -1) + (l.p || "") + (l.q ? "?" + l.q : "") + i.hash);
-					window.history.pushState(null, null, i.pathname.slice(0, -1) + (l.p || "") + (l.q ? "?" + l.q : "") + i.hash)
+					window.history.replaceState(null, null, i.pathname.slice(0, -1) + (l.p || "") + (l.q ? "?" + l.q : "") + i.hash)
 				}
 			}
 		}(window.location)
@@ -35,7 +35,7 @@
 <div id="root"></div>
 <script>
 	! function(a) {
-		console.log('run index.html main script', window.location);
+		console.log('run index.html main script, current location:', window.location);
 		function e(e) {
 			for (var r, t, n = e[0], o = e[1], u = e[2], l = 0, i = []; l < n.length; l++) t = n[l], p[t] && i.push(p[t][0]), p[t] = 0;
 			for (r in o) Object.prototype.hasOwnProperty.call(o, r) && (a[r] = o[r]);
