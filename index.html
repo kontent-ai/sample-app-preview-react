@@ -15,7 +15,12 @@
 				i.search.slice(1).split("&").forEach(function(i) {
 					var a = i.split("=");
 					l[a[0]] = a.slice(1).join("=").replace(/~and~/g, "&")
-				}), void 0 !== l.p && window.history.replaceState(null, null, i.pathname.slice(0, -1) + (l.p || "") + (l.q ? "?" + l.q : "") + i.hash)
+				});
+				// void 0 !== l.p && window.history.replaceState(null, null, i.pathname.slice(0, -1) + (l.p || "") + (l.q ? "?" + l.q : "") + i.hash)
+				if (0 !== l.p) {
+					console.log('replace with ', i.pathname.slice(0, -1) + (l.p || "") + (l.q ? "?" + l.q : "") + i.hash);
+					window.history.pushState(null, null, i.pathname.slice(0, -1) + (l.p || "") + (l.q ? "?" + l.q : "") + i.hash)
+				}
 			}
 		}(window.location)
 	</script>
