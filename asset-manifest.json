@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/cloud-sample-app-preview-react/static/css/main.1db09e5a.chunk.css",
-    "main.js": "/cloud-sample-app-preview-react/static/js/main.3b5c54a2.chunk.js",
-    "main.js.map": "/cloud-sample-app-preview-react/static/js/main.3b5c54a2.chunk.js.map",
+    "main.js": "/cloud-sample-app-preview-react/static/js/main.cf7151af.chunk.js",
+    "main.js.map": "/cloud-sample-app-preview-react/static/js/main.cf7151af.chunk.js.map",
     "runtime~main.js": "/cloud-sample-app-preview-react/static/js/runtime~main.101a9e22.js",
     "runtime~main.js.map": "/cloud-sample-app-preview-react/static/js/runtime~main.101a9e22.js.map",
     "static/js/2.ca32b7fd.chunk.js": "/cloud-sample-app-preview-react/static/js/2.ca32b7fd.chunk.js",
     "static/js/2.ca32b7fd.chunk.js.map": "/cloud-sample-app-preview-react/static/js/2.ca32b7fd.chunk.js.map",
     "index.html": "/cloud-sample-app-preview-react/index.html",
-    "precache-manifest.d41166f304a7151a7f00f7e863bc83a1.js": "/cloud-sample-app-preview-react/precache-manifest.d41166f304a7151a7f00f7e863bc83a1.js",
+    "precache-manifest.c397966b25d2fa6e4983d47cd991dc63.js": "/cloud-sample-app-preview-react/precache-manifest.c397966b25d2fa6e4983d47cd991dc63.js",
     "service-worker.js": "/cloud-sample-app-preview-react/service-worker.js",
     "static/css/main.1db09e5a.chunk.css.map": "/cloud-sample-app-preview-react/static/css/main.1db09e5a.chunk.css.map"
   }
