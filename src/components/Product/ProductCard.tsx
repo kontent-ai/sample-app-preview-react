@@ -3,6 +3,7 @@ import {buildPath} from "../../utils/routeTransitionUtils";
 import {ProductDetailsRoute, ProductDetailsRouteParams} from "../../constants/routePaths";
 import React from "react";
 import './ProductCard.css';
+import {productImagePlaceholderUrl} from "../../constants/resources";
 
 interface IProductCardProps {
   readonly projectId: string;
@@ -13,16 +14,15 @@ interface IProductCardProps {
 
 export const ProductCard: React.FunctionComponent<IProductCardProps> =
   ({ projectId, productId, pictureUrl, title }) => {
+    const imageSource = pictureUrl ? pictureUrl : productImagePlaceholderUrl;
     return (
       <div className="product-card">
         <Link to={buildPath<ProductDetailsRouteParams>(ProductDetailsRoute, { projectId, productId })}>
-          {pictureUrl && (
-            <img
-              className="product-card__thumbnail"
-              src={pictureUrl}
-              alt="product thumbnail"
-            />
-          )}
+          <img
+            className="product-card__thumbnail"
+            src={imageSource}
+            alt="product thumbnail"
+          />
           {title}
         </Link>
       </div>
