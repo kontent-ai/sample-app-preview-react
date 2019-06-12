@@ -3,9 +3,9 @@ import {
   AppContextConsumer,
 } from '../../context/AppContext';
 import './ProductDetailsPage.css';
-import {ProductDetailsRouteParams} from "../../constants/routePaths";
-import {ProductExampleContentType} from "../../models/Product";
-import {PageContent} from "../PageContent";
+import { ProductDetailsRouteParams } from "../../constants/routePaths";
+import { ProductExampleContentType } from "../../models/Product";
+import { PageContent } from "../PageContent";
 
 interface IProductDetailsPage {
   readonly product: ProductExampleContentType;

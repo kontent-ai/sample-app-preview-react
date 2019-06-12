@@ -1,5 +1,5 @@
 import React from 'react';
-import {AuthContextConsumer} from "../context/AuthContext";
+import { AuthContextConsumer } from "../context/AuthContext";
 
 export enum ErrorPageType {
   MissingProjectId = 'missingProjectId',

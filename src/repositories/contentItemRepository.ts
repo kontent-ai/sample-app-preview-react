@@ -1,7 +1,7 @@
-import {ArticleExampleContentType} from "../models/Article";
-import {DeliveryClient, IDeliveryClient, TypeResolver} from "kentico-cloud-delivery";
-import {LandingPageExampleContentType} from "../models/LandingPage";
-import {ProductExampleContentType} from "../models/Product";
+import { ArticleExampleContentType } from "../models/Article";
+import { DeliveryClient, IDeliveryClient, TypeResolver } from "kentico-cloud-delivery";
+import { LandingPageExampleContentType } from "../models/LandingPage";
+import { ProductExampleContentType } from "../models/Product";
 
 let deliveryClient: IDeliveryClient | null = null;
 

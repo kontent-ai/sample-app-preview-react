@@ -1,8 +1,8 @@
 import React from 'react';
-import {IAccessToken, WebAuth} from "../authentication/WebAuth";
-import {Redirect, Route, RouteComponentProps, Switch, withRouter} from "react-router";
-import {Callback} from "../components/Callback";
-import {CallbackRoute, RootRoute} from "../constants/routePaths";
+import { IAccessToken, WebAuth } from "../authentication/WebAuth";
+import { Redirect, Route, RouteComponentProps, Switch, withRouter } from "react-router";
+import { Callback } from "../components/Callback";
+import { CallbackRoute, RootRoute } from "../constants/routePaths";
 
 interface IAuthContextState {
   readonly accessToken: string;

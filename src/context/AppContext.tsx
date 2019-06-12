@@ -1,9 +1,9 @@
 import React from 'react';
-import {LoadingStatus} from "../enums/LoadingStatus";
-import {getAllArticles, getProductsPage} from "../repositories/contentItemRepository";
-import {ArticleExampleContentType} from "../models/Article";
-import {ProductExampleContentType} from "../models/Product";
-import {clearInterval, setInterval} from "timers";
+import { LoadingStatus } from "../enums/LoadingStatus";
+import { getAllArticles, getProductsPage } from "../repositories/contentItemRepository";
+import { ArticleExampleContentType } from "../models/Article";
+import { ProductExampleContentType } from "../models/Product";
+import { clearInterval, setInterval } from "timers";
 
 interface IAppContextState {
   readonly dataLoadingStatus: LoadingStatus;

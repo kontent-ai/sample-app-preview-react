@@ -3,8 +3,8 @@ import {
   authOptions,
   logoutOptions,
 } from './authOptions';
-import {Auth0RedirectUriStorageKey} from "../constants/localStorageKeys";
-import {RootRoute} from "../constants/routePaths";
+import { Auth0RedirectUriStorageKey } from "../constants/localStorageKeys";
+import { RootRoute } from "../constants/routePaths";
 
 export interface IAccessToken {
   readonly accessToken: string;

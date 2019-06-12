@@ -14,7 +14,7 @@ import {
   ProductsRoute,
   ProjectRoute,
 } from './constants/routePaths';
-import {WelcomePage} from "./components/WelcomePage";
+import { WelcomePage } from "./components/WelcomePage";
 
 export class App extends React.PureComponent {
   render() {

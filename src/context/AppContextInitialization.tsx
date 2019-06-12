@@ -1,13 +1,13 @@
 import React from 'react';
-import {RouteComponentProps, withRouter} from "react-router";
-import {AuthContextConsumer, IAuthContext} from "./AuthContext";
-import {AppContextConsumer, IAppContext} from "./AppContext";
-import {Callback} from "../components/Callback";
+import { RouteComponentProps, withRouter } from "react-router";
+import { AuthContextConsumer, IAuthContext } from "./AuthContext";
+import { AppContextConsumer, IAppContext } from "./AppContext";
+import { Callback } from "../components/Callback";
 
-import {ErrorPage, ErrorPageType} from "../components/ErrorPage";
-import {createFetchData, createLoadApplicationData, createLoadPreviewApiKey} from "../utils/previewApiKeyUtils";
-import {getPreviewApiKey} from "../repositories/previewApiKeyRepository";
-import {LoadingStatus} from "../enums/LoadingStatus";
+import { ErrorPage, ErrorPageType } from "../components/ErrorPage";
+import { createFetchData, createLoadApplicationData, createLoadPreviewApiKey } from "../utils/previewApiKeyUtils";
+import { getPreviewApiKey } from "../repositories/previewApiKeyRepository";
+import { LoadingStatus } from "../enums/LoadingStatus";
 
 interface IAppContextInitializationProps extends RouteComponentProps {
   readonly authContext: IAuthContext;

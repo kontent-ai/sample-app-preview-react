@@ -1,8 +1,8 @@
-import {getPreviewApiKey, IPreviewApiKey} from "../repositories/previewApiKeyRepository";
-import {IAuthContext} from "../context/AuthContext";
-import {IAppContext} from "../context/AppContext";
-import {LoadingStatus} from "../enums/LoadingStatus";
-import {getProjectIdFromUrl} from "./projectIdUtil";
+import { getPreviewApiKey, IPreviewApiKey } from "../repositories/previewApiKeyRepository";
+import { IAuthContext } from "../context/AuthContext";
+import { IAppContext } from "../context/AppContext";
+import { LoadingStatus } from "../enums/LoadingStatus";
+import { getProjectIdFromUrl } from "./projectIdUtil";
 
 interface ILoadPreviewApiKeyDeps {
   readonly appContext: IAppContext;

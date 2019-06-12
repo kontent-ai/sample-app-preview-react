@@ -3,7 +3,7 @@ import {
   AppContextConsumer
 } from '../context/AppContext';
 import { PageContent } from './PageContent';
-import {ArticleExampleContentType} from "../models/Article";
+import { ArticleExampleContentType } from "../models/Article";
 
 interface IWelcomePageProps {
   readonly pages: Array<ArticleExampleContentType>;

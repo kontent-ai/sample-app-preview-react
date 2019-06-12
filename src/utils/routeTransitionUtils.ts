@@ -1,4 +1,4 @@
-import {compile} from "path-to-regexp";
+import { compile } from "path-to-regexp";
 
 interface IDictionary<T> {
   readonly [key: string]: T | undefined;

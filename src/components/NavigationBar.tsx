@@ -6,9 +6,9 @@ import {
   ProjectRoute,
   ProjectRouteParams,
 } from '../constants/routePaths';
-import {AuthContextConsumer} from "../context/AuthContext";
-import {buildPath} from "../utils/routeTransitionUtils";
-import {AppContextConsumer} from "../context/AppContext";
+import { AuthContextConsumer } from "../context/AuthContext";
+import { buildPath } from "../utils/routeTransitionUtils";
+import { AppContextConsumer } from "../context/AppContext";
 
 export class NavigationBar extends React.PureComponent {
   render() {

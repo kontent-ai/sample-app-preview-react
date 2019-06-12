@@ -4,8 +4,8 @@ import {
 } from '../../context/AppContext';
 import { PageContent } from '../PageContent';
 import './ProductsPage.css';
-import {ProductExampleContentType} from "../../models/Product";
-import {ProductCard} from "./ProductCard";
+import { ProductExampleContentType } from "../../models/Product";
+import { ProductCard } from "./ProductCard";
 import classNames from "classnames";
 
 interface IProductsPageProps {

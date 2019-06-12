@@ -1,9 +1,9 @@
-import {Link} from "react-router-dom";
-import {buildPath} from "../../utils/routeTransitionUtils";
-import {ProductDetailsRoute, ProductDetailsRouteParams} from "../../constants/routePaths";
+import { Link } from "react-router-dom";
+import { buildPath } from "../../utils/routeTransitionUtils";
+import { ProductDetailsRoute, ProductDetailsRouteParams } from "../../constants/routePaths";
 import React from "react";
 import './ProductCard.css';
-import {productImagePlaceholderUrl} from "../../constants/resources";
+import { productImagePlaceholderUrl } from "../../constants/resources";
 
 interface IProductCardProps {
   readonly projectId: string;
