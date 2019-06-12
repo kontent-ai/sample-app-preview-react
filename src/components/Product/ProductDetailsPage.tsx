@@ -20,15 +20,21 @@ class ProductDetailsPage extends React.PureComponent<IProductDetailsPage> {
   render() {
     const { product } = this.props;
     if (product) {
+      const pictureUrl = product.image.assets[0] ? product.image.assets[0].url : '';
       return (
         <PageContent title={product.name.value}>
-          <img
-            className="product-image"
-            alt={product.title}
-            src={product.pictureUrl}
+          {pictureUrl && (
+            <img
+              className="product-details__image"
+              alt={product.name.value}
+              src={product.image.assets[0] ? product.image.assets[0].url : ''}
+            />
+          )}
+
+          <div
+            className="product-details__description"
+            dangerouslySetInnerHTML={{ __html: product.description.getHtml() }}
           />
-          {/* TODO: Check if using dangerouslySetInnerHTML is the best practice to shown html content received from Deliver */}
-          <div dangerouslySetInnerHTML={{ __html: product.description.value }} />
         </PageContent>);
     }
 
