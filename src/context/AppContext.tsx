@@ -18,7 +18,6 @@ interface IAppContextState {
 interface IAppContextProps {
   readonly loadWelcomePage: () => void;
   readonly loadProducts: () => void;
-
   readonly setProjectId: (projectId: string) => void;
   readonly setLoadingStatus: (loadingStatus: LoadingStatus) => void;
   readonly setProjectIdLoadingStatus: (projectIdLoadingStatus: LoadingStatus) => void;
@@ -48,7 +47,6 @@ const defaultAppContext: IAppContext = {
 
 const context = React.createContext<IAppContext>(defaultAppContext);
 const AppContextProvider = context.Provider;
-
 export const AppContextConsumer = context.Consumer;
 
 export class AppContext extends React.PureComponent<{}, IAppContextState> {
@@ -63,14 +61,14 @@ export class AppContext extends React.PureComponent<{}, IAppContextState> {
     products: new Array<ProductExampleContentType>(),
   };
 
-  private _dataPollingTimer: NodeJS.Timer | null = null;
+  private _dataPollingInterval: NodeJS.Timer | null = null;
 
-  private _setDataPolling = (func: () => void): void => {
-    if (this._dataPollingTimer !== null) {
-      clearInterval(this._dataPollingTimer);
+  private _startDataPolling = (callback: () => void): void => {
+    if (this._dataPollingInterval !== null) {
+      clearInterval(this._dataPollingInterval);
     }
 
-    this._dataPollingTimer = setInterval(func, 3000);
+    this._dataPollingInterval = setInterval(callback, 3000);
   };
 
   setProjectId = (projectId: string) => {
@@ -99,7 +97,7 @@ export class AppContext extends React.PureComponent<{}, IAppContextState> {
   };
 
   loadWelcomePage = async () => {
-    this._setDataPolling(this._loadWelcomePageData);
+    this._startDataPolling(this._loadWelcomePageData);
     await this._loadWelcomePageData();
   };
 
@@ -111,12 +109,21 @@ export class AppContext extends React.PureComponent<{}, IAppContextState> {
   };
 
   loadProducts = async () => {
-    this._setDataPolling(this._loadProductsData);
+    this._startDataPolling(this._loadProductsData);
     await this._loadProductsData();
   };
 
   render() {
-    const { products, pages, projectId, dataLoadingStatus, projectIdLoadingStatus, previewApiKey, previewApiKeyLoadingStatus } = this.state;
+    const {
+      products,
+      pages,
+      projectId,
+      dataLoadingStatus,
+      projectIdLoadingStatus,
+      previewApiKey,
+      previewApiKeyLoadingStatus,
+    } = this.state;
+
     const contextValue: IAppContext = {
       dataLoadingStatus,
       previewApiKey,

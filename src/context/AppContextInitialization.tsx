@@ -5,7 +5,7 @@ import { AppContextConsumer, IAppContext } from "./AppContext";
 import { Callback } from "../components/Callback";
 
 import { ErrorPage, ErrorPageType } from "../components/ErrorPage";
-import { createFetchData, createLoadApplicationData, createLoadPreviewApiKey } from "../utils/previewApiKeyUtils";
+import { createLoadApplicationData, createLoadPreviewApiKey } from "../utils/previewApiKeyUtils";
 import { getPreviewApiKey } from "../repositories/previewApiKeyRepository";
 import { LoadingStatus } from "../enums/LoadingStatus";
 
@@ -48,7 +48,6 @@ const AppContextInitializationConnected = (props: RouteComponentProps) => (
           const loadApplicationData = createLoadApplicationData({
             appContext,
             authContext,
-            fetchData: createFetchData(),
             loadPreviewApikey: createLoadPreviewApiKey({
               authContext,
               appContext,

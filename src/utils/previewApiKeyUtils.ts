@@ -22,19 +22,19 @@ export const createLoadPreviewApiKey = (props: ILoadPreviewApiKeyDeps): () => Pr
     })
 };
 
-export const createFetchData = () => (): string => {
-  return "have some data";
-};
-
 interface ILoadApplicationDataDeps {
   readonly appContext: IAppContext;
   readonly authContext: IAuthContext;
-  readonly fetchData: () => string;
   readonly loadPreviewApikey: () => Promise<string | null>;
 }
 
 export const createLoadApplicationData = (deps: ILoadApplicationDataDeps) => async (): Promise<void> => {
-  const { appContext, loadPreviewApikey, fetchData } = deps;
+  const { appContext, loadPreviewApikey } = deps;
+
+  if (appContext.dataLoadingStatus === LoadingStatus.Finished) {
+    return;
+  }
+
   if (appContext.projectIdLoadingStatus === LoadingStatus.NotLoaded) {
     const projectIdFromUrl = getProjectIdFromUrl();
     if (projectIdFromUrl) {
@@ -57,9 +57,12 @@ export const createLoadApplicationData = (deps: ILoadApplicationDataDeps) => asy
     }
   }
 
-  if (appContext.previewApiKeyLoadingStatus === LoadingStatus.Finished && appContext.dataLoadingStatus === LoadingStatus.NotLoaded) {
-    appContext.setLoadingStatus(LoadingStatus.InProgress);
-    const data = fetchData();
+  const requiredDataLoaded = [
+    appContext.previewApiKeyLoadingStatus,
+    appContext.projectIdLoadingStatus,
+  ].every(status => status === LoadingStatus.Finished);
+
+  if (requiredDataLoaded) {
     appContext.setLoadingStatus(LoadingStatus.Finished);
   }
 };
