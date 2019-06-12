@@ -23,7 +23,7 @@ export class NavigationBar extends React.PureComponent {
                   <Link className="navigation-bar__app-menu-button" to={buildPath<ProjectRouteParams>(ProductsRoute, { projectId: appContext.projectId })}>Products</Link>
                 </nav>
                 <div className="navigation-bar__user-menu">
-                  <button className="navigation-bar__user-menu-button" onClick={authContext.logout}>Logout</button>
+                  <button className="navigation-bar__user-menu-button" onClick={authContext.logout}>Sign Out</button>
                 </div>
               </div>
             )}

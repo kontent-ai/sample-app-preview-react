@@ -32,7 +32,7 @@ export const ErrorPage: React.FunctionComponent<IErrorPageProps> = ({ type }) =>
         <div className="navigation-bar">
           <nav className="navigation-bar__app-menu"/>
           <div className="navigation-bar__user-menu">
-            <button className="navigation-bar__user-menu-button" onClick={authContext.logout}>Logout</button>
+            <button className="navigation-bar__user-menu-button" onClick={authContext.logout}>Sign Out</button>
           </div>
         </div>
 
