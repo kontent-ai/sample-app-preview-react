@@ -1,8 +1,11 @@
-.product-list {
+.products-page {
 	display: flex;
-	text-align: initial;
 	flex-direction: row;
 	flex-wrap: wrap;
 	margin-left: -12px;
 	margin-right: -12px;
+}
+
+.products-page--is-single-product {
+	justify-content: center;
 }

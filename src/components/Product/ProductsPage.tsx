@@ -6,6 +6,7 @@ import { PageContent } from '../PageContent';
 import './ProductsPage.css';
 import {ProductExampleContentType} from "../../models/Product";
 import {ProductCard} from "./ProductCard";
+import classNames from "classnames";
 
 interface IProductsPageProps {
   readonly init: () => void;
@@ -20,9 +21,12 @@ class ProductsPage extends React.PureComponent<IProductsPageProps> {
 
   render() {
     const { projectId, products } = this.props;
+    const isSingleProduct = products.length === 1;
     return (
       <PageContent title="Products">
-        <div className="product-list">
+        <div className={classNames("products-page", {
+          "products-page--is-single-product": isSingleProduct,
+        })}>
           {products.map((product: ProductExampleContentType) => (
             <ProductCard
               title={product.name.value}
