@@ -18,7 +18,6 @@ interface IAppContextInitializationProps extends RouteComponentProps {
 class AppContextInitialization extends React.PureComponent<IAppContextInitializationProps, {}> {
 
   componentDidUpdate(prevProps: IAppContextInitializationProps): void {
-    // todo solve
     this.props.loadApplicationData();
   }
 

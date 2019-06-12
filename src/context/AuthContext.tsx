@@ -23,7 +23,6 @@ const defaultAuthContext: IAuthContext = {
 
 const context = React.createContext<IAuthContext>(defaultAuthContext);
 const AuthContextProvider = context.Provider;
-
 export const AuthContextConsumer = context.Consumer;
 
 class AuthContext extends React.Component<RouteComponentProps, IAuthContextState> {

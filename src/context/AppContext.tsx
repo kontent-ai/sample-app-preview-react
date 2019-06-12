@@ -11,7 +11,7 @@ interface IAppContextState {
   readonly previewApiKeyLoadingStatus: LoadingStatus;
   readonly projectId: string;
   readonly projectIdLoadingStatus: LoadingStatus;
-  readonly pages: Array<ArticleExampleContentType>;
+  readonly articles: Array<ArticleExampleContentType>;
   readonly products: Array<ProductExampleContentType>;
 }
 
@@ -34,7 +34,7 @@ const defaultAppContext: IAppContext = {
   previewApiKeyLoadingStatus: LoadingStatus.NotLoaded,
   projectId: '',
   projectIdLoadingStatus: LoadingStatus.NotLoaded,
-  pages: new Array<ArticleExampleContentType>(),
+  articles: new Array<ArticleExampleContentType>(),
   products: new Array<ProductExampleContentType>(),
   loadWelcomePage: () => undefined,
   loadProducts: () => undefined,
@@ -57,7 +57,7 @@ export class AppContext extends React.PureComponent<{}, IAppContextState> {
     previewApiKeyLoadingStatus: LoadingStatus.NotLoaded,
     projectId: '',
     projectIdLoadingStatus: LoadingStatus.NotLoaded,
-    pages: new Array<ArticleExampleContentType>(),
+    articles: new Array<ArticleExampleContentType>(),
     products: new Array<ProductExampleContentType>(),
   };
 
@@ -93,7 +93,7 @@ export class AppContext extends React.PureComponent<{}, IAppContextState> {
 
   private _loadWelcomePageData = async () => {
     const articles = await getAllArticles(this.state.projectId, this.state.previewApiKey);
-    this.setState({ pages: articles });
+    this.setState({ articles });
   };
 
   loadWelcomePage = async () => {
@@ -116,7 +116,7 @@ export class AppContext extends React.PureComponent<{}, IAppContextState> {
   render() {
     const {
       products,
-      pages,
+      articles,
       projectId,
       dataLoadingStatus,
       projectIdLoadingStatus,
@@ -130,7 +130,7 @@ export class AppContext extends React.PureComponent<{}, IAppContextState> {
       previewApiKeyLoadingStatus,
       projectId,
       projectIdLoadingStatus,
-      pages,
+      articles,
       products,
       loadWelcomePage: this.loadWelcomePage,
       loadProducts: this.loadProducts,
