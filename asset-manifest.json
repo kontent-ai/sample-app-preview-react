@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/cloud-sample-app-preview-react/static/css/main.da7bb949.chunk.css",
-    "main.js": "/cloud-sample-app-preview-react/static/js/main.cb03d7fe.chunk.js",
-    "main.js.map": "/cloud-sample-app-preview-react/static/js/main.cb03d7fe.chunk.js.map",
+    "main.js": "/cloud-sample-app-preview-react/static/js/main.e8101761.chunk.js",
+    "main.js.map": "/cloud-sample-app-preview-react/static/js/main.e8101761.chunk.js.map",
     "runtime~main.js": "/cloud-sample-app-preview-react/static/js/runtime~main.101a9e22.js",
     "runtime~main.js.map": "/cloud-sample-app-preview-react/static/js/runtime~main.101a9e22.js.map",
-    "static/js/2.bb9df0ab.chunk.js": "/cloud-sample-app-preview-react/static/js/2.bb9df0ab.chunk.js",
-    "static/js/2.bb9df0ab.chunk.js.map": "/cloud-sample-app-preview-react/static/js/2.bb9df0ab.chunk.js.map",
+    "static/js/2.93156482.chunk.js": "/cloud-sample-app-preview-react/static/js/2.93156482.chunk.js",
+    "static/js/2.93156482.chunk.js.map": "/cloud-sample-app-preview-react/static/js/2.93156482.chunk.js.map",
     "index.html": "/cloud-sample-app-preview-react/index.html",
-    "precache-manifest.0f3feb1cf9c8774cc7afe86e6d323e17.js": "/cloud-sample-app-preview-react/precache-manifest.0f3feb1cf9c8774cc7afe86e6d323e17.js",
+    "precache-manifest.6ca608bf9266c6596e5054833c3e6efe.js": "/cloud-sample-app-preview-react/precache-manifest.6ca608bf9266c6596e5054833c3e6efe.js",
     "service-worker.js": "/cloud-sample-app-preview-react/service-worker.js",
     "static/css/main.da7bb949.chunk.css.map": "/cloud-sample-app-preview-react/static/css/main.da7bb949.chunk.css.map"
   }
