@@ -35,7 +35,6 @@ export const getAllArticles = (projectId: string, previewApiKey: string): Promis
     .type('article_example_content_type')
     .toPromise()
     .then(response => {
-      console.log('got response!', response);
       return response.items;
     })
     .catch(reason => {
@@ -54,7 +53,6 @@ export const getProductsPage = (projectId: string, previewApiKey: string): Promi
     .type('landing_page_example_content_type')
     .toPromise()
     .then(response => {
-      console.log('got response!', response);
       return response.items;
     })
     .catch(reason => {

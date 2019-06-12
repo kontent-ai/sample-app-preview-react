@@ -105,7 +105,6 @@ export class AppContext extends React.PureComponent<{}, IAppContextState> {
 
   private _loadProductsData = async () => {
     const productsPage = await getProductsPage(this.state.projectId, this.state.previewApiKey);
-    console.log(productsPage[0].productList);
     if (productsPage && productsPage[0]) {
       this.setState({ products: productsPage[0].productList });
     }

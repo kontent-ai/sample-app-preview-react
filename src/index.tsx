@@ -9,8 +9,6 @@ import { AuthContext } from "./context/AuthContext";
 import {AppContextInitialization} from "./context/AppContextInitialization";
 import {DeployedProjectRootRoute} from "./constants/routePaths";
 
-console.warn('app v-4');
-
 ReactDOM.render(
   <Router basename={DeployedProjectRootRoute}>
     <AuthContext>

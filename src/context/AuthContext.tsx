@@ -54,7 +54,6 @@ class AuthContext extends React.Component<RouteComponentProps, IAuthContextState
       expiresAt: accessToken.expiresAt,
       isLoggedIn: true,
     });
-    console.log('history push, ', redirectUri);
     this.props.history.push(redirectUri);
   };
 

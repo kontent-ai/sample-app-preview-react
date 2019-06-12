@@ -42,8 +42,8 @@ export class WebAuth implements IWebAuth {
     localStorage.removeItem(Auth0RedirectUriStorageKey);
     const redirectUri = redirectUriFromStorage ? redirectUriFromStorage : RootRoute;
 
+    // todo make nicer
     if (redirectUri.startsWith("/cloud-sample-app-preview-react")) {
-      console.log('redirect starts with /cloud..., remove that');
       return redirectUri.slice(31);
     }
 

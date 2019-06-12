@@ -23,7 +23,6 @@ export const createLoadPreviewApiKey = (props: ILoadPreviewApiKeyDeps): () => Pr
 };
 
 export const createFetchData = () => (): string => {
-  console.log('fetch data');
   return "have some data";
 };
 
