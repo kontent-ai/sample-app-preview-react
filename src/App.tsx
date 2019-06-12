@@ -19,12 +19,12 @@ import {WelcomePage} from "./components/WelcomePage";
 export class App extends React.PureComponent {
   render() {
     return (
-      <div className="App">
+      <div className="app">
         <Route
           path={ProjectRoute}
           component={NavigationBar}
         />
-        <div className="app-content-wrapper">
+        <div className="app__content-wrapper">
           <Switch>
             <Route
               path={ProjectRoute}

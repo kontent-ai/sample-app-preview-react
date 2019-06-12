@@ -1,5 +1,5 @@
 import React from 'react';
-import {RootRoute} from "../constants/routePaths";
+import {AuthContextConsumer} from "../context/AuthContext";
 
 export enum ErrorPageType {
   MissingProjectId = 'missingProjectId',
@@ -10,30 +10,42 @@ interface IErrorPageProps {
   readonly type: ErrorPageType;
 }
 
+const projectIdUrlTemplate = "https://kentico.github.io/cloud-sample-app-preview-react/<your_project_id>";
+
 const MissingProjectIdErrorPageContent: React.FunctionComponent = () => (
   <>
-    <p>Didn't you forget to provide Project Id in url? E.g. <i>https://kentico.github.io/cloud-sample-app-preview-react/your_project_id</i></p>
-    <p>Default: <a href={`${RootRoute}cf6c9bb2-6d7e-00f8-a84a-b8042d1209c6`}>cf6c9bb2-6d7e-00f8-a84a-b8042d1209c6</a></p>
+    <p>Didn't you forget to provide Project Id in the url? E.g. <i>{projectIdUrlTemplate}</i></p>
   </>
 );
 
 const UnableToGetPreviewApiKeyErrorPageContent: React.FunctionComponent = () => (
   <>
     <p>There was problem retrieving Preview Api Key.</p>
-    <p>Did you provide correct Project Id? E.g. <a href={`${RootRoute}cf6c9bb2-6d7e-00f8-a84a-b8042d1209c6`}>cf6c9bb2-6d7e-00f8-a84a-b8042d1209c6</a></p>
+    <p>Did you provide correct Project Id? E.g. <i>{projectIdUrlTemplate}</i></p>
   </>
 );
 
 export const ErrorPage: React.FunctionComponent<IErrorPageProps> = ({ type }) => (
-  <>
-    <p>Ooops, there was some error!</p>
-    {type === ErrorPageType.MissingProjectId && (
-      <MissingProjectIdErrorPageContent/>
-    )}
+  <AuthContextConsumer>
+    {authContext => (
+      <>
+        <div className="navigation-bar">
+          <nav className="navigation-bar__app-menu"/>
+          <div className="navigation-bar__user-menu">
+            <button className="navigation-bar__user-menu-button" onClick={authContext.logout}>Logout</button>
+          </div>
+        </div>
 
-    {type === ErrorPageType.UnableToGetPreviewApiKey && (
-      <UnableToGetPreviewApiKeyErrorPageContent/>
+        <p>Ooops, there was some error!</p>
+        {type === ErrorPageType.MissingProjectId && (
+          <MissingProjectIdErrorPageContent/>
+        )}
+
+        {type === ErrorPageType.UnableToGetPreviewApiKey && (
+          <UnableToGetPreviewApiKeyErrorPageContent/>
+        )}
+      </>
     )}
-  </>
+  </AuthContextConsumer>
 );
 

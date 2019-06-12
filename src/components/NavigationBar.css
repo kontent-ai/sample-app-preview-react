@@ -2,6 +2,7 @@
 	background-color: #333333;
 	display: flex;
 	justify-content: space-between;
+	height: 72px;
 }
 
 .navigation-bar__app-menu {

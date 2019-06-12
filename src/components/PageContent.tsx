@@ -1,4 +1,5 @@
 import React from 'react';
+import './PageContent.css';
 
 export interface IPageContentProps {
   readonly title: string;
