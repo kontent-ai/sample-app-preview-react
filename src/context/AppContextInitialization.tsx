@@ -2,12 +2,13 @@ import React from 'react';
 import { RouteComponentProps, withRouter } from "react-router";
 import { AuthContextConsumer, IAuthContext } from "./AuthContext";
 import { AppContextConsumer, IAppContext } from "./AppContext";
-import { Callback } from "../components/Callback";
-
+import { Loading } from "../components/Loading";
 import { ErrorPage, ErrorPageType } from "../components/ErrorPage";
-import { createLoadApplicationData, createLoadPreviewApiKey } from "../utils/previewApiKeyUtils";
 import { getPreviewApiKey } from "../repositories/previewApiKeyRepository";
 import { LoadingStatus } from "../enums/LoadingStatus";
+import { createLoadApplicationData } from "../factories/createLoadApplicationData";
+import { createLoadPreviewApiKey } from "../factories/createLoadPreviewApiKey";
+import { getProjectIdFromUrl } from "../utils/projectIdUtil";
 
 interface IAppContextInitializationProps extends RouteComponentProps {
   readonly authContext: IAuthContext;
@@ -17,7 +18,7 @@ interface IAppContextInitializationProps extends RouteComponentProps {
 
 class AppContextInitialization extends React.PureComponent<IAppContextInitializationProps, {}> {
 
-  componentDidUpdate(prevProps: IAppContextInitializationProps): void {
+  componentDidUpdate(): void {
     this.props.loadApplicationData();
   }
 
@@ -35,7 +36,7 @@ class AppContextInitialization extends React.PureComponent<IAppContextInitializa
       return this.props.children;
     }
 
-    return <Callback/>
+    return <Loading/>
   }
 }
 
@@ -46,18 +47,20 @@ const AppContextInitializationConnected = (props: RouteComponentProps) => (
         {authContext => {
           const loadApplicationData = createLoadApplicationData({
             appContext,
-            authContext,
+            getProjectIdFromUrl,
             loadPreviewApikey: createLoadPreviewApiKey({
               authContext,
               appContext,
-              getPreviewApiKey: getPreviewApiKey,
+              getPreviewApiKey,
             })
           });
-          return (<AppContextInitialization
-            loadApplicationData={loadApplicationData}
-            authContext={authContext}
-            appContext={appContext}
-            {...props}
+
+          return (
+            <AppContextInitialization
+              loadApplicationData={loadApplicationData}
+              authContext={authContext}
+              appContext={appContext}
+              {...props}
           />);
         }}
       </AuthContextConsumer>

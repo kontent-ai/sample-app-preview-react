@@ -1,7 +1,7 @@
 import React from 'react';
 import { IAccessToken, WebAuth } from "../authentication/WebAuth";
 import { Redirect, Route, RouteComponentProps, Switch, withRouter } from "react-router";
-import { Callback } from "../components/Callback";
+import { Loading } from "../components/Loading";
 import { CallbackRoute, RootRoute } from "../constants/routePaths";
 
 interface IAuthContextState {
@@ -75,8 +75,6 @@ class AuthContext extends React.Component<RouteComponentProps, IAuthContextState
 
     const { isLoggedIn } = this.state;
 
-    /* TODO: If silent login is processing, could also be shown "InProgress..." to avoid blinking the browser screen */
-
     return (
       <Switch>
         {isLoggedIn ?
@@ -88,7 +86,7 @@ class AuthContext extends React.Component<RouteComponentProps, IAuthContextState
             path={CallbackRoute}
             render={props => {
               this.handleAuthCallback(props);
-              return <Callback />;
+              return <Loading />;
             }}
           />
         }

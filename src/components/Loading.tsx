@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const Callback = (): JSX.Element => {
+export const Loading = (): JSX.Element => {
     return (
       <div>
         <h1>Loading...</h1>

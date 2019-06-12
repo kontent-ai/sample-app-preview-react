@@ -1,35 +1,14 @@
-import { getPreviewApiKey, IPreviewApiKey } from "../repositories/previewApiKeyRepository";
-import { IAuthContext } from "../context/AuthContext";
 import { IAppContext } from "../context/AppContext";
 import { LoadingStatus } from "../enums/LoadingStatus";
-import { getProjectIdFromUrl } from "./projectIdUtil";
-
-interface ILoadPreviewApiKeyDeps {
-  readonly appContext: IAppContext;
-  readonly authContext: IAuthContext;
-  readonly getPreviewApiKey: (authToken: string, projectId: string) => Promise<IPreviewApiKey>;
-}
-
-export const createLoadPreviewApiKey = (props: ILoadPreviewApiKeyDeps): () => Promise<string | null> => {
-  const { accessToken } = props.authContext;
-  const { projectId } = props.appContext;
-  return () => getPreviewApiKey(accessToken, projectId)
-    .then((response: IPreviewApiKey) => {
-      return response.api_key;
-    })
-    .catch(() => {
-      return null;
-    })
-};
 
 interface ILoadApplicationDataDeps {
   readonly appContext: IAppContext;
-  readonly authContext: IAuthContext;
   readonly loadPreviewApikey: () => Promise<string | null>;
+  readonly getProjectIdFromUrl: () => string | null;
 }
 
 export const createLoadApplicationData = (deps: ILoadApplicationDataDeps) => async (): Promise<void> => {
-  const { appContext, loadPreviewApikey } = deps;
+  const { appContext, loadPreviewApikey, getProjectIdFromUrl } = deps;
 
   if (appContext.dataLoadingStatus === LoadingStatus.Finished) {
     return;
