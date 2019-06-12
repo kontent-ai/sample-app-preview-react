@@ -1,7 +1,6 @@
 import {ArticleExampleContentType} from "../models/Article";
 import {DeliveryClient, IDeliveryClient, TypeResolver} from "kentico-cloud-delivery";
 import {LandingPageExampleContentType} from "../models/LandingPage";
-import {first} from "rxjs/operators";
 import {ProductExampleContentType} from "../models/Product";
 
 let deliveryClient: IDeliveryClient | null = null;
@@ -16,7 +15,7 @@ const ensureDeliveryClient = (projectId: string, previewApiKey: string): void =>
     enableAdvancedLogging: true,
     previewApiKey,
     projectId: projectId,
-    basePreviewUrl: 'https://qa-preview-deliver.global.ssl.fastly.net',
+    basePreviewUrl: process.env.REACT_APP_DELIVER_URL,
     typeResolvers: [
       new TypeResolver('article_example_content_type', () => new ArticleExampleContentType()),
       new TypeResolver('landing_page_example_content_type', () => new LandingPageExampleContentType()),
