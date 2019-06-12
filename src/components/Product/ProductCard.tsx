@@ -16,11 +16,13 @@ export const ProductCard: React.FunctionComponent<IProductCardProps> =
     return (
       <div className="product-card">
         <Link to={buildPath<ProductDetailsRouteParams>(ProductDetailsRoute, { projectId, productId })}>
-          <img
-            className="product-card__thumbnail"
-            src={pictureUrl}
-            alt="product thumbnail"
-          />
+          {pictureUrl && (
+            <img
+              className="product-card__thumbnail"
+              src={pictureUrl}
+              alt="product thumbnail"
+            />
+          )}
           {title}
         </Link>
       </div>

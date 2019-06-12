@@ -3,6 +3,7 @@ import {LoadingStatus} from "../enums/LoadingStatus";
 import {getAllArticles, getProductsPage} from "../repositories/contentItemRepository";
 import {ArticleExampleContentType} from "../models/Article";
 import {ProductExampleContentType} from "../models/Product";
+import {clearInterval, setInterval} from "timers";
 
 interface IAppContextState {
   readonly dataLoadingStatus: LoadingStatus;
@@ -26,19 +27,6 @@ interface IAppContextProps {
 }
 
 export interface IAppContext extends IAppContextState, IAppContextProps {
-}
-
-export interface IProduct {
-  readonly productId: string;
-  readonly title: string;
-  readonly pictureUrl: string;
-  readonly description: string;
-}
-
-export interface IPage {
-  readonly codename: string;
-  readonly title: string;
-  readonly content: string;
 }
 
 const defaultAppContext: IAppContext = {
@@ -75,6 +63,16 @@ export class AppContext extends React.PureComponent<{}, IAppContextState> {
     products: new Array<ProductExampleContentType>(),
   };
 
+  private _dataPollingTimer: NodeJS.Timer | null = null;
+
+  private _setDataPolling = (func: () => void): void => {
+    if (this._dataPollingTimer !== null) {
+      clearInterval(this._dataPollingTimer);
+    }
+
+    this._dataPollingTimer = setInterval(func, 3000);
+  };
+
   setProjectId = (projectId: string) => {
     this.setState({ projectId });
   };
@@ -95,17 +93,27 @@ export class AppContext extends React.PureComponent<{}, IAppContextState> {
     this.setState({ previewApiKeyLoadingStatus });
   };
 
-  loadWelcomePage = async () => {
+  private _loadWelcomePageData = async () => {
     const articles = await getAllArticles(this.state.projectId, this.state.previewApiKey);
     this.setState({ pages: articles });
   };
 
-  loadProducts = async () => {
+  loadWelcomePage = async () => {
+    this._setDataPolling(this._loadWelcomePageData);
+    await this._loadWelcomePageData();
+  };
+
+  private _loadProductsData = async () => {
     const productsPage = await getProductsPage(this.state.projectId, this.state.previewApiKey);
     console.log(productsPage[0].productList);
     if (productsPage && productsPage[0]) {
       this.setState({ products: productsPage[0].productList });
     }
+  };
+
+  loadProducts = async () => {
+    this._setDataPolling(this._loadProductsData);
+    await this._loadProductsData();
   };
 
   render() {
