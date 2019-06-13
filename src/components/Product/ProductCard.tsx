@@ -5,6 +5,22 @@ import React from "react";
 import './ProductCard.css';
 import { productImagePlaceholderUrl } from "../../constants/resources";
 
+interface IProductCardPlaceholderProps {
+  readonly imageSource: string;
+  readonly title: string;
+}
+
+const ProductCardPlaceholder: React.FunctionComponent<IProductCardPlaceholderProps> = ({ imageSource, title }) => (
+  <>
+    <img
+      className="product-card__thumbnail"
+      src={imageSource}
+      alt="product thumbnail"
+    />
+    {title ? title : 'Untitled content item'}
+  </>
+);
+
 interface IProductCardProps {
   readonly projectId: string;
   readonly productId: string;
@@ -17,14 +33,13 @@ export const ProductCard: React.FunctionComponent<IProductCardProps> =
     const imageSource = pictureUrl ? pictureUrl : productImagePlaceholderUrl;
     return (
       <div className="product-card">
-        <Link to={buildPath<ProductDetailsRouteParams>(ProductDetailsRoute, { projectId, productId })}>
-          <img
-            className="product-card__thumbnail"
-            src={imageSource}
-            alt="product thumbnail"
-          />
-          {title}
-        </Link>
+        {productId ? (
+            <Link to={buildPath<ProductDetailsRouteParams>(ProductDetailsRoute, { projectId, productId })}>
+              <ProductCardPlaceholder imageSource={imageSource} title={title}/>
+            </Link>
+          ) : (
+            <ProductCardPlaceholder imageSource={imageSource} title={title}/>
+          )}
       </div>
     );
-};
+  };
