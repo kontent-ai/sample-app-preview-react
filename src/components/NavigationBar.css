@@ -26,20 +26,3 @@
 	background-color: #F6F6F6;
 	color: #333333;
 }
-
-.navigation-bar__user-menu {
-	display: flex;
-}
-
-.navigation-bar__user-menu-button {
-	background-color: #333333;
-	color: #FFFFFF;
-	font-size: 16px;
-	padding: 26px 40px;
-	cursor: pointer;
-	border: 0;
-}
-
-.navigation-bar__user-menu-button:hover {
-	background-color: #444444;
-}

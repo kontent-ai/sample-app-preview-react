@@ -1,5 +1,4 @@
 import React from 'react';
-import { AuthContextConsumer } from "../context/AuthContext";
 
 export enum ErrorPageType {
   MissingProjectId = 'missingProjectId',
@@ -24,26 +23,19 @@ const UnableToGetPreviewApiKeyErrorPageContent: React.FunctionComponent = () => 
 );
 
 export const ErrorPage: React.FunctionComponent<IErrorPageProps> = ({ type }) => (
-  <AuthContextConsumer>
-    {authContext => (
-      <>
-        <div className="navigation-bar">
-          <nav className="navigation-bar__app-menu"/>
-          <div className="navigation-bar__user-menu">
-            <button className="navigation-bar__user-menu-button" onClick={authContext.logout}>Sign Out</button>
-          </div>
-        </div>
+  <>
+    <div className="navigation-bar">
+      <nav className="navigation-bar__app-menu"/>
+    </div>
 
-        <p>Ooops, there was some error!</p>
-        {type === ErrorPageType.MissingProjectId && (
-          <MissingProjectIdErrorPageContent/>
-        )}
-
-        {type === ErrorPageType.UnableToGetPreviewApiKey && (
-          <UnableToGetPreviewApiKeyErrorPageContent/>
-        )}
-      </>
+    <p>Ooops, there was some error!</p>
+    {type === ErrorPageType.MissingProjectId && (
+      <MissingProjectIdErrorPageContent/>
     )}
-  </AuthContextConsumer>
+
+    {type === ErrorPageType.UnableToGetPreviewApiKey && (
+      <UnableToGetPreviewApiKeyErrorPageContent/>
+    )}
+  </>
 );
 
