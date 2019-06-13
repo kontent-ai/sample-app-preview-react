@@ -22,7 +22,12 @@
 	background-color: #444444;
 }
 
-.navigation-bar__app-menu-button.active {
+.navigation-bar__app-menu-button--active {
+	background-color: #F6F6F6;
+	color: #333333;
+}
+
+.navigation-bar__app-menu-button--active:hover {
 	background-color: #F6F6F6;
 	color: #333333;
 }
