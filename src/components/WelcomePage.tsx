@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-  AppContextConsumer
-} from '../context/AppContext';
+import { AppContextConsumer } from '../context/AppContext';
 import { PageContent } from './PageContent';
 import { ArticleExampleContentType } from "../models/Article";
 

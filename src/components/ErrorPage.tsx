@@ -13,9 +13,7 @@ interface IErrorPageProps {
 const projectIdUrlTemplate = "https://kentico.github.io/cloud-sample-app-preview-react/<your_project_id>";
 
 const MissingProjectIdErrorPageContent: React.FunctionComponent = () => (
-  <>
-    <p>Didn't you forget to provide Project Id in the url? E.g. <i>{projectIdUrlTemplate}</i></p>
-  </>
+  <p>Didn't you forget to provide Project Id in the url? E.g. <i>{projectIdUrlTemplate}</i></p>
 );
 
 const UnableToGetPreviewApiKeyErrorPageContent: React.FunctionComponent = () => (

@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-  AppContextConsumer,
-} from '../../context/AppContext';
+import { AppContextConsumer } from '../../context/AppContext';
 import { PageContent } from '../PageContent';
 import './ProductsPage.css';
 import { ProductExampleContentType } from "../../models/Product";
@@ -25,7 +23,7 @@ class ProductsPage extends React.PureComponent<IProductsPageProps> {
     return (
       <PageContent title="Products">
         <div className={classNames("products-page", {
-          "products-page--is-single-product": isSingleProduct,
+          "products-page--has-single-product": isSingleProduct,
         })}>
           {products.map((product: ProductExampleContentType) => (
             <ProductCard
