@@ -28,7 +28,7 @@ const ensureDeliveryClient = (projectId: string, previewApiKey: string): void =>
 export const getAllArticles = (projectId: string, previewApiKey: string): Promise<Array<ArticleExampleContentType>> => {
   ensureDeliveryClient(projectId, previewApiKey);
   if (!deliveryClient) {
-    throw 'Delivery client is not initialized yet';
+    throw new Error('Delivery client is not initialized yet');
   }
 
   return deliveryClient.items<ArticleExampleContentType>()
@@ -46,7 +46,7 @@ export const getAllArticles = (projectId: string, previewApiKey: string): Promis
 export const getProductsPage = (projectId: string, previewApiKey: string): Promise<Array<LandingPageExampleContentType>> => {
   ensureDeliveryClient(projectId, previewApiKey);
   if (!deliveryClient) {
-    throw 'Delivery client is not initialized yet';
+    throw new Error('Delivery client is not initialized yet');
   }
 
   return deliveryClient.items<LandingPageExampleContentType>()
