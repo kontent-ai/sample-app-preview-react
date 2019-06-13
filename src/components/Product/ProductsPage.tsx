@@ -29,7 +29,7 @@ class ProductsPage extends React.PureComponent<IProductsPageProps> {
             <ProductCard
               title={product.name.value}
               pictureUrl={product.image.assets[0] ? product.image.assets[0].url : ''}
-              productId={product.system.codename}
+              productId={product.url.value}
               projectId={projectId}
               key={product.system.id}
             />)

@@ -38,7 +38,7 @@ class ProductDetailsPage extends React.PureComponent<IProductDetailsPage> {
         </PageContent>);
     }
 
-    return null;
+    return <p>There's no such product</p>;
   }
 }
 
@@ -52,7 +52,7 @@ const ProductDetailsPageConnected: React.FunctionComponent<IProductDetailsPageCo
   <AppContextConsumer>
     {appContext => (
       <ProductDetailsPage
-        product={appContext.products.filter(product => product.system.codename === match.params.productId)[0]}
+        product={appContext.products.filter(product => product.url.value === match.params.productId)[0]}
         init={appContext.loadProducts}
       />
     )}

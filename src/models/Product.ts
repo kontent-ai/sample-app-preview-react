@@ -12,6 +12,7 @@ export class ProductExampleContentType extends ContentItem {
     public name!: Fields.TextField;
     public image!: Fields.AssetsField;
     public taxonomyCategorizingTargetAudience!: Fields.TaxonomyField;
+    public url!: Fields.UrlSlugField;
     constructor() {
         super({
             propertyResolver: ((fieldName: string) => {
