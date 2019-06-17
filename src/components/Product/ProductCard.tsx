@@ -12,11 +12,13 @@ interface IProductCardPlaceholderProps {
 
 const ProductCardPlaceholder: React.FunctionComponent<IProductCardPlaceholderProps> = ({ imageSource, title }) => (
   <>
-    <img
-      className="product-card__thumbnail"
-      src={imageSource}
-      alt="product thumbnail"
-    />
+    <div className="product-card__thumbnail-wrapper">
+      <img
+        className="product-card__thumbnail"
+        src={imageSource}
+        alt="product thumbnail"
+      />
+    </div>
     {title ? title : 'Untitled content item'}
   </>
 );
