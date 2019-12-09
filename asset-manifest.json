@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/cloud-sample-app-preview-react/static/css/main.34c04e2e.chunk.css",
-    "main.js": "/cloud-sample-app-preview-react/static/js/main.b5286e2e.chunk.js",
-    "main.js.map": "/cloud-sample-app-preview-react/static/js/main.b5286e2e.chunk.js.map",
-    "runtime~main.js": "/cloud-sample-app-preview-react/static/js/runtime~main.101a9e22.js",
-    "runtime~main.js.map": "/cloud-sample-app-preview-react/static/js/runtime~main.101a9e22.js.map",
-    "static/js/2.a1575356.chunk.js": "/cloud-sample-app-preview-react/static/js/2.a1575356.chunk.js",
-    "static/js/2.a1575356.chunk.js.map": "/cloud-sample-app-preview-react/static/js/2.a1575356.chunk.js.map",
-    "index.html": "/cloud-sample-app-preview-react/index.html",
-    "precache-manifest.e653007fe41e6d6353fb62ab2a5f8988.js": "/cloud-sample-app-preview-react/precache-manifest.e653007fe41e6d6353fb62ab2a5f8988.js",
-    "service-worker.js": "/cloud-sample-app-preview-react/service-worker.js",
-    "static/css/main.34c04e2e.chunk.css.map": "/cloud-sample-app-preview-react/static/css/main.34c04e2e.chunk.css.map"
+    "main.css": "/kontent-sample-app-preview-react/static/css/main.47c6f834.chunk.css",
+    "main.js": "/kontent-sample-app-preview-react/static/js/main.4b876cc0.chunk.js",
+    "main.js.map": "/kontent-sample-app-preview-react/static/js/main.4b876cc0.chunk.js.map",
+    "runtime~main.js": "/kontent-sample-app-preview-react/static/js/runtime~main.37139e7d.js",
+    "runtime~main.js.map": "/kontent-sample-app-preview-react/static/js/runtime~main.37139e7d.js.map",
+    "static/js/2.c39c11d0.chunk.js": "/kontent-sample-app-preview-react/static/js/2.c39c11d0.chunk.js",
+    "static/js/2.c39c11d0.chunk.js.map": "/kontent-sample-app-preview-react/static/js/2.c39c11d0.chunk.js.map",
+    "index.html": "/kontent-sample-app-preview-react/index.html",
+    "precache-manifest.abe15509d8275c62b9b8c4639adbe66b.js": "/kontent-sample-app-preview-react/precache-manifest.abe15509d8275c62b9b8c4639adbe66b.js",
+    "service-worker.js": "/kontent-sample-app-preview-react/service-worker.js",
+    "static/css/main.47c6f834.chunk.css.map": "/kontent-sample-app-preview-react/static/css/main.47c6f834.chunk.css.map"
   }
 }
