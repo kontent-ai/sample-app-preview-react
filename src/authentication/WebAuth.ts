@@ -4,7 +4,7 @@ import {
   logoutOptions,
 } from './authOptions';
 import { Auth0RedirectUriStorageKey } from "../constants/localStorageKeys";
-import { RootRoute } from "../constants/routePaths";
+import { RootRoute, DeployedProjectRootRoute } from "../constants/routePaths";
 
 export interface IAccessToken {
   readonly accessToken: string;
@@ -43,8 +43,8 @@ export class WebAuth implements IWebAuth {
     const redirectUri = redirectUriFromStorage ? redirectUriFromStorage : RootRoute;
 
     // todo make nicer
-    if (redirectUri.startsWith("/cloud-sample-app-preview-react")) {
-      return redirectUri.slice(31);
+    if (redirectUri.startsWith(DeployedProjectRootRoute)) {
+      return redirectUri.slice(DeployedProjectRootRoute.length + 1);
     }
 
     return redirectUri;
