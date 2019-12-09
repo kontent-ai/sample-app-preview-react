@@ -28,7 +28,7 @@ class ProductsPage extends React.PureComponent<IProductsPageProps> {
           {products.map((product: ProductExampleContentType) => (
             <ProductCard
               title={product.name.value}
-              pictureUrl={product.image.assets[0] ? product.image.assets[0].url : ''}
+              pictureUrl={product.image.value[0] ? product.image.value[0].url : ''}
               productId={product.url.value}
               projectId={projectId}
               key={product.system.id}

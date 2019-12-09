@@ -1,5 +1,5 @@
 
-import { ContentItem, Fields } from 'kentico-cloud-delivery';
+import { ContentItem, Elements } from '@kentico/kontent-delivery';
 import { ProductExampleContentType } from "./Product";
 
 /**
@@ -10,8 +10,8 @@ import { ProductExampleContentType } from "./Product";
  */
 export class LandingPageExampleContentType extends ContentItem {
     public productList!: ProductExampleContentType[];
-    public title!: Fields.TextField;
-    public url!: Fields.UrlSlugField;
+    public title!: Elements.TextElement;
+    public url!: Elements.UrlSlugElement;
     constructor() {
         super({
             propertyResolver: ((fieldName: string) => {

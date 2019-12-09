@@ -1,5 +1,5 @@
 import { ArticleExampleContentType } from "../models/Article";
-import { DeliveryClient, IDeliveryClient, TypeResolver } from "kentico-cloud-delivery";
+import { DeliveryClient, IDeliveryClient, TypeResolver } from "@kentico/kontent-delivery";
 import { LandingPageExampleContentType } from "../models/LandingPage";
 import { ProductExampleContentType } from "../models/Product";
 
@@ -11,16 +11,19 @@ const ensureDeliveryClient = (projectId: string, previewApiKey: string): void =>
   }
 
   deliveryClient = new DeliveryClient({
-    enablePreviewMode: true,
-    enableAdvancedLogging: true,
     previewApiKey,
     projectId: projectId,
-    basePreviewUrl: process.env.REACT_APP_DELIVER_URL,
+    proxy: {
+      basePreviewUrl: process.env.REACT_APP_DELIVER_URL,
+    },
     typeResolvers: [
       new TypeResolver('article_example_content_type', () => new ArticleExampleContentType()),
       new TypeResolver('landing_page_example_content_type', () => new LandingPageExampleContentType()),
       new TypeResolver('product_example_content_type', () => new ProductExampleContentType()),
     ],
+    globalQueryConfig: {
+      usePreviewMode: true,
+    }
   });
 };
 

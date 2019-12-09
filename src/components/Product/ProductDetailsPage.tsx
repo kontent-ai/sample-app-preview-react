@@ -20,20 +20,20 @@ class ProductDetailsPage extends React.PureComponent<IProductDetailsPage> {
   render() {
     const { product } = this.props;
     if (product) {
-      const pictureUrl = product.image.assets[0] ? product.image.assets[0].url : '';
+      const pictureUrl = product.image.value[0] ? product.image.value[0].url : '';
       return (
         <PageContent title={product.name.value}>
           {pictureUrl && (
             <img
               className="product-details__image"
               alt={product.name.value}
-              src={product.image.assets[0] ? product.image.assets[0].url : ''}
+              src={product.image.value[0] ? product.image.value[0].url : ''}
             />
           )}
 
           <div
             className="product-details__description"
-            dangerouslySetInnerHTML={{ __html: product.description.getHtml() }}
+            dangerouslySetInnerHTML={{ __html: product.description.resolveHtml() }}
           />
         </PageContent>);
     }
