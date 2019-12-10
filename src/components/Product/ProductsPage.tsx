@@ -25,7 +25,7 @@ class ProductsPage extends React.PureComponent<IProductsPageProps> {
         <div className={classNames("products-page", {
           "products-page--has-single-product": isSingleProduct,
         })}>
-          {products.map((product: ProductExampleContentType) => (
+          {products && products.map((product: ProductExampleContentType) => (
             <ProductCard
               title={product.name.value}
               pictureUrl={product.image.value[0] ? product.image.value[0].url : ''}
