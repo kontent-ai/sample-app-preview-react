@@ -1,15 +1,22 @@
 {
   "files": {
-    "main.css": "/kontent-sample-app-preview-react/static/css/main.47c6f834.chunk.css",
-    "main.js": "/kontent-sample-app-preview-react/static/js/main.7db8eb28.chunk.js",
-    "main.js.map": "/kontent-sample-app-preview-react/static/js/main.7db8eb28.chunk.js.map",
-    "runtime~main.js": "/kontent-sample-app-preview-react/static/js/runtime~main.37139e7d.js",
-    "runtime~main.js.map": "/kontent-sample-app-preview-react/static/js/runtime~main.37139e7d.js.map",
-    "static/js/2.d27e295f.chunk.js": "/kontent-sample-app-preview-react/static/js/2.d27e295f.chunk.js",
-    "static/js/2.d27e295f.chunk.js.map": "/kontent-sample-app-preview-react/static/js/2.d27e295f.chunk.js.map",
+    "main.css": "/kontent-sample-app-preview-react/static/css/main.86a03edb.chunk.css",
+    "main.js": "/kontent-sample-app-preview-react/static/js/main.2352b0db.chunk.js",
+    "main.js.map": "/kontent-sample-app-preview-react/static/js/main.2352b0db.chunk.js.map",
+    "runtime-main.js": "/kontent-sample-app-preview-react/static/js/runtime-main.48c76ac5.js",
+    "runtime-main.js.map": "/kontent-sample-app-preview-react/static/js/runtime-main.48c76ac5.js.map",
+    "static/js/2.1b651f50.chunk.js": "/kontent-sample-app-preview-react/static/js/2.1b651f50.chunk.js",
+    "static/js/2.1b651f50.chunk.js.map": "/kontent-sample-app-preview-react/static/js/2.1b651f50.chunk.js.map",
     "index.html": "/kontent-sample-app-preview-react/index.html",
-    "precache-manifest.585183948ae46addcb9ea39fe31bbfa7.js": "/kontent-sample-app-preview-react/precache-manifest.585183948ae46addcb9ea39fe31bbfa7.js",
+    "precache-manifest.da1c41643b664c3df0370b8a20cb5605.js": "/kontent-sample-app-preview-react/precache-manifest.da1c41643b664c3df0370b8a20cb5605.js",
     "service-worker.js": "/kontent-sample-app-preview-react/service-worker.js",
-    "static/css/main.47c6f834.chunk.css.map": "/kontent-sample-app-preview-react/static/css/main.47c6f834.chunk.css.map"
-  }
+    "static/css/main.86a03edb.chunk.css.map": "/kontent-sample-app-preview-react/static/css/main.86a03edb.chunk.css.map",
+    "static/js/2.1b651f50.chunk.js.LICENSE": "/kontent-sample-app-preview-react/static/js/2.1b651f50.chunk.js.LICENSE"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.48c76ac5.js",
+    "static/js/2.1b651f50.chunk.js",
+    "static/css/main.86a03edb.chunk.css",
+    "static/js/main.2352b0db.chunk.js"
+  ]
 }
