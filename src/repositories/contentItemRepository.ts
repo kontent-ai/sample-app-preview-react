@@ -21,7 +21,7 @@ const ensureDeliveryClient = (projectId: string, previewApiKey: string): void =>
       new TypeResolver('article_example_content_type', () => new ArticleExampleContentType()),
       new TypeResolver('landing_page_example_content_type', () => new LandingPageExampleContentType()),
       new TypeResolver('product_example_content_type', () => new ProductExampleContentType()),
-      new TypeResolver('testimonial', () => new Testimonial()),
+      new TypeResolver('testimonial___critic_favorite', () => new Testimonial()),
     ],
     globalQueryConfig: {
       usePreviewMode: true,

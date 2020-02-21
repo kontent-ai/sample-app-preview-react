@@ -115,7 +115,6 @@ export class AppContextComponent extends React.PureComponent<{}, IAppContextStat
   };
 
   private _loadProductsData = async () => {
-    console.log('products', this.state.productsByUrlSlug);
     const productsPage = await getProductsPage(this.state.projectId, this.state.previewApiKey);
     if (productsPage && productsPage[0]) {
       const newProducts = productsPage[0].productList.value as Array<ProductExampleContentType>;
@@ -132,7 +131,6 @@ export class AppContextComponent extends React.PureComponent<{}, IAppContextStat
   };
 
   private _loadProductData = async (productUrlSlug: string) => {
-    console.log('products', this.state.productsByUrlSlug);
     const product = await getProductDetailsByUrlSlug(this.state.projectId, this.state.previewApiKey, productUrlSlug);
     if (product) {
       this.setState((state) => ({ productsByUrlSlug: ({...Object.assign({}, state.productsByUrlSlug), [product.url.value]: product})}));

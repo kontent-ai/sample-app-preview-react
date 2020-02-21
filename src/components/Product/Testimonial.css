@@ -1,0 +1,34 @@
+.testimonial {
+	display: flex;
+	background-color: #E8E8E8;
+	padding: 16px;
+	border-radius: 18px;
+	margin-bottom: 36px;
+}
+
+.testimonial__body-wrapper {
+	display: flex;
+	flex-direction: column;
+	padding-top: 12px;
+	padding-right: 12px;
+}
+
+.testimonial__image {
+	max-width: 100%;
+	max-height: 100px;
+	padding-right: 12px;
+}
+
+.testimonial__body-heading {
+	font-size: larger;
+	font-weight: bold;
+}
+
+
+.testimonial__body-text {
+	font-size: smaller;
+}
+
+.testimonial__body-text p {
+	margin-top: 6px;
+}

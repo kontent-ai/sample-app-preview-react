@@ -11,6 +11,14 @@ export class Testimonial extends ContentItem {
   public testimonialText!: Elements.RichTextElement;
   public image!: Elements.AssetsElement;
   public title!: Elements.TextElement;
+
+  getImageElement = (item: Testimonial): string => {
+    if (item.image && item.image.value[0]) {
+      return `<img class='testimonial__image' src="${item.image.value[0].url}"/>`
+    }
+    return '';
+  };
+
   constructor() {
     super({
       propertyResolver: ((elementName: string) => {
@@ -18,6 +26,15 @@ export class Testimonial extends ContentItem {
           return 'testimonialText';
         }
         return elementName;
+      }),
+      richTextResolver: ((item: Testimonial) => {
+        return `<div class='testimonial'>
+            ${this.getImageElement(item)}
+            <div class='testimonial__body-wrapper'>
+                <div class='testimonial__body-heading'>${item.title.value}</div>
+                <div class='testimonial__body-text'>${item.testimonialText.value}</div>
+            </div>
+          </div>`;
       })
     });
   }
