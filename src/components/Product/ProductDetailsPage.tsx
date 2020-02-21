@@ -52,8 +52,8 @@ const ProductDetailsPageConnected: React.FunctionComponent<IProductDetailsPageCo
   <AppContextConsumer>
     {appContext => (
       <ProductDetailsPage
-        product={appContext.products.filter(product => product.url.value === match.params.productId)[0]}
-        init={appContext.loadProducts}
+        product={appContext.productsByUrlSlug[match.params.productUrlSlug]}
+        init={() => appContext.loadProduct(match.params.productUrlSlug)}
       />
     )}
   </AppContextConsumer>

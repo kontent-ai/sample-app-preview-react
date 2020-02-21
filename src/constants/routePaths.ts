@@ -7,12 +7,12 @@ export const CallbackRoute = `${RootRoute}callback`;
 
 export const ProjectRoute = `${RootRoute}:projectId(${uuidPattern})`;
 export const ProductsRoute = `${ProjectRoute}/products`;
-export const ProductDetailsRoute = `${ProductsRoute}/:productId`;
+export const ProductDetailsRoute = `${ProductsRoute}/:productUrlSlug`;
 
 export type ProjectRouteParams = {
   readonly projectId: string;
 };
 
 export type ProductDetailsRouteParams = ProjectRouteParams & {
-  readonly productId: string;
+  readonly productUrlSlug: string;
 }

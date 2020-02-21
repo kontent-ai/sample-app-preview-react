@@ -46,7 +46,7 @@ const ProductsPageConnected = () => (
       <ProductsPage
         init={appContext.loadProducts}
         projectId={appContext.projectId}
-        products={appContext.products}
+        products={appContext.getProducts()}
       />
     )}
   </AppContextConsumer>

@@ -7,16 +7,15 @@ import { ContentItem, Elements } from '@kentico/kontent-delivery';
  *
  * Tip: You can replace 'ContentItem' with another generated class to fully leverage strong typing.
  */
-export class LandingPageExampleContentType extends ContentItem {
-  public body!: Elements.RichTextElement;
-  public productList!: Elements.LinkedItemsElement<ContentItem>;
+export class Testimonial extends ContentItem {
+  public testimonialText!: Elements.RichTextElement;
+  public image!: Elements.AssetsElement;
   public title!: Elements.TextElement;
-  public url!: Elements.UrlSlugElement;
   constructor() {
     super({
       propertyResolver: ((elementName: string) => {
-        if (elementName === 'product_list') {
-          return 'productList';
+        if (elementName === 'testimonial_text') {
+          return 'testimonialText';
         }
         return elementName;
       })

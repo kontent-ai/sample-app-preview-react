@@ -36,7 +36,7 @@ export const ProductCard: React.FunctionComponent<IProductCardProps> =
     return (
       <div className="product-card">
         {productId ? (
-            <Link to={buildPath<ProductDetailsRouteParams>(ProductDetailsRoute, { projectId, productId })}>
+            <Link to={buildPath<ProductDetailsRouteParams>(ProductDetailsRoute, { projectId, productUrlSlug: productId })}>
               <ProductCardPlaceholder imageSource={imageSource} title={title}/>
             </Link>
           ) : (
