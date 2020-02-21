@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/kontent-sample-app-preview-react/static/css/main.86a03edb.chunk.css",
-    "main.js": "/kontent-sample-app-preview-react/static/js/main.2352b0db.chunk.js",
-    "main.js.map": "/kontent-sample-app-preview-react/static/js/main.2352b0db.chunk.js.map",
+    "main.css": "/kontent-sample-app-preview-react/static/css/main.2796af35.chunk.css",
+    "main.js": "/kontent-sample-app-preview-react/static/js/main.454e9bf8.chunk.js",
+    "main.js.map": "/kontent-sample-app-preview-react/static/js/main.454e9bf8.chunk.js.map",
     "runtime-main.js": "/kontent-sample-app-preview-react/static/js/runtime-main.48c76ac5.js",
     "runtime-main.js.map": "/kontent-sample-app-preview-react/static/js/runtime-main.48c76ac5.js.map",
-    "static/js/2.1b651f50.chunk.js": "/kontent-sample-app-preview-react/static/js/2.1b651f50.chunk.js",
-    "static/js/2.1b651f50.chunk.js.map": "/kontent-sample-app-preview-react/static/js/2.1b651f50.chunk.js.map",
+    "static/js/2.0185dff1.chunk.js": "/kontent-sample-app-preview-react/static/js/2.0185dff1.chunk.js",
+    "static/js/2.0185dff1.chunk.js.map": "/kontent-sample-app-preview-react/static/js/2.0185dff1.chunk.js.map",
     "index.html": "/kontent-sample-app-preview-react/index.html",
-    "precache-manifest.da1c41643b664c3df0370b8a20cb5605.js": "/kontent-sample-app-preview-react/precache-manifest.da1c41643b664c3df0370b8a20cb5605.js",
+    "precache-manifest.efaf828873b885773bec820b397e6289.js": "/kontent-sample-app-preview-react/precache-manifest.efaf828873b885773bec820b397e6289.js",
     "service-worker.js": "/kontent-sample-app-preview-react/service-worker.js",
-    "static/css/main.86a03edb.chunk.css.map": "/kontent-sample-app-preview-react/static/css/main.86a03edb.chunk.css.map",
-    "static/js/2.1b651f50.chunk.js.LICENSE": "/kontent-sample-app-preview-react/static/js/2.1b651f50.chunk.js.LICENSE"
+    "static/css/main.2796af35.chunk.css.map": "/kontent-sample-app-preview-react/static/css/main.2796af35.chunk.css.map",
+    "static/js/2.0185dff1.chunk.js.LICENSE": "/kontent-sample-app-preview-react/static/js/2.0185dff1.chunk.js.LICENSE"
   },
   "entrypoints": [
     "static/js/runtime-main.48c76ac5.js",
-    "static/js/2.1b651f50.chunk.js",
-    "static/css/main.86a03edb.chunk.css",
-    "static/js/main.2352b0db.chunk.js"
+    "static/js/2.0185dff1.chunk.js",
+    "static/css/main.2796af35.chunk.css",
+    "static/js/main.454e9bf8.chunk.js"
   ]
 }
