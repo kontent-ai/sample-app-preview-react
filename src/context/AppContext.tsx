@@ -4,7 +4,7 @@ import { LoadingStatus } from '../enums/LoadingStatus';
 import { PollingStatus } from '../enums/PollingStatus';
 import { ArticleExampleContentType } from '../models/Article';
 import { ProductExampleContentType } from '../models/Product';
-import { getAllArticles, getProductsPage } from '../repositories/contentItemRepository';
+import { getAllArticles, getProductsPage, getProductDetailsByUrlSlug } from '../repositories/contentItemRepository';
 
 interface IAppContextState {
   readonly dataLoadingStatus: LoadingStatus;
@@ -14,12 +14,14 @@ interface IAppContextState {
   readonly projectId: string;
   readonly projectIdLoadingStatus: LoadingStatus;
   readonly articles: Array<ArticleExampleContentType>;
-  readonly products: Array<ProductExampleContentType>;
+  readonly productsByUrlSlug: {[key: string]: ProductExampleContentType};
 }
 
 interface IAppContextProps {
   readonly loadWelcomePage: () => void;
+  readonly loadProduct: (productUrlSlug: string) => void;
   readonly loadProducts: () => void;
+  readonly getProducts: () => Array<ProductExampleContentType>;
   readonly setProjectId: (projectId: string) => void;
   readonly setLoadingStatus: (loadingStatus: LoadingStatus) => void;
   readonly setProjectIdLoadingStatus: (projectIdLoadingStatus: LoadingStatus) => void;
@@ -38,9 +40,11 @@ const defaultAppContext: IAppContext = {
   projectId: '',
   projectIdLoadingStatus: LoadingStatus.NotLoaded,
   articles: new Array<ArticleExampleContentType>(),
-  products: new Array<ProductExampleContentType>(),
+  productsByUrlSlug: {},
   loadWelcomePage: () => undefined,
+  loadProduct: () => undefined,
   loadProducts: () => undefined,
+  getProducts: () => [],
   setProjectId: () => undefined,
   setLoadingStatus: () => undefined,
   setProjectIdLoadingStatus: () => undefined,
@@ -62,7 +66,7 @@ export class AppContextComponent extends React.PureComponent<{}, IAppContextStat
     projectId: '',
     projectIdLoadingStatus: LoadingStatus.NotLoaded,
     articles: new Array<ArticleExampleContentType>(),
-    products: new Array<ProductExampleContentType>(),
+    productsByUrlSlug: {},
   };
 
   private _dataPollingInterval: NodeJS.Timer | null = null;
@@ -113,7 +117,11 @@ export class AppContextComponent extends React.PureComponent<{}, IAppContextStat
   private _loadProductsData = async () => {
     const productsPage = await getProductsPage(this.state.projectId, this.state.previewApiKey);
     if (productsPage && productsPage[0]) {
-      this.setState({ products: productsPage[0].productList.value as Array<ProductExampleContentType> });
+      const newProducts = productsPage[0].productList.value as Array<ProductExampleContentType>;
+      this.setState((state) => ({ productsByUrlSlug: newProducts
+          .reduce((byId, product: ProductExampleContentType) => ({...byId, [product.url.value]: product}),
+            Object.assign({}, state.productsByUrlSlug))
+      }));
     }
   };
 
@@ -122,9 +130,23 @@ export class AppContextComponent extends React.PureComponent<{}, IAppContextStat
     await this._loadProductsData();
   };
 
+  private _loadProductData = async (productUrlSlug: string) => {
+    const product = await getProductDetailsByUrlSlug(this.state.projectId, this.state.previewApiKey, productUrlSlug);
+    if (product) {
+      this.setState((state) => ({ productsByUrlSlug: ({...Object.assign({}, state.productsByUrlSlug), [product.url.value]: product})}));
+    }
+  };
+
+  loadProduct = async (productUrlSlug: string) => {
+    this._startDataPolling(() => this._loadProductData(productUrlSlug));
+    await this._loadProductData(productUrlSlug);
+  };
+
+  getProducts = (): Array<ProductExampleContentType> => Object.values(this.state.productsByUrlSlug);
+
   render() {
     const {
-      products,
+      productsByUrlSlug,
       articles,
       projectId,
       dataLoadingStatus,
@@ -142,9 +164,11 @@ export class AppContextComponent extends React.PureComponent<{}, IAppContextStat
       projectId,
       projectIdLoadingStatus,
       articles,
-      products,
+      productsByUrlSlug,
       loadWelcomePage: this.loadWelcomePage,
+      loadProduct: this.loadProduct,
       loadProducts: this.loadProducts,
+      getProducts: this.getProducts,
       setProjectId: this.setProjectId,
       setLoadingStatus: this.setLoadingStatus,
       setProjectIdLoadingStatus: this.setProjectIdLoadingStatus,
