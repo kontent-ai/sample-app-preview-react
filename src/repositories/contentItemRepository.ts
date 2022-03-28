@@ -2,8 +2,11 @@ import { ArticleExampleContentType } from "../models/article_example_content_typ
 import { camelCasePropertyNameResolver, createDeliveryClient, IDeliveryClient} from "@kentico/kontent-delivery";
 import { LandingPageExampleContentType } from "../models/landing_page_example_content_type";
 import { ProductExampleContentType } from "../models/product_example_content_type";
+import packageInfo from "../../package.json";
 
 let deliveryClient: IDeliveryClient | null = null;
+
+const sourceTrackingHeaderName = "X-KC-SOURCE";
 
 const ensureDeliveryClient = (projectId: string, previewApiKey: string): void => {
   if (deliveryClient) {
@@ -19,6 +22,12 @@ const ensureDeliveryClient = (projectId: string, previewApiKey: string): void =>
     defaultQueryConfig: {
       usePreviewMode: true
     },
+    globalHeaders: (_queryConfig) => [
+      {
+        header: sourceTrackingHeaderName,
+        value: `${packageInfo.name};${packageInfo.version}`,
+      },
+    ],
     propertyNameResolver: camelCasePropertyNameResolver
   });
 };

@@ -1,6 +1,6 @@
 {
-  "name": "kontent-preview-sample-app",
-  "version": "0.1.0",
+  "name": "@kentico/kontent-sample-app-preview-react",
+  "version": "0.2.0",
   "private": true,
   "homepage": "https://kentico.github.io/kontent-sample-app-preview-react/",
   "dependencies": {
