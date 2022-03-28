@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/kontent-sample-app-preview-react/static/css/main.43c5cc67.chunk.css",
-    "main.js": "/kontent-sample-app-preview-react/static/js/main.4b342e60.chunk.js",
-    "main.js.map": "/kontent-sample-app-preview-react/static/js/main.4b342e60.chunk.js.map",
-    "runtime-main.js": "/kontent-sample-app-preview-react/static/js/runtime-main.48c76ac5.js",
-    "runtime-main.js.map": "/kontent-sample-app-preview-react/static/js/runtime-main.48c76ac5.js.map",
-    "static/js/2.0185dff1.chunk.js": "/kontent-sample-app-preview-react/static/js/2.0185dff1.chunk.js",
-    "static/js/2.0185dff1.chunk.js.map": "/kontent-sample-app-preview-react/static/js/2.0185dff1.chunk.js.map",
+    "main.css": "/kontent-sample-app-preview-react/static/css/main.6f589023.chunk.css",
+    "main.js": "/kontent-sample-app-preview-react/static/js/main.03335d2f.chunk.js",
+    "main.js.map": "/kontent-sample-app-preview-react/static/js/main.03335d2f.chunk.js.map",
+    "runtime-main.js": "/kontent-sample-app-preview-react/static/js/runtime-main.e462b2ec.js",
+    "runtime-main.js.map": "/kontent-sample-app-preview-react/static/js/runtime-main.e462b2ec.js.map",
+    "static/js/2.b8d2675d.chunk.js": "/kontent-sample-app-preview-react/static/js/2.b8d2675d.chunk.js",
+    "static/js/2.b8d2675d.chunk.js.map": "/kontent-sample-app-preview-react/static/js/2.b8d2675d.chunk.js.map",
     "index.html": "/kontent-sample-app-preview-react/index.html",
-    "precache-manifest.d86b160d164ffe9313c89efd76d1f980.js": "/kontent-sample-app-preview-react/precache-manifest.d86b160d164ffe9313c89efd76d1f980.js",
+    "precache-manifest.5527912b7151ccd90fda67c728db5f0b.js": "/kontent-sample-app-preview-react/precache-manifest.5527912b7151ccd90fda67c728db5f0b.js",
     "service-worker.js": "/kontent-sample-app-preview-react/service-worker.js",
-    "static/css/main.43c5cc67.chunk.css.map": "/kontent-sample-app-preview-react/static/css/main.43c5cc67.chunk.css.map",
-    "static/js/2.0185dff1.chunk.js.LICENSE": "/kontent-sample-app-preview-react/static/js/2.0185dff1.chunk.js.LICENSE"
+    "static/css/main.6f589023.chunk.css.map": "/kontent-sample-app-preview-react/static/css/main.6f589023.chunk.css.map",
+    "static/js/2.b8d2675d.chunk.js.LICENSE.txt": "/kontent-sample-app-preview-react/static/js/2.b8d2675d.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.48c76ac5.js",
-    "static/js/2.0185dff1.chunk.js",
-    "static/css/main.43c5cc67.chunk.css",
-    "static/js/main.4b342e60.chunk.js"
+    "static/js/runtime-main.e462b2ec.js",
+    "static/js/2.b8d2675d.chunk.js",
+    "static/css/main.6f589023.chunk.css",
+    "static/js/main.03335d2f.chunk.js"
   ]
 }
