@@ -5,7 +5,7 @@ import {
 import './ProductDetailsPage.css';
 import './Testimonial.css';
 import { ProductDetailsRouteParams } from "../../constants/routePaths";
-import { ProductExampleContentType } from "../../models/Product";
+import { ProductExampleContentType } from "../../models/product_example_content_type";
 import { PageContent } from "../PageContent";
 
 interface IProductDetailsPage {
@@ -21,20 +21,20 @@ class ProductDetailsPage extends React.PureComponent<IProductDetailsPage> {
   render() {
     const { product } = this.props;
     if (product) {
-      const pictureUrl = product.image.value[0] ? product.image.value[0].url : '';
+      const pictureUrl = product.elements.image.value[0] ? product.elements.image.value[0].url : '';
       return (
-        <PageContent title={product.name.value}>
+        <PageContent title={product.elements.name.value}>
           {pictureUrl && (
             <img
               className="product-details__image"
-              alt={product.name.value}
-              src={product.image.value[0] ? product.image.value[0].url : ''}
+              alt={product.elements.name.value}
+              src={product.elements.image.value[0] ? product.elements.image.value[0].url : ''}
             />
           )}
 
           <div
             className="product-details__description"
-            dangerouslySetInnerHTML={{ __html: product.description.resolveHtml() }}
+            dangerouslySetInnerHTML={{ __html: product.elements.description.value }}
           />
         </PageContent>);
     }

@@ -2,7 +2,7 @@ import React from 'react';
 import { AppContextConsumer } from '../../context/AppContext';
 import { PageContent } from '../PageContent';
 import './ProductsPage.css';
-import { ProductExampleContentType } from "../../models/Product";
+import { ProductExampleContentType } from "../../models/product_example_content_type";
 import { ProductCard } from "./ProductCard";
 import classNames from "classnames";
 
@@ -27,9 +27,9 @@ class ProductsPage extends React.PureComponent<IProductsPageProps> {
         })}>
           {products && products.map((product: ProductExampleContentType) => (
             <ProductCard
-              title={product.name.value}
-              pictureUrl={product.image.value[0] ? product.image.value[0].url : ''}
-              productId={product.url.value}
+              title={product.elements.name.value}
+              pictureUrl={product.elements.image.value[0] ? product.elements.image.value[0].url : ''}
+              productId={product.elements.url.value}
               projectId={projectId}
               key={product.system.id}
             />)

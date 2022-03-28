@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "https://kentico.github.io/kontent-sample-app-preview-react/",
   "dependencies": {
-    "@kentico/kontent-delivery": "^8.2.0",
+    "@kentico/kontent-delivery": "^11.7.0",
     "@types/auth0-js": "^9.10.2",
     "@types/classnames": "^2.2.8",
     "@types/jest": "^24.0.13",
@@ -19,7 +19,6 @@
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.0",
     "react-scripts": "^3.3.0",
-    "rxjs": "^6.5.2",
     "typescript": "^3.4.5"
   },
   "scripts": {
