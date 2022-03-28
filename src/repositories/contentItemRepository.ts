@@ -1,31 +1,34 @@
-import { ArticleExampleContentType } from "../models/Article";
-import { DeliveryClient, IDeliveryClient, TypeResolver } from "@kentico/kontent-delivery";
-import { LandingPageExampleContentType } from "../models/LandingPage";
-import { ProductExampleContentType } from "../models/Product";
-import {Testimonial} from "../models/Testimonial";
+import { ArticleExampleContentType } from "../models/article_example_content_type";
+import { camelCasePropertyNameResolver, createDeliveryClient, IDeliveryClient} from "@kentico/kontent-delivery";
+import { LandingPageExampleContentType } from "../models/landing_page_example_content_type";
+import { ProductExampleContentType } from "../models/product_example_content_type";
+import packageInfo from "../../package.json";
 
 let deliveryClient: IDeliveryClient | null = null;
+
+const sourceTrackingHeaderName = "X-KC-SOURCE";
 
 const ensureDeliveryClient = (projectId: string, previewApiKey: string): void => {
   if (deliveryClient) {
     return;
   }
 
-  deliveryClient = new DeliveryClient({
+  deliveryClient = createDeliveryClient({
     previewApiKey,
     projectId: projectId,
     proxy: {
       basePreviewUrl: process.env.REACT_APP_DELIVER_URL,
     },
-    typeResolvers: [
-      new TypeResolver('article_example_content_type', () => new ArticleExampleContentType()),
-      new TypeResolver('landing_page_example_content_type', () => new LandingPageExampleContentType()),
-      new TypeResolver('product_example_content_type', () => new ProductExampleContentType()),
-      new TypeResolver('testimonial___critic_favorite', () => new Testimonial()),
+    defaultQueryConfig: {
+      usePreviewMode: true
+    },
+    globalHeaders: (_queryConfig) => [
+      {
+        header: sourceTrackingHeaderName,
+        value: `${packageInfo.name};${packageInfo.version}`,
+      },
     ],
-    globalQueryConfig: {
-      usePreviewMode: true,
-    }
+    propertyNameResolver: camelCasePropertyNameResolver
   });
 };
 
@@ -40,7 +43,7 @@ export const getAllArticles = (projectId: string, previewApiKey: string): Promis
     .type('article_example_content_type')
     .toPromise()
     .then(response => {
-      return response.items;
+      return response.data.items;
     })
     .catch(reason => {
       console.log(reason);
@@ -58,7 +61,7 @@ export const getProductsPage = (projectId: string, previewApiKey: string): Promi
     .type('landing_page_example_content_type')
     .toPromise()
     .then(response => {
-      return response.items;
+      return response.data.items;
     })
     .catch(reason => {
       console.log(reason);
@@ -77,7 +80,7 @@ export const getProductDetailsByUrlSlug = (projectId: string, previewApiKey: str
     .equalsFilter('elements.url', urlPattern)
     .toPromise()
     .then(response => {
-      return response.firstItem;
+      return response.data.items[0];
     })
     .catch(reason => {
       console.log(reason);

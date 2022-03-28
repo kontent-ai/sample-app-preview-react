@@ -2,8 +2,8 @@ import React from 'react';
 import { clearInterval, setInterval } from 'timers';
 import { LoadingStatus } from '../enums/LoadingStatus';
 import { PollingStatus } from '../enums/PollingStatus';
-import { ArticleExampleContentType } from '../models/Article';
-import { ProductExampleContentType } from '../models/Product';
+import { ArticleExampleContentType } from '../models/article_example_content_type';
+import { ProductExampleContentType } from '../models/product_example_content_type';
 import { getAllArticles, getProductsPage, getProductDetailsByUrlSlug } from '../repositories/contentItemRepository';
 
 interface IAppContextState {
@@ -117,9 +117,9 @@ export class AppContextComponent extends React.PureComponent<{}, IAppContextStat
   private _loadProductsData = async () => {
     const productsPage = await getProductsPage(this.state.projectId, this.state.previewApiKey);
     if (productsPage && productsPage[0]) {
-      const newProducts = productsPage[0].productList.value as Array<ProductExampleContentType>;
+      const newProducts = productsPage[0].elements.productList.linkedItems as Array<ProductExampleContentType>;
       this.setState((state) => ({ productsByUrlSlug: newProducts
-          .reduce((byId, product: ProductExampleContentType) => ({...byId, [product.url.value]: product}),
+          .reduce((byId, product: ProductExampleContentType) => ({...byId, [product.elements.url.value]: product}),
             Object.assign({}, state.productsByUrlSlug))
       }));
     }
@@ -133,7 +133,7 @@ export class AppContextComponent extends React.PureComponent<{}, IAppContextStat
   private _loadProductData = async (productUrlSlug: string) => {
     const product = await getProductDetailsByUrlSlug(this.state.projectId, this.state.previewApiKey, productUrlSlug);
     if (product) {
-      this.setState((state) => ({ productsByUrlSlug: ({...Object.assign({}, state.productsByUrlSlug), [product.url.value]: product})}));
+      this.setState((state) => ({ productsByUrlSlug: ({...Object.assign({}, state.productsByUrlSlug), [product.elements.url.value]: product})}));
     }
   };
 
