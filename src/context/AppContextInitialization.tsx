@@ -68,5 +68,5 @@ const AppContextInitializationConnected = (props: RouteComponentProps) => (
   </AppContextConsumer>
 );
 
-const AppContextInitializationWithRouter = withRouter<RouteComponentProps>(AppContextInitializationConnected);
+const AppContextInitializationWithRouter = withRouter(AppContextInitializationConnected);
 export { AppContextInitializationWithRouter as AppContextInitialization };
