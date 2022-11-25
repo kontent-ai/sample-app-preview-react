@@ -4,9 +4,9 @@ import {
 } from 'auth0-js';
 
 export const authOptions: AuthOptions = {
-  domain: process.env.REACT_APP_AUTH_DOMAIN!,
-  clientID: process.env.REACT_APP_AUTH_CLIENT_ID!,
   audience: 'https://app.kenticocloud.com/',
+  clientID: process.env.REACT_APP_AUTH_CLIENT_ID!,
+  domain: process.env.REACT_APP_AUTH_DOMAIN!,
   redirectUri: process.env.REACT_APP_AUTH_REDIRECT_URL,
   responseType: 'token id_token',
   scope: 'openid',
