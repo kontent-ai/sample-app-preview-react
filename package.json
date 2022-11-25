@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "https://kontent-ai.github.io/sample-app-preview-react/",
   "dependencies": {
-    "@kentico/kontent-delivery": "^11.7.0",
+    "@kontent-ai/delivery-sdk": "^12.4.2",
     "@types/auth0-js": "^9.10.2",
     "@types/classnames": "^2.2.8",
     "@types/jest": "^24.0.13",

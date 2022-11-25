@@ -15,6 +15,6 @@ export const getPreviewApiKey = (authToken: string, projectId: string): Promise<
   const requestContext: IRequestContext = {
     authToken: authToken,
   };
-  const url = `${process.env.REACT_APP_KENTICO_CLOUD_URL}/api/project-management/${projectId}/keys/preview-delivery-api-primary`;
+  const url = `${process.env.REACT_APP_KONTENT_URL}/api/project-management/${projectId}/keys/preview-delivery-api-primary`;
   return restProvider.post(url, null, requestContext);
 };
