@@ -1,5 +1,4 @@
 import React from 'react';
-import { clearInterval, setInterval } from 'timers';
 import { LoadingStatus } from '../enums/LoadingStatus';
 import { PollingStatus } from '../enums/PollingStatus';
 import { ArticleExampleContentType } from '../models/article_example_content_type';
