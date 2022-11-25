@@ -1,9 +1,6 @@
 ---
 name: Bug report
 about: Create a report to help us improve
-title: ''
-labels: ''
-assignees: ''
 
 ---
 
@@ -20,7 +17,7 @@ What went wrong?
 
 ### Expected behavior
 
-What the correct behavior is?
+What is the correct behavior?
 
 ### Test environment
 
