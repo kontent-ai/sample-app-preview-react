@@ -1,22 +1,13 @@
 {
   "files": {
-    "main.css": "/kontent-sample-app-preview-react/static/css/main.6f589023.chunk.css",
-    "main.js": "/kontent-sample-app-preview-react/static/js/main.03335d2f.chunk.js",
-    "main.js.map": "/kontent-sample-app-preview-react/static/js/main.03335d2f.chunk.js.map",
-    "runtime-main.js": "/kontent-sample-app-preview-react/static/js/runtime-main.e462b2ec.js",
-    "runtime-main.js.map": "/kontent-sample-app-preview-react/static/js/runtime-main.e462b2ec.js.map",
-    "static/js/2.b8d2675d.chunk.js": "/kontent-sample-app-preview-react/static/js/2.b8d2675d.chunk.js",
-    "static/js/2.b8d2675d.chunk.js.map": "/kontent-sample-app-preview-react/static/js/2.b8d2675d.chunk.js.map",
-    "index.html": "/kontent-sample-app-preview-react/index.html",
-    "precache-manifest.5527912b7151ccd90fda67c728db5f0b.js": "/kontent-sample-app-preview-react/precache-manifest.5527912b7151ccd90fda67c728db5f0b.js",
-    "service-worker.js": "/kontent-sample-app-preview-react/service-worker.js",
-    "static/css/main.6f589023.chunk.css.map": "/kontent-sample-app-preview-react/static/css/main.6f589023.chunk.css.map",
-    "static/js/2.b8d2675d.chunk.js.LICENSE.txt": "/kontent-sample-app-preview-react/static/js/2.b8d2675d.chunk.js.LICENSE.txt"
+    "main.css": "/sample-app-preview-react/static/css/main.03bf40b4.css",
+    "main.js": "/sample-app-preview-react/static/js/main.d65c95a1.js",
+    "index.html": "/sample-app-preview-react/index.html",
+    "main.03bf40b4.css.map": "/sample-app-preview-react/static/css/main.03bf40b4.css.map",
+    "main.d65c95a1.js.map": "/sample-app-preview-react/static/js/main.d65c95a1.js.map"
   },
   "entrypoints": [
-    "static/js/runtime-main.e462b2ec.js",
-    "static/js/2.b8d2675d.chunk.js",
-    "static/css/main.6f589023.chunk.css",
-    "static/js/main.03335d2f.chunk.js"
+    "static/css/main.03bf40b4.css",
+    "static/js/main.d65c95a1.js"
   ]
 }
