@@ -6,15 +6,33 @@ import {
 
 const restProvider = createRestProvider(createAjaxWithCredentials());
 
-export interface IPreviewApiKey {
-  readonly api_key: string;
-  readonly expiresAt: string;
+export interface TokenSeedResponse {
+  token_seed_id: string;
 }
 
-export const getPreviewApiKey = (authToken: string, projectId: string): Promise<IPreviewApiKey> => {
+export const getPreviewApiTokenSeed = (authToken: string, projectContainerId: string, environmentId: string): Promise<ReadonlyArray<TokenSeedResponse>> => {
   const requestContext: IRequestContext = {
     authToken: authToken,
   };
-  const url = `${process.env.REACT_APP_KONTENT_URL}/api/project-management/${projectId}/keys/preview-delivery-api-primary`;
-  return restProvider.post(url, null, requestContext);
+  const url = `${process.env.REACT_APP_KONTENT_URL}/api/project-container/${projectContainerId}/keys/listing`;
+  const data = {
+    query: '',
+    'api_key_types': ['delivery-api'],
+    environments: [environmentId],
+  };
+
+  return restProvider.post(url, data, requestContext);
+};
+
+export interface KeyFromSeedResponse {
+  api_key: string;
+}
+
+export const getKeyForTokenSeed = (authToken: string, projectContainerId: string, tokenSeed: string): Promise<KeyFromSeedResponse> => {
+  const requestContext: IRequestContext = {
+    authToken: authToken,
+  };
+  const url = `${process.env.REACT_APP_KONTENT_URL}/api/project-container/${projectContainerId}/keys/${tokenSeed}`;
+
+  return restProvider.get(url, requestContext);
 };

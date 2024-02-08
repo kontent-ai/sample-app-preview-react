@@ -40,6 +40,11 @@ export function createRestProvider(ajax: any) {
   }
 
   return {
+    get(url: string, requestContext?: IRequestContext): Promise<any> {
+      return makeRequest('GET', url, undefined, requestContext)
+        .then(verifyStatusCode([200]))
+        .then(parseResponse);
+    },
     post(url: string, data: any, requestContext?: IRequestContext): Promise<any> {
       return makeRequest('POST', url, data, requestContext)
         .then(verifyStatusCode([200, 201]))
@@ -49,11 +54,7 @@ export function createRestProvider(ajax: any) {
 }
 
 function prepareDataForSend(data: any): any {
-  if (data && typeof data === 'object') {
-    // const dto = toDTO(data);
-    // return JSON.stringify(dto);
-  }
-  else if (typeof data === 'string') {
+  if ((data && typeof data === 'object') || typeof data === "string") {
     return JSON.stringify(data);
   }
 
