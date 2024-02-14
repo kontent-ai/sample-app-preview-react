@@ -4,7 +4,6 @@ import { AuthContextConsumer, IAuthContext } from "./AuthContext";
 import { AppContextConsumer, IAppContext } from "./AppContext";
 import { Loading } from "../components/Loading";
 import { ErrorPage, ErrorPageType } from "../components/ErrorPage";
-import { getPreviewApiKey } from "../repositories/previewApiKeyRepository";
 import { LoadingStatus } from "../enums/LoadingStatus";
 import { createLoadApplicationData } from "../factories/createLoadApplicationData";
 import { createLoadPreviewApiKey } from "../factories/createLoadPreviewApiKey";
@@ -25,18 +24,18 @@ class AppContextInitialization extends React.PureComponent<IAppContextInitializa
   render() {
     const { projectIdLoadingStatus, previewApiKeyLoadingStatus, dataLoadingStatus } = this.props.appContext;
     if (projectIdLoadingStatus === LoadingStatus.Failed) {
-      return <ErrorPage type={ErrorPageType.MissingProjectId}/>
+      return <ErrorPage type={ErrorPageType.MissingProjectId} />
     }
 
     if (previewApiKeyLoadingStatus === LoadingStatus.Failed) {
-      return <ErrorPage type={ErrorPageType.UnableToGetPreviewApiKey}/>
+      return <ErrorPage type={ErrorPageType.UnableToGetPreviewApiKey} />
     }
 
     if (dataLoadingStatus === LoadingStatus.Finished) {
       return this.props.children;
     }
 
-    return <Loading/>
+    return <Loading />
   }
 }
 
@@ -51,8 +50,7 @@ const AppContextInitializationConnected = (props: RouteComponentProps) => (
             loadPreviewApikey: createLoadPreviewApiKey({
               authContext,
               appContext,
-              getPreviewApiKey,
-            })
+            }),
           });
 
           return (
@@ -61,7 +59,7 @@ const AppContextInitializationConnected = (props: RouteComponentProps) => (
               authContext={authContext}
               appContext={appContext}
               {...props}
-          />);
+            />);
         }}
       </AuthContextConsumer>
     )}
