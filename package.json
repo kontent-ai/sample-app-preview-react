@@ -2,7 +2,6 @@
   "name": "@kontent-ai/sample-app-preview-react",
   "version": "0.3.0",
   "private": true,
-  "homepage": "https://kontent-ai.github.io/sample-app-preview-react/",
   "dependencies": {
     "@kontent-ai/delivery-sdk": "^12.4.2",
     "@types/auth0-js": "^9.10.2",
