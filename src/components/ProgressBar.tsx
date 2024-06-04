@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { AppContext } from '../context/AppContext';
-import { PollingStatus } from '../enums/PollingStatus';
-import './ProgressBar.css';
+import React, { useContext, useEffect, useState } from "react";
+import { AppContext } from "../context/AppContext";
+import { PollingStatus } from "../enums/PollingStatus";
+import "./ProgressBar.css";
 
 export const ProgressBar: React.FC = () => {
   const context = useContext(AppContext);
@@ -24,8 +24,7 @@ export const ProgressBar: React.FC = () => {
     };
   }, [context.dataPollingStatus, visible]);
 
-
   return visible
-    ? <div className="progress-bar"/>
+    ? <div className="progress-bar" />
     : null;
 };

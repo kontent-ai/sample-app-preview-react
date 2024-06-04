@@ -1,6 +1,6 @@
-import React from 'react';
-import { AppContextConsumer } from '../context/AppContext';
-import { PageContent } from './PageContent';
+import React from "react";
+import { AppContextConsumer } from "../context/AppContext";
+import { PageContent } from "./PageContent";
 import { ArticleExampleContentType } from "../models/article_example_content_type";
 
 interface IWelcomePageProps {
@@ -32,9 +32,10 @@ const WelcomePageConnected = () => (
     {appContext => (
       <WelcomePage
         article={appContext.articles[0]}
-        init={appContext.loadWelcomePage} />
+        init={appContext.loadWelcomePage}
+      />
     )}
   </AppContextConsumer>
 );
 
-export { WelcomePageConnected as WelcomePage }
+export { WelcomePageConnected as WelcomePage };

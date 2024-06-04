@@ -1,1 +1,1 @@
-export const Auth0RedirectUriStorageKey = 'redirectUri';
+export const Auth0RedirectUriStorageKey = "redirectUri";

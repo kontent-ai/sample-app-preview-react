@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { IAccessToken, WebAuth } from "../authentication/WebAuth";
 import { Redirect, Route, RouteComponentProps, Switch, withRouter } from "react-router";
 import { Loading } from "../components/Loading";
@@ -15,7 +15,7 @@ export interface IAuthContext extends IAuthContextState {
 }
 
 const defaultAuthContext: IAuthContext = {
-  accessToken: '',
+  accessToken: "",
   expiresAt: 0,
   isLoggedIn: false,
   logout: () => undefined,
@@ -26,14 +26,13 @@ const AuthContextProvider = context.Provider;
 export const AuthContextConsumer = context.Consumer;
 
 class AuthContext extends React.Component<RouteComponentProps, IAuthContextState> {
-
   private webAuth = new WebAuth();
 
   constructor(props: RouteComponentProps) {
     super(props);
 
     this.state = {
-      accessToken: '',
+      accessToken: "",
       isLoggedIn: false,
       expiresAt: 0,
     };
@@ -57,11 +56,11 @@ class AuthContext extends React.Component<RouteComponentProps, IAuthContextState
   };
 
   onFailedLogin = () => {
-    console.warn('on failed login');
+    console.warn("on failed login");
   };
 
   componentDidMount() {
-    const {silentLogin} = this.webAuth;
+    const { silentLogin } = this.webAuth;
     if (!this.isAuthUrlHash(window.location.hash)) {
       silentLogin();
     }
@@ -77,29 +76,34 @@ class AuthContext extends React.Component<RouteComponentProps, IAuthContextState
 
     return (
       <Switch>
-        {isLoggedIn ?
-          <Redirect
-            from={CallbackRoute}
-            to={RootRoute}
-          /> :
-          <Route
-            path={CallbackRoute}
-            render={props => {
-              this.handleAuthCallback(props);
-              return <Loading />;
-            }}
-          />
-        }
+        {isLoggedIn
+          ? (
+            <Redirect
+              from={CallbackRoute}
+              to={RootRoute}
+            />
+          )
+          : (
+            <Route
+              path={CallbackRoute}
+              render={props => {
+                this.handleAuthCallback(props);
+                return <Loading />;
+              }}
+            />
+          )}
 
         {isLoggedIn && (
-          <Route render={() => (
-            <AuthContextProvider value={context}>
-              {this.props.children}
-            </AuthContextProvider>
-          )}/>
+          <Route
+            render={() => (
+              <AuthContextProvider value={context}>
+                {this.props.children}
+              </AuthContextProvider>
+            )}
+          />
         )}
       </Switch>
-    )
+    );
   }
 }
 

@@ -1,9 +1,7 @@
-import React from 'react';
-import {
-  AppContextConsumer,
-} from '../../context/AppContext';
-import './ProductDetailsPage.css';
-import './Testimonial.css';
+import React from "react";
+import { AppContextConsumer } from "../../context/AppContext";
+import "./ProductDetailsPage.css";
+import "./Testimonial.css";
 import { ProductDetailsRouteParams } from "../../constants/routePaths";
 import { ProductExampleContentType } from "../../models/product_example_content_type";
 import { PageContent } from "../PageContent";
@@ -21,14 +19,14 @@ class ProductDetailsPage extends React.PureComponent<IProductDetailsPage> {
   render() {
     const { product } = this.props;
     if (product) {
-      const pictureUrl = product.elements.image.value[0] ? product.elements.image.value[0].url : '';
+      const pictureUrl = product.elements.image.value[0] ? product.elements.image.value[0].url : "";
       return (
         <PageContent title={product.elements.name.value}>
           {pictureUrl && (
             <img
               className="product-details__image"
               alt={product.elements.name.value}
-              src={product.elements.image.value[0] ? product.elements.image.value[0].url : ''}
+              src={product.elements.image.value[0] ? product.elements.image.value[0].url : ""}
             />
           )}
 
@@ -36,7 +34,8 @@ class ProductDetailsPage extends React.PureComponent<IProductDetailsPage> {
             className="product-details__description"
             dangerouslySetInnerHTML={{ __html: product.elements.description.value }}
           />
-        </PageContent>);
+        </PageContent>
+      );
     }
 
     return <p>There's no such product</p>;
@@ -60,4 +59,4 @@ const ProductDetailsPageConnected: React.FunctionComponent<IProductDetailsPageCo
   </AppContextConsumer>
 );
 
-export { ProductDetailsPageConnected as ProductDetailsPage }
+export { ProductDetailsPageConnected as ProductDetailsPage };

@@ -1,9 +1,9 @@
-import React from 'react';
-import { LoadingStatus } from '../enums/LoadingStatus';
-import { PollingStatus } from '../enums/PollingStatus';
-import { ArticleExampleContentType } from '../models/article_example_content_type';
-import { ProductExampleContentType } from '../models/product_example_content_type';
-import { getAllArticles, getProductsPage, getProductDetailsByUrlSlug } from '../repositories/contentItemRepository';
+import React from "react";
+import { LoadingStatus } from "../enums/LoadingStatus";
+import { PollingStatus } from "../enums/PollingStatus";
+import { ArticleExampleContentType } from "../models/article_example_content_type";
+import { ProductExampleContentType } from "../models/product_example_content_type";
+import { getAllArticles, getProductsPage, getProductDetailsByUrlSlug } from "../repositories/contentItemRepository";
 
 interface IAppContextState {
   readonly dataLoadingStatus: LoadingStatus;
@@ -13,7 +13,7 @@ interface IAppContextState {
   readonly environmentId: string;
   readonly environmentIdLoadingStatus: LoadingStatus;
   readonly articles: Array<ArticleExampleContentType>;
-  readonly productsByUrlSlug: {[key: string]: ProductExampleContentType};
+  readonly productsByUrlSlug: { [key: string]: ProductExampleContentType };
 }
 
 interface IAppContextProps {
@@ -34,9 +34,9 @@ export interface IAppContext extends IAppContextState, IAppContextProps {
 const defaultAppContext: IAppContext = {
   dataLoadingStatus: LoadingStatus.NotLoaded,
   dataPollingStatus: PollingStatus.Stopped,
-  previewApiKey: '',
+  previewApiKey: "",
   previewApiKeyLoadingStatus: LoadingStatus.NotLoaded,
-  environmentId: '',
+  environmentId: "",
   environmentIdLoadingStatus: LoadingStatus.NotLoaded,
   articles: new Array<ArticleExampleContentType>(),
   productsByUrlSlug: {},
@@ -56,13 +56,12 @@ const AppContextProvider = AppContext.Provider;
 export const AppContextConsumer = AppContext.Consumer;
 
 export class AppContextComponent extends React.PureComponent<{}, IAppContextState> {
-
   readonly state = {
     dataLoadingStatus: LoadingStatus.NotLoaded,
     dataPollingStatus: PollingStatus.Stopped,
-    previewApiKey: '',
+    previewApiKey: "",
     previewApiKeyLoadingStatus: LoadingStatus.NotLoaded,
-    environmentId: '',
+    environmentId: "",
     environmentIdLoadingStatus: LoadingStatus.NotLoaded,
     articles: new Array<ArticleExampleContentType>(),
     productsByUrlSlug: {},
@@ -117,9 +116,12 @@ export class AppContextComponent extends React.PureComponent<{}, IAppContextStat
     const productsPage = await getProductsPage(this.state.environmentId, this.state.previewApiKey);
     if (productsPage && productsPage[0]) {
       const newProducts = productsPage[0].elements.productList.linkedItems as Array<ProductExampleContentType>;
-      this.setState((state) => ({ productsByUrlSlug: newProducts
-          .reduce((byId, product: ProductExampleContentType) => ({...byId, [product.elements.url.value]: product}),
-            Object.assign({}, state.productsByUrlSlug))
+      this.setState((state) => ({
+        productsByUrlSlug: newProducts
+          .reduce(
+            (byId, product: ProductExampleContentType) => ({ ...byId, [product.elements.url.value]: product }),
+            Object.assign({}, state.productsByUrlSlug),
+          ),
       }));
     }
   };
@@ -130,9 +132,15 @@ export class AppContextComponent extends React.PureComponent<{}, IAppContextStat
   };
 
   private _loadProductData = async (productUrlSlug: string) => {
-    const product = await getProductDetailsByUrlSlug(this.state.environmentId, this.state.previewApiKey, productUrlSlug);
+    const product = await getProductDetailsByUrlSlug(
+      this.state.environmentId,
+      this.state.previewApiKey,
+      productUrlSlug,
+    );
     if (product) {
-      this.setState((state) => ({ productsByUrlSlug: ({...Object.assign({}, state.productsByUrlSlug), [product.elements.url.value]: product})}));
+      this.setState((state) => ({
+        productsByUrlSlug: ({ ...Object.assign({}, state.productsByUrlSlug), [product.elements.url.value]: product }),
+      }));
     }
   };
 

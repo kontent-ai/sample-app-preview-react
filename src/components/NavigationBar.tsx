@@ -1,11 +1,7 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import './NavigationBar.css';
-import {
-  ProductsRoute,
-  EnvironmentRoute,
-  ProjectRouteParams,
-} from '../constants/routePaths';
+import React from "react";
+import { NavLink } from "react-router-dom";
+import "./NavigationBar.css";
+import { ProductsRoute, EnvironmentRoute, ProjectRouteParams } from "../constants/routePaths";
 import { buildPath } from "../utils/routeTransitionUtils";
 import { AppContextConsumer } from "../context/AppContext";
 
@@ -36,7 +32,6 @@ export class NavigationBar extends React.PureComponent {
           </div>
         )}
       </AppContextConsumer>
-    )
+    );
   }
 }
-

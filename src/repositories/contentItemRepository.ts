@@ -1,5 +1,5 @@
 import { ArticleExampleContentType } from "../models/article_example_content_type";
-import { camelCasePropertyNameResolver, createDeliveryClient, IDeliveryClient} from "@kontent-ai/delivery-sdk";
+import { camelCasePropertyNameResolver, createDeliveryClient, IDeliveryClient } from "@kontent-ai/delivery-sdk";
 import { LandingPageExampleContentType } from "../models/landing_page_example_content_type";
 import { ProductExampleContentType } from "../models/product_example_content_type";
 import packageInfo from "../../package.json";
@@ -20,7 +20,7 @@ const ensureDeliveryClient = (environmentId: string, previewApiKey: string): voi
       basePreviewUrl: process.env.REACT_APP_DELIVER_URL,
     },
     defaultQueryConfig: {
-      usePreviewMode: true
+      usePreviewMode: true,
     },
     globalHeaders: (_queryConfig) => [
       {
@@ -28,19 +28,21 @@ const ensureDeliveryClient = (environmentId: string, previewApiKey: string): voi
         value: `${packageInfo.name};${packageInfo.version}`,
       },
     ],
-    propertyNameResolver: camelCasePropertyNameResolver
+    propertyNameResolver: camelCasePropertyNameResolver,
   });
 };
 
-
-export const getAllArticles = (environmentId: string, previewApiKey: string): Promise<Array<ArticleExampleContentType>> => {
+export const getAllArticles = (
+  environmentId: string,
+  previewApiKey: string,
+): Promise<Array<ArticleExampleContentType>> => {
   ensureDeliveryClient(environmentId, previewApiKey);
   if (!deliveryClient) {
-    throw new Error('Delivery client is not initialized yet');
+    throw new Error("Delivery client is not initialized yet");
   }
 
   return deliveryClient.items<ArticleExampleContentType>()
-    .type('article_example_content_type')
+    .type("article_example_content_type")
     .toPromise()
     .then(response => {
       return response.data.items;
@@ -51,14 +53,17 @@ export const getAllArticles = (environmentId: string, previewApiKey: string): Pr
     });
 };
 
-export const getProductsPage = (environmentId: string, previewApiKey: string): Promise<Array<LandingPageExampleContentType>> => {
+export const getProductsPage = (
+  environmentId: string,
+  previewApiKey: string,
+): Promise<Array<LandingPageExampleContentType>> => {
   ensureDeliveryClient(environmentId, previewApiKey);
   if (!deliveryClient) {
-    throw new Error('Delivery client is not initialized yet');
+    throw new Error("Delivery client is not initialized yet");
   }
 
   return deliveryClient.items<LandingPageExampleContentType>()
-    .type('landing_page_example_content_type')
+    .type("landing_page_example_content_type")
     .toPromise()
     .then(response => {
       return response.data.items;
@@ -69,20 +74,24 @@ export const getProductsPage = (environmentId: string, previewApiKey: string): P
     });
 };
 
-export const getProductDetailsByUrlSlug = (environmentId: string, previewApiKey: string, urlPattern: string): Promise<ProductExampleContentType | undefined | void> => {
+export const getProductDetailsByUrlSlug = (
+  environmentId: string,
+  previewApiKey: string,
+  urlPattern: string,
+): Promise<ProductExampleContentType | undefined | void> => {
   ensureDeliveryClient(environmentId, previewApiKey);
   if (!deliveryClient) {
-    throw new Error('Delivery client is not initialized yet');
+    throw new Error("Delivery client is not initialized yet");
   }
 
   return deliveryClient.items<ProductExampleContentType>()
-    .type('product_example_content_type')
-    .equalsFilter('elements.url', urlPattern)
+    .type("product_example_content_type")
+    .equalsFilter("elements.url", urlPattern)
     .toPromise()
     .then(response => {
       return response.data.items[0];
     })
     .catch(reason => {
       console.log(reason);
-    })
+    });
 };

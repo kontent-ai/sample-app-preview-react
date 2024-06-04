@@ -1,4 +1,4 @@
-import { RequestContext, get } from '../utils/fetch';
+import { RequestContext, get } from "../utils/fetch";
 
 export interface ProjectContainer {
   projectContainerId: string;
@@ -15,10 +15,10 @@ export const getProjectContainerForEnvironment = (
 
   return get(url, requestContext)
     .then(async (res) => {
-      if(res.ok) {
-        return await res.json() as ProjectContainer
+      if (res.ok) {
+        return await res.json() as ProjectContainer;
       }
-      
+
       console.error((await res.json()).description);
       return null;
     });

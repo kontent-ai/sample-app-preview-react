@@ -1,8 +1,8 @@
-const uuidPattern = '[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}';
+const uuidPattern = "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}";
 
 export const DeployedProjectRootRoute = `${process.env.REACT_APP_PROJECT_ROUTE}`;
 
-export const RootRoute = '/';
+export const RootRoute = "/";
 export const CallbackRoute = `${RootRoute}callback`;
 
 export const EnvironmentRoute = `${RootRoute}:environmentId(${uuidPattern})`;
@@ -15,4 +15,4 @@ export type ProjectRouteParams = {
 
 export type ProductDetailsRouteParams = ProjectRouteParams & {
   readonly productUrlSlug: string;
-}
+};
