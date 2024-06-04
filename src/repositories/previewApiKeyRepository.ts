@@ -17,12 +17,19 @@ export const getPreviewApiTokenSeed = (authToken: string, projectContainerId: st
 
   return post(url, data, requestContext)
     .then(async res => {
-      if(res.ok) {
-      return await res.json() as TokenSeedResponse[]
+    if(!res.ok) {
+      console.error((await res.json()).description);
+      return null;
+    }
+
+    const tokens = await res.json() as TokenSeedResponse[]
+    
+    if (!tokens.length){
+      console.error(`There is no Delivery API key for environment ${environmentId}`);
+      return null;
     }
     
-    console.error((await res.json()).description);
-    return null
+    return tokens;
 });
 };
 
