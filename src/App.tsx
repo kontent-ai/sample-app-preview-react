@@ -4,7 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import { NavigationBar } from './components/NavigationBar';
 import { ProductDetailsPage } from './components/Product/ProductDetailsPage';
 import { ProductsPage } from './components/Product/ProductsPage';
-import { ProductDetailsRoute, ProductsRoute, ProjectRoute } from './constants/routePaths';
+import { ProductDetailsRoute, ProductsRoute, EnvironmentRoute } from './constants/routePaths';
 import { WelcomePage } from './components/WelcomePage';
 import { ProgressBar } from './components/ProgressBar';
 
@@ -14,13 +14,13 @@ export class App extends React.PureComponent {
       <div className="app">
         <ProgressBar/>
         <Route
-          path={ProjectRoute}
+          path={EnvironmentRoute}
           component={NavigationBar}
         />
         <div className="app__content-wrapper">
           <Switch>
             <Route
-              path={ProjectRoute}
+              path={EnvironmentRoute}
               exact
               component={WelcomePage}
             />

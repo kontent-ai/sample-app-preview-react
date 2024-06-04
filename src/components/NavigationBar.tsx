@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import './NavigationBar.css';
 import {
   ProductsRoute,
-  ProjectRoute,
+  EnvironmentRoute,
   ProjectRouteParams,
 } from '../constants/routePaths';
 import { buildPath } from "../utils/routeTransitionUtils";
@@ -20,7 +20,7 @@ export class NavigationBar extends React.PureComponent {
                 activeClassName="navigation-bar__app-menu-button--active"
                 className="navigation-bar__app-menu-button"
                 exact={true}
-                to={buildPath<ProjectRouteParams>(ProjectRoute, { projectId: appContext.projectId })}
+                to={buildPath<ProjectRouteParams>(EnvironmentRoute, { environmentId: appContext.environmentId })}
               >
                 Welcome
               </NavLink>
@@ -28,7 +28,7 @@ export class NavigationBar extends React.PureComponent {
               <NavLink
                 activeClassName="navigation-bar__app-menu-button--active"
                 className="navigation-bar__app-menu-button"
-                to={buildPath<ProjectRouteParams>(ProductsRoute, { projectId: appContext.projectId })}
+                to={buildPath<ProjectRouteParams>(ProductsRoute, { environmentId: appContext.environmentId })}
               >
                 Products
               </NavLink>

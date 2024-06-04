@@ -1,7 +1,7 @@
 import React from 'react';
 
 export enum ErrorPageType {
-  MissingProjectId = 'missingProjectId',
+  MissingEnvironmentId = 'missingEnvironmentId',
   UnableToGetPreviewApiKey = 'unableToGetPreviewApiKey',
 }
 
@@ -9,16 +9,16 @@ interface IErrorPageProps {
   readonly type: ErrorPageType;
 }
 
-const projectIdUrlTemplate = "https://kontent-ai.github.io/sample-app-preview-react/<your_project_id>";
+const EnvironmentIdUrlTemplate = "https://getting-started.sample.kontent.ai/<your_environment_id>";
 
-const MissingProjectIdErrorPageContent: React.FunctionComponent = () => (
-  <p>Didn't you forget to provide Project Id in the url? E.g. <i>{projectIdUrlTemplate}</i></p>
+const MissingEnvironmentIdErrorPageContent: React.FunctionComponent = () => (
+  <p>Didn't you forget to provide Environment Id in the url? E.g. <i>{EnvironmentIdUrlTemplate}</i></p>
 );
 
 const UnableToGetPreviewApiKeyErrorPageContent: React.FunctionComponent = () => (
   <>
     <p>There was problem retrieving Preview Api Key.</p>
-    <p>Did you provide correct Project Id? E.g. <i>{projectIdUrlTemplate}</i></p>
+    <p>Did you provide correct Environment Id? E.g. <i>{EnvironmentIdUrlTemplate}</i></p>
   </>
 );
 
@@ -29,8 +29,8 @@ export const ErrorPage: React.FunctionComponent<IErrorPageProps> = ({ type }) =>
     </div>
 
     <p>Ooops, there was some error!</p>
-    {type === ErrorPageType.MissingProjectId && (
-      <MissingProjectIdErrorPageContent/>
+    {type === ErrorPageType.MissingEnvironmentId && (
+      <MissingEnvironmentIdErrorPageContent/>
     )}
 
     {type === ErrorPageType.UnableToGetPreviewApiKey && (

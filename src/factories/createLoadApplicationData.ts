@@ -4,27 +4,27 @@ import { LoadingStatus } from "../enums/LoadingStatus";
 interface ILoadApplicationDataDeps {
   readonly appContext: IAppContext;
   readonly loadPreviewApikey: () => Promise<string | null>;
-  readonly getProjectIdFromUrl: () => string | null;
+  readonly getEnvironmentIdFromUrl: () => string | null;
 }
 
 export const createLoadApplicationData = (deps: ILoadApplicationDataDeps) => async (): Promise<void> => {
-  const { appContext, loadPreviewApikey, getProjectIdFromUrl } = deps;
+  const { appContext, loadPreviewApikey, getEnvironmentIdFromUrl } = deps;
 
   if (appContext.dataLoadingStatus === LoadingStatus.Finished) {
     return;
   }
 
-  if (appContext.projectIdLoadingStatus === LoadingStatus.NotLoaded) {
-    const projectIdFromUrl = getProjectIdFromUrl();
-    if (projectIdFromUrl) {
-      appContext.setProjectId(projectIdFromUrl);
-      appContext.setProjectIdLoadingStatus(LoadingStatus.Finished);
+  if (appContext.environmentIdLoadingStatus === LoadingStatus.NotLoaded) {
+    const environmentIdFromUrl = getEnvironmentIdFromUrl();
+    if (environmentIdFromUrl) {
+      appContext.setEnvironmentId(environmentIdFromUrl);
+      appContext.setEnvironmentIdLoadingStatus(LoadingStatus.Finished);
     } else {
-      appContext.setProjectIdLoadingStatus(LoadingStatus.Failed);
+      appContext.setEnvironmentIdLoadingStatus(LoadingStatus.Failed);
     }
   }
 
-  if (appContext.projectIdLoadingStatus === LoadingStatus.Finished && appContext.previewApiKeyLoadingStatus === LoadingStatus.NotLoaded) {
+  if (appContext.environmentIdLoadingStatus === LoadingStatus.Finished && appContext.previewApiKeyLoadingStatus === LoadingStatus.NotLoaded) {
     appContext.setPreviewApiKeyLoadingStatus(LoadingStatus.InProgress);
     const previewApiKey = await loadPreviewApikey();
     if (previewApiKey) {
@@ -38,7 +38,7 @@ export const createLoadApplicationData = (deps: ILoadApplicationDataDeps) => asy
 
   const requiredDataLoaded = [
     appContext.previewApiKeyLoadingStatus,
-    appContext.projectIdLoadingStatus,
+    appContext.environmentIdLoadingStatus,
   ].every(status => status === LoadingStatus.Finished);
 
   if (requiredDataLoaded) {
