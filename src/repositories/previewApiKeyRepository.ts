@@ -1,17 +1,11 @@
-import { createAjaxWithCredentials } from '../utils/ajax';
-import {
-  createRestProvider,
-  IRequestContext,
-} from '../utils/restProvider';
-
-const restProvider = createRestProvider(createAjaxWithCredentials());
+import { RequestContext, get, post } from '../utils/fetch';
 
 export interface TokenSeedResponse {
   token_seed_id: string;
 }
 
-export const getPreviewApiTokenSeed = (authToken: string, projectContainerId: string, environmentId: string): Promise<ReadonlyArray<TokenSeedResponse>> => {
-  const requestContext: IRequestContext = {
+export const getPreviewApiTokenSeed = (authToken: string, projectContainerId: string, environmentId: string): Promise<ReadonlyArray<TokenSeedResponse> | null> => {
+  const requestContext: RequestContext = {
     authToken: authToken,
   };
   const url = `${process.env.REACT_APP_KONTENT_URL}/api/project-container/${projectContainerId}/keys/listing`;
@@ -21,7 +15,15 @@ export const getPreviewApiTokenSeed = (authToken: string, projectContainerId: st
     environments: [environmentId],
   };
 
-  return restProvider.post(url, data, requestContext);
+  return post(url, data, requestContext)
+    .then(async res => {
+      if(res.ok) {
+      return await res.json() as TokenSeedResponse[]
+    }
+    
+    console.error((await res.json()).description);
+    return null
+});
 };
 
 export interface KeyFromSeedResponse {
@@ -29,10 +31,10 @@ export interface KeyFromSeedResponse {
 }
 
 export const getKeyForTokenSeed = (authToken: string, projectContainerId: string, tokenSeed: string): Promise<KeyFromSeedResponse> => {
-  const requestContext: IRequestContext = {
+  const requestContext: RequestContext = {
     authToken: authToken,
   };
   const url = `${process.env.REACT_APP_KONTENT_URL}/api/project-container/${projectContainerId}/keys/${tokenSeed}`;
 
-  return restProvider.get(url, requestContext);
+  return get(url, requestContext).then(res => res.json());
 };

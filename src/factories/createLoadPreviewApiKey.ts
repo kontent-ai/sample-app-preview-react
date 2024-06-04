@@ -12,8 +12,14 @@ export const createLoadPreviewApiKey = (props: ILoadPreviewApiKeyDeps): () => Pr
   const { accessToken } = props.authContext;
   const { environmentId } = props.appContext;
   return async () => {
-    const projectContainerId = await getProjectContainerForEnvironment(accessToken, environmentId).then(res => res.projectContainerId);
-    const tokenSeed = await getPreviewApiTokenSeed(accessToken, projectContainerId, environmentId).then(res => res[0]?.token_seed_id);
+    const projectContainerId = await getProjectContainerForEnvironment(accessToken, environmentId)
+      .then(res => res?.projectContainerId);
+
+    if(!projectContainerId){
+      return null;
+    }
+    
+    const tokenSeed = await getPreviewApiTokenSeed(accessToken, projectContainerId, environmentId).then(res => res?.[0]?.token_seed_id);
 
     if (!tokenSeed) {
       return null;
