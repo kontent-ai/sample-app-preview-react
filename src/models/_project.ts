@@ -4,91 +4,91 @@
 export const projectModel = {
   languages: {
     default: {
-      codename: 'default',
-      name: 'Default project language',
+      codename: "default",
+      name: "Default project language",
     },
   },
   contentTypes: {
     article_example_content_type: {
-      codename: 'article_example_content_type',
-      name: 'Article—example content type',
+      codename: "article_example_content_type",
+      name: "Article—example content type",
       elements: {
         body: {
-          codename: 'body',
-          name: 'Body',
+          codename: "body",
+          name: "Body",
         },
         title: {
-          codename: 'title',
-          name: 'Title',
+          codename: "title",
+          name: "Title",
         },
         url: {
-          codename: 'url',
-          name: 'URL',
+          codename: "url",
+          name: "URL",
         },
       },
     },
     landing_page_example_content_type: {
-      codename: 'landing_page_example_content_type',
-      name: 'Landing page—example content type',
+      codename: "landing_page_example_content_type",
+      name: "Landing page—example content type",
       elements: {
         body: {
-          codename: 'body',
-          name: 'Body',
+          codename: "body",
+          name: "Body",
         },
         product_list: {
-          codename: 'product_list',
-          name: 'Product list',
+          codename: "product_list",
+          name: "Product list",
         },
         title: {
-          codename: 'title',
-          name: 'Title',
+          codename: "title",
+          name: "Title",
         },
         url: {
-          codename: 'url',
-          name: 'URL',
+          codename: "url",
+          name: "URL",
         },
       },
     },
     product_example_content_type: {
-      codename: 'product_example_content_type',
-      name: 'Product—example content type',
+      codename: "product_example_content_type",
+      name: "Product—example content type",
       elements: {
         url: {
-          codename: 'url',
-          name: 'URL',
+          codename: "url",
+          name: "URL",
         },
         description: {
-          codename: 'description',
-          name: 'Description',
+          codename: "description",
+          name: "Description",
         },
         name: {
-          codename: 'name',
-          name: 'Name',
+          codename: "name",
+          name: "Name",
         },
         image: {
-          codename: 'image',
-          name: 'Image',
+          codename: "image",
+          name: "Image",
         },
         taxonomy___categorizing_target_audience: {
-          codename: 'taxonomy___categorizing_target_audience',
-          name: 'Taxonomy - categorizing target audience',
+          codename: "taxonomy___categorizing_target_audience",
+          name: "Taxonomy - categorizing target audience",
         },
       },
     },
   },
   taxonomies: {
     taxonomy_categorizing_target_audience: {
-      codename: 'taxonomy_categorizing_target_audience',
-      name: 'Taxonomy—categorizing target audience',
+      codename: "taxonomy_categorizing_target_audience",
+      name: "Taxonomy—categorizing target audience",
       terms: {
         for_other_businesses__b2b_: {
-          codename: 'for_other_businesses__b2b_',
-          name: 'For other businesses (B2B)',
+          codename: "for_other_businesses__b2b_",
+          name: "For other businesses (B2B)",
           terms: {},
         },
         for_consumers__b2c_: {
-          codename: 'for_consumers__b2c_',
-          name: 'For consumers (B2C)',
+          codename: "for_consumers__b2c_",
+          name: "For consumers (B2C)",
           terms: {},
         },
       },

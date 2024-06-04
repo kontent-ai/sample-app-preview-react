@@ -15,11 +15,13 @@ export const createLoadPreviewApiKey = (props: ILoadPreviewApiKeyDeps): () => Pr
     const projectContainerId = await getProjectContainerForEnvironment(accessToken, environmentId)
       .then(res => res?.projectContainerId);
 
-    if(!projectContainerId){
+    if (!projectContainerId) {
       return null;
     }
-    
-    const tokenSeed = await getPreviewApiTokenSeed(accessToken, projectContainerId, environmentId).then(res => res?.[0]?.token_seed_id);
+
+    const tokenSeed = await getPreviewApiTokenSeed(accessToken, projectContainerId, environmentId).then(res =>
+      res?.[0]?.token_seed_id
+    );
 
     if (!tokenSeed) {
       return null;
@@ -28,5 +30,5 @@ export const createLoadPreviewApiKey = (props: ILoadPreviewApiKeyDeps): () => Pr
     return getKeyForTokenSeed(accessToken, projectContainerId, tokenSeed)
       .then(response => response.api_key)
       .catch(() => null);
-  }
+  };
 };

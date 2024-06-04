@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { buildPath } from "../../utils/routeTransitionUtils";
 import { ProductDetailsRoute, ProductDetailsRouteParams } from "../../constants/routePaths";
 import React from "react";
-import './ProductCard.css';
+import "./ProductCard.css";
 import { productImagePlaceholderUrl } from "../../constants/resources";
 
 interface IProductCardPlaceholderProps {
@@ -19,7 +19,7 @@ const ProductCardPlaceholder: React.FunctionComponent<IProductCardPlaceholderPro
         alt="product thumbnail"
       />
     </div>
-    {title ? title : 'Untitled content item'}
+    {title ? title : "Untitled content item"}
   </>
 );
 
@@ -30,18 +30,21 @@ interface IProductCardProps {
   readonly pictureUrl: string;
 }
 
-export const ProductCard: React.FunctionComponent<IProductCardProps> =
-  ({ environmentId, productId, pictureUrl, title }) => {
-    const imageSource = pictureUrl ? pictureUrl : productImagePlaceholderUrl;
-    return (
-      <div className="product-card">
-        {productId ? (
-            <Link to={buildPath<ProductDetailsRouteParams>(ProductDetailsRoute, { environmentId, productUrlSlug: productId })}>
-              <ProductCardPlaceholder imageSource={imageSource} title={title}/>
-            </Link>
-          ) : (
-            <ProductCardPlaceholder imageSource={imageSource} title={title}/>
-          )}
-      </div>
-    );
-  };
+export const ProductCard: React.FunctionComponent<IProductCardProps> = (
+  { environmentId, productId, pictureUrl, title },
+) => {
+  const imageSource = pictureUrl ? pictureUrl : productImagePlaceholderUrl;
+  return (
+    <div className="product-card">
+      {productId
+        ? (
+          <Link
+            to={buildPath<ProductDetailsRouteParams>(ProductDetailsRoute, { environmentId, productUrlSlug: productId })}
+          >
+            <ProductCardPlaceholder imageSource={imageSource} title={title} />
+          </Link>
+        )
+        : <ProductCardPlaceholder imageSource={imageSource} title={title} />}
+    </div>
+  );
+};

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { RouteComponentProps, withRouter } from "react-router";
 import { AuthContextConsumer, IAuthContext } from "./AuthContext";
 import { AppContextConsumer, IAppContext } from "./AppContext";
@@ -16,7 +16,6 @@ interface IAppContextInitializationProps extends RouteComponentProps {
 }
 
 class AppContextInitialization extends React.PureComponent<IAppContextInitializationProps, {}> {
-
   componentDidUpdate(): void {
     this.props.loadApplicationData();
   }
@@ -24,18 +23,18 @@ class AppContextInitialization extends React.PureComponent<IAppContextInitializa
   render() {
     const { environmentIdLoadingStatus, previewApiKeyLoadingStatus, dataLoadingStatus } = this.props.appContext;
     if (environmentIdLoadingStatus === LoadingStatus.Failed) {
-      return <ErrorPage type={ErrorPageType.MissingEnvironmentId} />
+      return <ErrorPage type={ErrorPageType.MissingEnvironmentId} />;
     }
 
     if (previewApiKeyLoadingStatus === LoadingStatus.Failed) {
-      return <ErrorPage type={ErrorPageType.UnableToGetPreviewApiKey} />
+      return <ErrorPage type={ErrorPageType.UnableToGetPreviewApiKey} />;
     }
 
     if (dataLoadingStatus === LoadingStatus.Finished) {
       return this.props.children;
     }
 
-    return <Loading />
+    return <Loading />;
   }
 }
 
@@ -59,7 +58,8 @@ const AppContextInitializationConnected = (props: RouteComponentProps) => (
               authContext={authContext}
               appContext={appContext}
               {...props}
-            />);
+            />
+          );
         }}
       </AuthContextConsumer>
     )}

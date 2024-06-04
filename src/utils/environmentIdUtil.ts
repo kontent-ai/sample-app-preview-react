@@ -10,6 +10,6 @@ export const getEnvironmentIdFromUrl = (): string | null => {
     }
   }
 
-  console.warn('no environmentId in url');
+  console.warn("no environmentId in url");
   return null;
 };

@@ -24,14 +24,16 @@ export const createLoadApplicationData = (deps: ILoadApplicationDataDeps) => asy
     }
   }
 
-  if (appContext.environmentIdLoadingStatus === LoadingStatus.Finished && appContext.previewApiKeyLoadingStatus === LoadingStatus.NotLoaded) {
+  if (
+    appContext.environmentIdLoadingStatus === LoadingStatus.Finished
+    && appContext.previewApiKeyLoadingStatus === LoadingStatus.NotLoaded
+  ) {
     appContext.setPreviewApiKeyLoadingStatus(LoadingStatus.InProgress);
     const previewApiKey = await loadPreviewApikey();
     if (previewApiKey) {
       appContext.setPreviewApiKey(previewApiKey);
       appContext.setPreviewApiKeyLoadingStatus(LoadingStatus.Finished);
-    }
-    else {
+    } else {
       appContext.setPreviewApiKeyLoadingStatus(LoadingStatus.Failed);
     }
   }
