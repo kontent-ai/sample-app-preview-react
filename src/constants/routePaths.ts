@@ -5,12 +5,12 @@ export const DeployedProjectRootRoute = `${process.env.REACT_APP_PROJECT_ROUTE}`
 export const RootRoute = '/';
 export const CallbackRoute = `${RootRoute}callback`;
 
-export const ProjectRoute = `${RootRoute}:projectId(${uuidPattern})`;
-export const ProductsRoute = `${ProjectRoute}/products`;
+export const EnvironmentRoute = `${RootRoute}:environmentId(${uuidPattern})`;
+export const ProductsRoute = `${EnvironmentRoute}/products`;
 export const ProductDetailsRoute = `${ProductsRoute}/:productUrlSlug`;
 
 export type ProjectRouteParams = {
-  readonly projectId: string;
+  readonly environmentId: string;
 };
 
 export type ProductDetailsRouteParams = ProjectRouteParams & {

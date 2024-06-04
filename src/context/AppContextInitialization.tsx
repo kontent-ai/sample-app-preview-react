@@ -7,7 +7,7 @@ import { ErrorPage, ErrorPageType } from "../components/ErrorPage";
 import { LoadingStatus } from "../enums/LoadingStatus";
 import { createLoadApplicationData } from "../factories/createLoadApplicationData";
 import { createLoadPreviewApiKey } from "../factories/createLoadPreviewApiKey";
-import { getProjectIdFromUrl } from "../utils/projectIdUtil";
+import { getEnvironmentIdFromUrl } from "../utils/environmentIdUtil";
 
 interface IAppContextInitializationProps extends RouteComponentProps {
   readonly authContext: IAuthContext;
@@ -22,9 +22,9 @@ class AppContextInitialization extends React.PureComponent<IAppContextInitializa
   }
 
   render() {
-    const { projectIdLoadingStatus, previewApiKeyLoadingStatus, dataLoadingStatus } = this.props.appContext;
-    if (projectIdLoadingStatus === LoadingStatus.Failed) {
-      return <ErrorPage type={ErrorPageType.MissingProjectId} />
+    const { environmentIdLoadingStatus, previewApiKeyLoadingStatus, dataLoadingStatus } = this.props.appContext;
+    if (environmentIdLoadingStatus === LoadingStatus.Failed) {
+      return <ErrorPage type={ErrorPageType.MissingEnvironmentId} />
     }
 
     if (previewApiKeyLoadingStatus === LoadingStatus.Failed) {
@@ -46,7 +46,7 @@ const AppContextInitializationConnected = (props: RouteComponentProps) => (
         {authContext => {
           const loadApplicationData = createLoadApplicationData({
             appContext,
-            getProjectIdFromUrl,
+            getEnvironmentIdFromUrl: getEnvironmentIdFromUrl,
             loadPreviewApikey: createLoadPreviewApiKey({
               authContext,
               appContext,

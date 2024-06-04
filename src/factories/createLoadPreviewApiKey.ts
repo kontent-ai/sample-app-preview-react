@@ -10,10 +10,10 @@ interface ILoadPreviewApiKeyDeps {
 
 export const createLoadPreviewApiKey = (props: ILoadPreviewApiKeyDeps): () => Promise<string | null> => {
   const { accessToken } = props.authContext;
-  const { projectId } = props.appContext;
+  const { environmentId } = props.appContext;
   return async () => {
-    const projectContainerId = await getProjectContainerForEnvironment(accessToken, projectId).then(res => res.projectContainerId);
-    const tokenSeed = await getPreviewApiTokenSeed(accessToken, projectContainerId, projectId).then(res => res[0]?.token_seed_id);
+    const projectContainerId = await getProjectContainerForEnvironment(accessToken, environmentId).then(res => res.projectContainerId);
+    const tokenSeed = await getPreviewApiTokenSeed(accessToken, projectContainerId, environmentId).then(res => res[0]?.token_seed_id);
 
     if (!tokenSeed) {
       return null;

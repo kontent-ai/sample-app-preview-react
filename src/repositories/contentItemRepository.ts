@@ -8,14 +8,14 @@ let deliveryClient: IDeliveryClient | null = null;
 
 const sourceTrackingHeaderName = "X-KC-SOURCE";
 
-const ensureDeliveryClient = (projectId: string, previewApiKey: string): void => {
+const ensureDeliveryClient = (environmentId: string, previewApiKey: string): void => {
   if (deliveryClient) {
     return;
   }
 
   deliveryClient = createDeliveryClient({
     previewApiKey,
-    projectId: projectId,
+    projectId: environmentId,
     proxy: {
       basePreviewUrl: process.env.REACT_APP_DELIVER_URL,
     },
@@ -33,8 +33,8 @@ const ensureDeliveryClient = (projectId: string, previewApiKey: string): void =>
 };
 
 
-export const getAllArticles = (projectId: string, previewApiKey: string): Promise<Array<ArticleExampleContentType>> => {
-  ensureDeliveryClient(projectId, previewApiKey);
+export const getAllArticles = (environmentId: string, previewApiKey: string): Promise<Array<ArticleExampleContentType>> => {
+  ensureDeliveryClient(environmentId, previewApiKey);
   if (!deliveryClient) {
     throw new Error('Delivery client is not initialized yet');
   }
@@ -51,8 +51,8 @@ export const getAllArticles = (projectId: string, previewApiKey: string): Promis
     });
 };
 
-export const getProductsPage = (projectId: string, previewApiKey: string): Promise<Array<LandingPageExampleContentType>> => {
-  ensureDeliveryClient(projectId, previewApiKey);
+export const getProductsPage = (environmentId: string, previewApiKey: string): Promise<Array<LandingPageExampleContentType>> => {
+  ensureDeliveryClient(environmentId, previewApiKey);
   if (!deliveryClient) {
     throw new Error('Delivery client is not initialized yet');
   }
@@ -69,8 +69,8 @@ export const getProductsPage = (projectId: string, previewApiKey: string): Promi
     });
 };
 
-export const getProductDetailsByUrlSlug = (projectId: string, previewApiKey: string, urlPattern: string): Promise<ProductExampleContentType | undefined | void> => {
-  ensureDeliveryClient(projectId, previewApiKey);
+export const getProductDetailsByUrlSlug = (environmentId: string, previewApiKey: string, urlPattern: string): Promise<ProductExampleContentType | undefined | void> => {
+  ensureDeliveryClient(environmentId, previewApiKey);
   if (!deliveryClient) {
     throw new Error('Delivery client is not initialized yet');
   }

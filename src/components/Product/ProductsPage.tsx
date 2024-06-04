@@ -8,7 +8,7 @@ import classNames from "classnames";
 
 interface IProductsPageProps {
   readonly init: () => void;
-  readonly projectId: string;
+  readonly environmentId: string;
   readonly products: Array<ProductExampleContentType>;
 }
 
@@ -18,7 +18,7 @@ class ProductsPage extends React.PureComponent<IProductsPageProps> {
   }
 
   render() {
-    const { projectId, products } = this.props;
+    const { environmentId, products } = this.props;
     const isSingleProduct = products.length === 1;
     return (
       <PageContent title="Products">
@@ -30,7 +30,7 @@ class ProductsPage extends React.PureComponent<IProductsPageProps> {
               title={product.elements.name.value}
               pictureUrl={product.elements.image.value[0] ? product.elements.image.value[0].url : ''}
               productId={product.elements.url.value}
-              projectId={projectId}
+              environmentId={environmentId}
               key={product.system.id}
             />)
           )}
@@ -45,7 +45,7 @@ const ProductsPageConnected = () => (
     {appContext => (
       <ProductsPage
         init={appContext.loadProducts}
-        projectId={appContext.projectId}
+        environmentId={appContext.environmentId}
         products={appContext.getProducts()}
       />
     )}

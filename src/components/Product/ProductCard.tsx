@@ -24,19 +24,19 @@ const ProductCardPlaceholder: React.FunctionComponent<IProductCardPlaceholderPro
 );
 
 interface IProductCardProps {
-  readonly projectId: string;
+  readonly environmentId: string;
   readonly productId: string;
   readonly title: string;
   readonly pictureUrl: string;
 }
 
 export const ProductCard: React.FunctionComponent<IProductCardProps> =
-  ({ projectId, productId, pictureUrl, title }) => {
+  ({ environmentId, productId, pictureUrl, title }) => {
     const imageSource = pictureUrl ? pictureUrl : productImagePlaceholderUrl;
     return (
       <div className="product-card">
         {productId ? (
-            <Link to={buildPath<ProductDetailsRouteParams>(ProductDetailsRoute, { projectId, productUrlSlug: productId })}>
+            <Link to={buildPath<ProductDetailsRouteParams>(ProductDetailsRoute, { environmentId, productUrlSlug: productId })}>
               <ProductCardPlaceholder imageSource={imageSource} title={title}/>
             </Link>
           ) : (

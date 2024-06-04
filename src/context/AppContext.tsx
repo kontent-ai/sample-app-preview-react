@@ -10,8 +10,8 @@ interface IAppContextState {
   readonly dataPollingStatus: PollingStatus;
   readonly previewApiKey: string;
   readonly previewApiKeyLoadingStatus: LoadingStatus;
-  readonly projectId: string;
-  readonly projectIdLoadingStatus: LoadingStatus;
+  readonly environmentId: string;
+  readonly environmentIdLoadingStatus: LoadingStatus;
   readonly articles: Array<ArticleExampleContentType>;
   readonly productsByUrlSlug: {[key: string]: ProductExampleContentType};
 }
@@ -21,9 +21,9 @@ interface IAppContextProps {
   readonly loadProduct: (productUrlSlug: string) => void;
   readonly loadProducts: () => void;
   readonly getProducts: () => Array<ProductExampleContentType>;
-  readonly setProjectId: (projectId: string) => void;
+  readonly setEnvironmentId: (environmentId: string) => void;
   readonly setLoadingStatus: (loadingStatus: LoadingStatus) => void;
-  readonly setProjectIdLoadingStatus: (projectIdLoadingStatus: LoadingStatus) => void;
+  readonly setEnvironmentIdLoadingStatus: (environmentIdLoadingStatus: LoadingStatus) => void;
   readonly setPreviewApiKey: (previewApiKey: string) => void;
   readonly setPreviewApiKeyLoadingStatus: (previewApiKeyLoadingStatus: LoadingStatus) => void;
 }
@@ -36,17 +36,17 @@ const defaultAppContext: IAppContext = {
   dataPollingStatus: PollingStatus.Stopped,
   previewApiKey: '',
   previewApiKeyLoadingStatus: LoadingStatus.NotLoaded,
-  projectId: '',
-  projectIdLoadingStatus: LoadingStatus.NotLoaded,
+  environmentId: '',
+  environmentIdLoadingStatus: LoadingStatus.NotLoaded,
   articles: new Array<ArticleExampleContentType>(),
   productsByUrlSlug: {},
   loadWelcomePage: () => undefined,
   loadProduct: () => undefined,
   loadProducts: () => undefined,
   getProducts: () => [],
-  setProjectId: () => undefined,
+  setEnvironmentId: () => undefined,
   setLoadingStatus: () => undefined,
-  setProjectIdLoadingStatus: () => undefined,
+  setEnvironmentIdLoadingStatus: () => undefined,
   setPreviewApiKey: () => undefined,
   setPreviewApiKeyLoadingStatus: () => undefined,
 };
@@ -62,8 +62,8 @@ export class AppContextComponent extends React.PureComponent<{}, IAppContextStat
     dataPollingStatus: PollingStatus.Stopped,
     previewApiKey: '',
     previewApiKeyLoadingStatus: LoadingStatus.NotLoaded,
-    projectId: '',
-    projectIdLoadingStatus: LoadingStatus.NotLoaded,
+    environmentId: '',
+    environmentIdLoadingStatus: LoadingStatus.NotLoaded,
     articles: new Array<ArticleExampleContentType>(),
     productsByUrlSlug: {},
   };
@@ -83,16 +83,16 @@ export class AppContextComponent extends React.PureComponent<{}, IAppContextStat
     this.setState({ dataPollingStatus: PollingStatus.Waiting });
   };
 
-  setProjectId = (projectId: string) => {
-    this.setState({ projectId });
+  setEnvironmentId = (environmentId: string) => {
+    this.setState({ environmentId: environmentId });
   };
 
   setLoadingStatus = (loadingStatus: LoadingStatus) => {
     this.setState({ dataLoadingStatus: loadingStatus });
   };
 
-  setProjectIdLoadingStatus = (projectIdLoadingStatus: LoadingStatus) => {
-    this.setState({ projectIdLoadingStatus });
+  setEnvironmentIdLoadingStatus = (environmentIdLoadingStatus: LoadingStatus) => {
+    this.setState({ environmentIdLoadingStatus: environmentIdLoadingStatus });
   };
 
   setPreviewApiKey = (previewApiKey: string) => {
@@ -104,7 +104,7 @@ export class AppContextComponent extends React.PureComponent<{}, IAppContextStat
   };
 
   private _loadWelcomePageData = async () => {
-    const articles = await getAllArticles(this.state.projectId, this.state.previewApiKey);
+    const articles = await getAllArticles(this.state.environmentId, this.state.previewApiKey);
     this.setState({ articles });
   };
 
@@ -114,7 +114,7 @@ export class AppContextComponent extends React.PureComponent<{}, IAppContextStat
   };
 
   private _loadProductsData = async () => {
-    const productsPage = await getProductsPage(this.state.projectId, this.state.previewApiKey);
+    const productsPage = await getProductsPage(this.state.environmentId, this.state.previewApiKey);
     if (productsPage && productsPage[0]) {
       const newProducts = productsPage[0].elements.productList.linkedItems as Array<ProductExampleContentType>;
       this.setState((state) => ({ productsByUrlSlug: newProducts
@@ -130,7 +130,7 @@ export class AppContextComponent extends React.PureComponent<{}, IAppContextStat
   };
 
   private _loadProductData = async (productUrlSlug: string) => {
-    const product = await getProductDetailsByUrlSlug(this.state.projectId, this.state.previewApiKey, productUrlSlug);
+    const product = await getProductDetailsByUrlSlug(this.state.environmentId, this.state.previewApiKey, productUrlSlug);
     if (product) {
       this.setState((state) => ({ productsByUrlSlug: ({...Object.assign({}, state.productsByUrlSlug), [product.elements.url.value]: product})}));
     }
@@ -147,10 +147,10 @@ export class AppContextComponent extends React.PureComponent<{}, IAppContextStat
     const {
       productsByUrlSlug,
       articles,
-      projectId,
+      environmentId,
       dataLoadingStatus,
       dataPollingStatus,
-      projectIdLoadingStatus,
+      environmentIdLoadingStatus,
       previewApiKey,
       previewApiKeyLoadingStatus,
     } = this.state;
@@ -160,17 +160,17 @@ export class AppContextComponent extends React.PureComponent<{}, IAppContextStat
       dataPollingStatus,
       previewApiKey,
       previewApiKeyLoadingStatus,
-      projectId,
-      projectIdLoadingStatus,
+      environmentId: environmentId,
+      environmentIdLoadingStatus: environmentIdLoadingStatus,
       articles,
       productsByUrlSlug,
       loadWelcomePage: this.loadWelcomePage,
       loadProduct: this.loadProduct,
       loadProducts: this.loadProducts,
       getProducts: this.getProducts,
-      setProjectId: this.setProjectId,
+      setEnvironmentId: this.setEnvironmentId,
       setLoadingStatus: this.setLoadingStatus,
-      setProjectIdLoadingStatus: this.setProjectIdLoadingStatus,
+      setEnvironmentIdLoadingStatus: this.setEnvironmentIdLoadingStatus,
       setPreviewApiKey: this.setPreviewApiKey,
       setPreviewApiKeyLoadingStatus: this.setPreviewApiKeyLoadingStatus,
     };
