@@ -11,7 +11,7 @@ export const getProjectContainerForEnvironment = (
   const requestContext: RequestContext = {
     authToken: authToken,
   };
-  const url = `${process.env.REACT_APP_KONTENT_URL}/api/project-management/${environmentId}`;
+  const url = `${import.meta.env.VITE_KONTENT_URL}/api/project-management/${environmentId}`;
 
   return get(url, requestContext)
     .then(async (res) => {

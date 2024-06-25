@@ -1,6 +1,6 @@
 const uuidPattern = "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}";
 
-export const DeployedProjectRootRoute = `${process.env.REACT_APP_PROJECT_ROUTE}`;
+export const DeployedProjectRootRoute = `${import.meta.env.VITE_PROJECT_ROUTE}`;
 
 export const RootRoute = "/";
 export const CallbackRoute = `${RootRoute}callback`;

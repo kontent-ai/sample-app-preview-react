@@ -17,7 +17,7 @@ const ensureDeliveryClient = (environmentId: string, previewApiKey: string): voi
     previewApiKey,
     projectId: environmentId,
     proxy: {
-      basePreviewUrl: process.env.REACT_APP_DELIVER_URL,
+      basePreviewUrl: import.meta.env.VITE_DELIVER_URL,
     },
     defaultQueryConfig: {
       usePreviewMode: true,

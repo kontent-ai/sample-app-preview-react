@@ -7,7 +7,6 @@
     "@types/auth0-js": "^9.10.2",
     "@types/classnames": "^2.2.8",
     "@types/jest": "^24.0.13",
-    "@types/node": "^12.0.2",
     "@types/react": "^16.8.17",
     "@types/react-dom": "^16.8.4",
     "@types/react-router-dom": "^4.3.3",
@@ -17,15 +16,12 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.0",
-    "react-scripts": "^5.0.1",
-    "typescript": "^3.4.5"
+    "typescript": "^5.5.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "predeploy": "npm run build",
+    "start": "vite",
+    "build": "vite build",
+    "serve": "vite preview",
     "fmt": "dprint fmt",
     "fmt:check": "dprint check"
   },
@@ -45,6 +41,9 @@
     ]
   },
   "devDependencies": {
-    "dprint": "^0.46.3"
+    "@types/node": "^20.14.8",
+    "@vitejs/plugin-react": "^4.3.1",
+    "dprint": "^0.46.3",
+    "vite": "^5.3.1"
   }
 }
