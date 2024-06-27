@@ -1,41 +1,38 @@
-import React from "react";
-import { AppContextConsumer } from "../context/AppContext";
+import React, { useContext, useEffect, useState } from "react";
+import { AppContext, AppContextConsumer } from "../context/AppContext";
 import { PageContent } from "./PageContent";
 import { ArticleExampleContentType } from "../models/article_example_content_type";
+import { getAllArticles } from "../repositories/contentItemRepository";
+import { Loading } from "./Loading";
 
-interface IWelcomePageProps {
-  readonly article: ArticleExampleContentType;
-  readonly init: () => void;
-}
+type WelcomePageProps = Readonly<{
+  article: ArticleExampleContentType;
+}>;
 
-class WelcomePage extends React.PureComponent<IWelcomePageProps> {
-  componentDidMount(): void {
-    this.props.init();
-  }
-
-  render() {
-    const { article } = this.props;
-    if (article) {
-      return (
-        <PageContent title={article.elements.title.value}>
-          <div dangerouslySetInnerHTML={{ __html: article.elements.body.value }} />
-        </PageContent>
-      );
-    }
-
-    return <p>Missing data for Welcome page</p>;
-  }
-}
-
-const WelcomePageConnected = () => (
-  <AppContextConsumer>
-    {appContext => (
-      <WelcomePage
-        article={appContext.articles[0]}
-        init={appContext.loadWelcomePage}
-      />
-    )}
-  </AppContextConsumer>
+const WelcomePage: React.FC<WelcomePageProps> = (props) => (
+  <PageContent title={props.article.elements.title.value}>
+    <div dangerouslySetInnerHTML={{ __html: props.article.elements.body.value }} />
+  </PageContent>
 );
+
+const WelcomePageConnected = () => {
+  const appContext = useContext(AppContext);
+  const [articles, setArticles] = useState<ReadonlyArray<ArticleExampleContentType> | null>(null);
+
+  useEffect(() => {
+    getAllArticles(appContext.environmentId, appContext.previewApiKey)
+      .then(res => setArticles(res));
+  });
+
+  if (!articles) {
+    return <Loading />;
+  }
+
+  return (
+    <WelcomePage
+      article={articles[0]}
+    />
+  );
+};
 
 export { WelcomePageConnected as WelcomePage };

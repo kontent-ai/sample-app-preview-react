@@ -1,16 +1,14 @@
 import { Link } from "react-router-dom";
-import { buildPath } from "../../utils/routeTransitionUtils";
-import { ProductDetailsRoute, ProductDetailsRouteParams } from "../../constants/routePaths";
 import React from "react";
 import "./ProductCard.css";
 import { productImagePlaceholderUrl } from "../../constants/resources";
 
-interface IProductCardPlaceholderProps {
-  readonly imageSource: string;
-  readonly title: string;
-}
+type ProductCardPlaceholderProps = Readonly<{
+  imageSource: string;
+  title: string;
+}>;
 
-const ProductCardPlaceholder: React.FunctionComponent<IProductCardPlaceholderProps> = ({ imageSource, title }) => (
+const ProductCardPlaceholder: React.FunctionComponent<ProductCardPlaceholderProps> = ({ imageSource, title }) => (
   <>
     <div className="product-card__thumbnail-wrapper">
       <img
@@ -23,23 +21,22 @@ const ProductCardPlaceholder: React.FunctionComponent<IProductCardPlaceholderPro
   </>
 );
 
-interface IProductCardProps {
-  readonly environmentId: string;
-  readonly productId: string;
-  readonly title: string;
-  readonly pictureUrl: string;
-}
+type ProductCardProps = Readonly<{
+  productSlug: string;
+  title: string;
+  pictureUrl: string;
+}>;
 
-export const ProductCard: React.FunctionComponent<IProductCardProps> = (
-  { environmentId, productId, pictureUrl, title },
+export const ProductCard: React.FunctionComponent<ProductCardProps> = (
+  { productSlug, pictureUrl, title },
 ) => {
   const imageSource = pictureUrl ? pictureUrl : productImagePlaceholderUrl;
   return (
     <div className="product-card">
-      {productId
+      {productSlug
         ? (
           <Link
-            to={buildPath<ProductDetailsRouteParams>(ProductDetailsRoute, { environmentId, productUrlSlug: productId })}
+            to={productSlug}
           >
             <ProductCardPlaceholder imageSource={imageSource} title={title} />
           </Link>

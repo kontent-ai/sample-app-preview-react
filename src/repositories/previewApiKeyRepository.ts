@@ -1,8 +1,8 @@
 import { RequestContext, get, post } from "../utils/fetch";
 
-export interface TokenSeedResponse {
+export type TokenSeedResponse = {
   token_seed_id: string;
-}
+};
 
 export const getPreviewApiTokenSeed = (
   authToken: string,
@@ -37,9 +37,9 @@ export const getPreviewApiTokenSeed = (
     });
 };
 
-export interface KeyFromSeedResponse {
+export type KeyFromSeedResponse = {
   api_key: string;
-}
+};
 
 export const getKeyForTokenSeed = (
   authToken: string,

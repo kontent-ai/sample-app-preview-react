@@ -1,11 +1,13 @@
-import React from "react";
+import React, { PropsWithChildren } from "react";
 import "./PageContent.css";
 
-export interface IPageContentProps {
-  readonly title: string;
-}
+export type PageContentProps = PropsWithChildren<
+  Readonly<{
+    title: string;
+  }>
+>;
 
-export const PageContent: React.FunctionComponent<IPageContentProps> = ({ title, children }) => (
+export const PageContent: React.FunctionComponent<PageContentProps> = ({ title, children }) => (
   <>
     <div className="app-title">
       {title}

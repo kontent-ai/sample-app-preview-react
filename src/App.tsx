@@ -1,43 +1,35 @@
 import React from "react";
 import "./App.css";
-import { Route, Switch } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { NavigationBar } from "./components/NavigationBar";
 import { ProductDetailsPage } from "./components/Product/ProductDetailsPage";
 import { ProductsPage } from "./components/Product/ProductsPage";
 import { ProductDetailsRoute, ProductsRoute, EnvironmentRoute } from "./constants/routePaths";
 import { WelcomePage } from "./components/WelcomePage";
-import { ProgressBar } from "./components/ProgressBar";
 
-export class App extends React.PureComponent {
-  render() {
-    return (
-      <div className="app">
-        <ProgressBar />
-        <Route
-          path={EnvironmentRoute}
-          component={NavigationBar}
-        />
-        <div className="app__content-wrapper">
-          <Switch>
-            <Route
-              path={EnvironmentRoute}
-              exact
-              component={WelcomePage}
-            />
-            <Route
-              path={ProductDetailsRoute}
-              component={ProductDetailsPage}
-            />
-            <Route
-              path={ProductsRoute}
-              component={ProductsPage}
-            />
-            <Route
-              render={() => <p>Ooops, missing page!</p>}
-            />
-          </Switch>
-        </div>
+export const App: React.FC = () => {
+  return (
+    <div className="app">
+      <NavigationBar />
+      <div className="app__content-wrapper">
+        <Routes>
+          <Route
+            path={EnvironmentRoute}
+            element={<WelcomePage />}
+          />
+          <Route
+            path={ProductDetailsRoute}
+            element={<ProductDetailsPage />}
+          />
+          <Route
+            path={ProductsRoute}
+            element={<ProductsPage />}
+          />
+          <Route
+            element={() => <p>Ooops, missing page!</p>}
+          />
+        </Routes>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
