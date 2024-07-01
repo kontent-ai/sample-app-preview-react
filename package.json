@@ -19,7 +19,10 @@
     "fmt:check": "dprint check"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      "@kontent-ai",
+      "@kontent-ai/eslint-config/react"
+    ]
   },
   "browserslist": {
     "production": [
@@ -34,6 +37,7 @@
     ]
   },
   "devDependencies": {
+    "@kontent-ai/eslint-config": "^1.0.0",
     "@types/classnames": "^2.3.1",
     "@types/jest": "^29.5.12",
     "@types/node": "^20.14.8",
@@ -41,7 +45,10 @@
     "@types/react-dom": "^18.3.0",
     "@types/react-router-dom": "^5.3.3",
     "@vitejs/plugin-react": "^4.3.1",
+    "autoprefixer": "^10.4.19",
     "dprint": "^0.46.3",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.4",
     "vite": "^5.3.1"
   }
 }
