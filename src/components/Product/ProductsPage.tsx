@@ -1,12 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
+
 import { AppContext } from "../../context/AppContext";
-import { PageContent } from "../PageContent";
-import "./ProductsPage.css";
 import { ProductExampleContentType } from "../../models/product_example_content_type";
-import { ProductCard } from "./ProductCard";
-import classNames from "classnames";
 import { getProductsPage } from "../../repositories/contentItemRepository";
 import { Loading } from "../Loading";
+import { PageContent } from "../PageContent";
+import { ProductCard } from "./ProductCard";
 
 interface IProductsPageProps {
   readonly environmentId: string;
@@ -14,17 +13,13 @@ interface IProductsPageProps {
 }
 
 const ProductsPage: React.FC<IProductsPageProps> = (props) => {
-  const { environmentId, products } = props;
-  const isSingleProduct = products.length === 1;
+  const { products } = props;
 
   return (
-    <PageContent title="Products">
-      <div
-        className={classNames("products-page", {
-          "products-page--has-single-product": isSingleProduct,
-        })}
-      >
-        {products && products.map((product: ProductExampleContentType) => (
+    <PageContent>
+      <div className="flex flex-col gap-6 items-center">
+        <h2 className="text-4xl">Products</h2>
+        {products.map((product: ProductExampleContentType) => (
           <ProductCard
             title={product.elements.name.value}
             pictureUrl={product.elements.image.value[0] ? product.elements.image.value[0].url : ""}
@@ -44,14 +39,14 @@ const ProductsPageConnected: React.FC = () => {
   useEffect(() => {
     getProductsPage(appContext.environmentId, appContext.previewApiKey)
       .then(res => {
-        if (res && res[0]) {
+        if (res[0]) {
           const products = res[0].elements.productList.linkedItems as unknown as ReadonlyArray<
             ProductExampleContentType
           >;
           setProducts(products);
         }
       });
-  }, []);
+  }, [appContext.environmentId, appContext.previewApiKey]);
 
   if (!products) {
     return <Loading />;

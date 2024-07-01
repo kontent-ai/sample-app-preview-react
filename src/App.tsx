@@ -1,17 +1,17 @@
 import React from "react";
-import "./App.css";
 import { Route, Routes } from "react-router-dom";
+
 import { NavigationBar } from "./components/NavigationBar";
 import { ProductDetailsPage } from "./components/Product/ProductDetailsPage";
 import { ProductsPage } from "./components/Product/ProductsPage";
-import { ProductDetailsRoute, ProductsRoute, EnvironmentRoute } from "./constants/routePaths";
 import { WelcomePage } from "./components/WelcomePage";
+import { EnvironmentRoute, ProductDetailsRoute, ProductsRoute } from "./constants/routePaths";
 
 export const App: React.FC = () => {
   return (
-    <div className="app">
+    <div className="flex flex-col h-full min-w-[360px] font-serif">
       <NavigationBar />
-      <div className="app__content-wrapper">
+      <div className=" flex flex-col  flex-1 flex-wrap items-center">
         <Routes>
           <Route
             path={EnvironmentRoute}
@@ -26,7 +26,7 @@ export const App: React.FC = () => {
             element={<ProductsPage />}
           />
           <Route
-            element={() => <p>Ooops, missing page!</p>}
+            element={<p>Ooops, missing page!</p>}
           />
         </Routes>
       </div>

@@ -1,11 +1,13 @@
+import "./index.css";
+
+import { Auth0Provider } from "@auth0/auth0-react";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
-import { App } from "./App";
 import { BrowserRouter as Router } from "react-router-dom";
-import { AppContextComponent } from "./context/AppContext";
+
+import { App } from "./App";
 import { DeployedProjectRootRoute } from "./constants/routePaths";
-import { Auth0Provider } from "@auth0/auth0-react";
+import { AppContextComponent } from "./context/AppContext";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <Router basename={DeployedProjectRootRoute}>
