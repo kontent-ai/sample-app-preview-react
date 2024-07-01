@@ -3,34 +3,31 @@
   "version": "0.3.0",
   "private": true,
   "dependencies": {
-    "@kontent-ai/delivery-sdk": "^12.4.2",
-    "@types/auth0-js": "^9.10.2",
-    "@types/classnames": "^2.2.8",
-    "@types/jest": "^24.0.13",
-    "@types/node": "^12.0.2",
-    "@types/react": "^16.8.17",
-    "@types/react-dom": "^16.8.4",
-    "@types/react-router-dom": "^4.3.3",
-    "auth0-js": "^9.10.2",
-    "classnames": "^2.2.6",
-    "path-to-regexp": "^3.0.0",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-router-dom": "^5.0.0",
-    "react-scripts": "^5.0.1",
-    "typescript": "^3.4.5"
+    "@auth0/auth0-react": "^2.2.4",
+    "@kontent-ai/delivery-sdk": "^14.9.0",
+    "classnames": "^2.5.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router": "^6.24.0",
+    "react-router-dom": "^6.24.0",
+    "typescript": "^5.5.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "predeploy": "npm run build",
+    "start": "vite",
+    "build": "vite build",
+    "serve": "vite preview",
+    "lint": "eslint . --ext ts,tsx",
     "fmt": "dprint fmt",
     "fmt:check": "dprint check"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      "@kontent-ai",
+      "@kontent-ai/eslint-config/react"
+    ],
+    "ignorePatterns": [
+      "src/models/**/*"
+    ]
   },
   "browserslist": {
     "production": [
@@ -45,6 +42,18 @@
     ]
   },
   "devDependencies": {
-    "dprint": "^0.46.3"
+    "@kontent-ai/eslint-config": "^1.0.0",
+    "@types/classnames": "^2.3.1",
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.14.8",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@types/react-router-dom": "^5.3.3",
+    "@vitejs/plugin-react": "^4.3.1",
+    "autoprefixer": "^10.4.19",
+    "dprint": "^0.46.3",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.4",
+    "vite": "^5.3.1"
   }
 }

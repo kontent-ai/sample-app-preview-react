@@ -1,8 +1,8 @@
-import { RequestContext, get, post } from "../utils/fetch";
+import { get, post, RequestContext } from "../utils/fetch";
 
-export interface TokenSeedResponse {
+export type TokenSeedResponse = {
   token_seed_id: string;
-}
+};
 
 export const getPreviewApiTokenSeed = (
   authToken: string,
@@ -12,7 +12,7 @@ export const getPreviewApiTokenSeed = (
   const requestContext: RequestContext = {
     authToken: authToken,
   };
-  const url = `${process.env.REACT_APP_KONTENT_URL}/api/project-container/${projectContainerId}/keys/listing`;
+  const url = `${import.meta.env.VITE_KONTENT_URL}/api/project-container/${projectContainerId}/keys/listing`;
   const data = {
     query: "",
     api_key_types: ["delivery-api"],
@@ -37,9 +37,9 @@ export const getPreviewApiTokenSeed = (
     });
 };
 
-export interface KeyFromSeedResponse {
+export type KeyFromSeedResponse = {
   api_key: string;
-}
+};
 
 export const getKeyForTokenSeed = (
   authToken: string,
@@ -49,7 +49,7 @@ export const getKeyForTokenSeed = (
   const requestContext: RequestContext = {
     authToken: authToken,
   };
-  const url = `${process.env.REACT_APP_KONTENT_URL}/api/project-container/${projectContainerId}/keys/${tokenSeed}`;
+  const url = `${import.meta.env.VITE_KONTENT_URL}/api/project-container/${projectContainerId}/keys/${tokenSeed}`;
 
   return get(url, requestContext).then(res => res.json());
 };

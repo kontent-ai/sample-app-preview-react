@@ -1,62 +1,58 @@
-import React from "react";
-import { AppContextConsumer } from "../../context/AppContext";
-import "./ProductDetailsPage.css";
-import "./Testimonial.css";
-import { ProductDetailsRouteParams } from "../../constants/routePaths";
+import React, { useContext, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+
+import { AppContext } from "../../context/AppContext";
 import { ProductExampleContentType } from "../../models/product_example_content_type";
+import { getProductDetailsByUrlSlug } from "../../repositories/contentItemRepository";
+import { Loading } from "../Loading";
 import { PageContent } from "../PageContent";
 
-interface IProductDetailsPage {
-  readonly product: ProductExampleContentType;
-  readonly init: () => void;
-}
+type ProductDetailsPage = Readonly<{ product: ProductExampleContentType }>;
 
-class ProductDetailsPage extends React.PureComponent<IProductDetailsPage> {
-  componentDidMount(): void {
-    this.props.init();
-  }
-
-  render() {
-    const { product } = this.props;
-    if (product) {
-      const pictureUrl = product.elements.image.value[0] ? product.elements.image.value[0].url : "";
-      return (
-        <PageContent title={product.elements.name.value}>
-          {pictureUrl && (
-            <img
-              className="product-details__image"
-              alt={product.elements.name.value}
-              src={product.elements.image.value[0] ? product.elements.image.value[0].url : ""}
-            />
-          )}
-
-          <div
-            className="product-details__description"
-            dangerouslySetInnerHTML={{ __html: product.elements.description.value }}
+const ProductDetailsPage: React.FC<ProductDetailsPage> = ({ product }) => {
+  const pictureUrl = product.elements.image.value[0] ? product.elements.image.value[0].url : "";
+  return (
+    <PageContent>
+      <div className="flex flex-col items-center gap-6">
+        <h2 className="text-4xl">{product.elements.name.value}</h2>
+        {pictureUrl && (
+          <img
+            className="max-w-full max-h-96 block m-auto"
+            alt={product.elements.name.value}
+            src={product.elements.image.value[0] ? product.elements.image.value[0].url : ""}
           />
-        </PageContent>
-      );
-    }
+        )}
+        <div
+          className="text-xl"
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: product.elements.description.value }}
+        />
+      </div>
+    </PageContent>
+  );
+};
 
-    return <p>There's no such product</p>;
+const ProductDetailsPageConnected: React.FC = () => {
+  const { productUrlSlug } = useParams();
+  const context = useContext(AppContext);
+  const [product, setProduct] = useState<ProductExampleContentType | null>(null);
+
+  if (!productUrlSlug) {
+    throw new Error("Product url slug needs to be provided.");
   }
-}
 
-interface IProductDetailsPageConnectedProps {
-  readonly match: {
-    readonly params: ProductDetailsRouteParams;
-  };
-}
+  useEffect(() => {
+    getProductDetailsByUrlSlug(context.environmentId, context.previewApiKey, productUrlSlug)
+      .then(res => {
+        setProduct(res);
+      });
+  }, [context.environmentId, context.previewApiKey, productUrlSlug]);
 
-const ProductDetailsPageConnected: React.FunctionComponent<IProductDetailsPageConnectedProps> = ({ match }) => (
-  <AppContextConsumer>
-    {appContext => (
-      <ProductDetailsPage
-        product={appContext.productsByUrlSlug[match.params.productUrlSlug]}
-        init={() => appContext.loadProduct(match.params.productUrlSlug)}
-      />
-    )}
-  </AppContextConsumer>
-);
+  if (!product) {
+    return <Loading />;
+  }
+
+  return <ProductDetailsPage product={product} />;
+};
 
 export { ProductDetailsPageConnected as ProductDetailsPage };

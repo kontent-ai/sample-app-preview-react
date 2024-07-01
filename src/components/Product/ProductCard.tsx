@@ -1,50 +1,55 @@
-import { Link } from "react-router-dom";
-import { buildPath } from "../../utils/routeTransitionUtils";
-import { ProductDetailsRoute, ProductDetailsRouteParams } from "../../constants/routePaths";
 import React from "react";
-import "./ProductCard.css";
+import { Link } from "react-router-dom";
+
 import { productImagePlaceholderUrl } from "../../constants/resources";
 
-interface IProductCardPlaceholderProps {
-  readonly imageSource: string;
-  readonly title: string;
-}
+type ProductCardPlaceholderProps = Readonly<{
+  imageSource: string;
+  title: string;
+}>;
 
-const ProductCardPlaceholder: React.FunctionComponent<IProductCardPlaceholderProps> = ({ imageSource, title }) => (
+const ProductCardPlaceholder: React.FunctionComponent<ProductCardPlaceholderProps> = ({ imageSource, title }) => (
   <>
-    <div className="product-card__thumbnail-wrapper">
+    <div className="w-64 h-64 p-2 flex flex-col items-center">
       <img
-        className="product-card__thumbnail"
+        className="max-w-80 max-h-64"
         src={imageSource}
         alt="product thumbnail"
       />
     </div>
-    {title ? title : "Untitled content item"}
+    <p className="m-4 text-xl">{title ? title : "Untitled content item"}</p>
   </>
 );
 
-interface IProductCardProps {
-  readonly environmentId: string;
-  readonly productId: string;
-  readonly title: string;
-  readonly pictureUrl: string;
-}
+type ProductCardProps = Readonly<{
+  productSlug: string;
+  title: string;
+  pictureUrl: string;
+}>;
 
-export const ProductCard: React.FunctionComponent<IProductCardProps> = (
-  { environmentId, productId, pictureUrl, title },
+export const ProductCard: React.FunctionComponent<ProductCardProps> = (
+  { productSlug, pictureUrl, title },
 ) => {
   const imageSource = pictureUrl ? pictureUrl : productImagePlaceholderUrl;
   return (
-    <div className="product-card">
-      {productId
+    <div className="flex flex-col items-center text-center border border-solid border-gray-300 rounded-lg shadow-md hover:shadow-lg">
+      {productSlug
         ? (
           <Link
-            to={buildPath<ProductDetailsRouteParams>(ProductDetailsRoute, { environmentId, productUrlSlug: productId })}
+            to={productSlug}
           >
-            <ProductCardPlaceholder imageSource={imageSource} title={title} />
+            <ProductCardPlaceholder
+              imageSource={imageSource}
+              title={title}
+            />
           </Link>
         )
-        : <ProductCardPlaceholder imageSource={imageSource} title={title} />}
+        : (
+          <ProductCardPlaceholder
+            imageSource={imageSource}
+            title={title}
+          />
+        )}
     </div>
   );
 };

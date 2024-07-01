@@ -1,2 +1,2 @@
 export const productImagePlaceholderUrl =
-  `${process.env.REACT_APP_PROJECT_DOMAIN}${process.env.REACT_APP_PROJECT_ROUTE}/placeholder-images.png`;
+  `${import.meta.env.VITE_PROJECT_DOMAIN}${import.meta.env.VITE_PROJECT_ROUTE}/placeholder-images.png`;
