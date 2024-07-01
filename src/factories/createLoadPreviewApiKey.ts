@@ -1,4 +1,4 @@
-import { getPreviewApiTokenSeed, getKeyForTokenSeed } from "../repositories/previewApiKeyRepository";
+import { getKeyForTokenSeed, getPreviewApiTokenSeed } from "../repositories/previewApiKeyRepository";
 import { getProjectContainerForEnvironment } from "../repositories/projectContainerRepository";
 
 type LoadPreviewApiKeyDeps = Readonly<{

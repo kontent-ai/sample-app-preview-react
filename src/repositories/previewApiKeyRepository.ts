@@ -1,4 +1,4 @@
-import { RequestContext, get, post } from "../utils/fetch";
+import { get, post, RequestContext } from "../utils/fetch";
 
 export type TokenSeedResponse = {
   token_seed_id: string;

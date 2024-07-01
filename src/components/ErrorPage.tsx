@@ -5,9 +5,9 @@ export enum ErrorPageType {
   UnableToGetPreviewApiKey = "unableToGetPreviewApiKey",
 }
 
-interface IErrorPageProps {
+type ErrorPageProps = {
   readonly type: ErrorPageType;
-}
+};
 
 const EnvironmentIdUrlTemplate = "https://getting-started.sample.kontent.ai/<your_environment_id>";
 
@@ -26,12 +26,8 @@ const UnableToGetPreviewApiKeyErrorPageContent: React.FunctionComponent = () => 
   </>
 );
 
-export const ErrorPage: React.FunctionComponent<IErrorPageProps> = ({ type }) => (
+export const ErrorPage: React.FunctionComponent<ErrorPageProps> = ({ type }) => (
   <>
-    <div className="navigation-bar">
-      <nav className="navigation-bar__app-menu" />
-    </div>
-
     <p>Ooops, there was some error!</p>
     {type === ErrorPageType.MissingEnvironmentId && <MissingEnvironmentIdErrorPageContent />}
 

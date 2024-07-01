@@ -1,10 +1,11 @@
-import React, { PropsWithChildren, useEffect, useMemo, useState } from "react";
-import { LoadingStatus } from "../enums/LoadingStatus";
-import { getEnvironmentIdFromUrl } from "../utils/environmentIdUtil";
-import { createLoadPreviewApiKey } from "../factories/createLoadPreviewApiKey";
-import { Loading } from "../components/Loading";
-import { ErrorPage, ErrorPageType } from "../components/ErrorPage";
 import { useAuth0 } from "@auth0/auth0-react";
+import React, { PropsWithChildren, useEffect, useMemo, useState } from "react";
+
+import { ErrorPage, ErrorPageType } from "../components/ErrorPage";
+import { Loading } from "../components/Loading";
+import { LoadingStatus } from "../enums/LoadingStatus";
+import { createLoadPreviewApiKey } from "../factories/createLoadPreviewApiKey";
+import { getEnvironmentIdFromUrl } from "../utils/environmentIdUtil";
 
 type AppContextState = Readonly<{
   previewApiKey: string;
@@ -25,7 +26,7 @@ export const AppContextComponent: React.FC<PropsWithChildren<{}>> = (props) => {
   const environmentId = useMemo(() => getEnvironmentIdFromUrl(), []);
 
   const [previewApiKeyLoadingStatus, setPreviewApiKeyLoadingStatus] = useState(LoadingStatus.NotLoaded);
-  const [dataLoadingStatus, setLoadingStatus] = useState(LoadingStatus.NotLoaded);
+  const [dataLoadingStatus, setDataLoadingStatus] = useState(LoadingStatus.NotLoaded);
 
   const { getAccessTokenSilently } = useAuth0();
 
@@ -34,7 +35,7 @@ export const AppContextComponent: React.FC<PropsWithChildren<{}>> = (props) => {
       return;
     }
 
-    setLoadingStatus(
+    setDataLoadingStatus(
       previewApiKeyLoadingStatus === LoadingStatus.Finished ? LoadingStatus.Finished : dataLoadingStatus,
     );
 
@@ -59,7 +60,7 @@ export const AppContextComponent: React.FC<PropsWithChildren<{}>> = (props) => {
         setPreviewApiKey(res);
         setPreviewApiKeyLoadingStatus(LoadingStatus.Finished);
       });
-  }, [environmentId, previewApiKeyLoadingStatus]);
+  }, [dataLoadingStatus, environmentId, getAccessTokenSilently, previewApiKeyLoadingStatus]);
 
   if (!environmentId) {
     return <ErrorPage type={ErrorPageType.MissingEnvironmentId} />;

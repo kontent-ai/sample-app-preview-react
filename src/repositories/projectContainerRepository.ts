@@ -1,4 +1,4 @@
-import { RequestContext, get } from "../utils/fetch";
+import { get, RequestContext } from "../utils/fetch";
 
 export type ProjectContainer = {
   projectContainerId: string;

@@ -1,8 +1,9 @@
+import { camelCasePropertyNameResolver, createDeliveryClient } from "@kontent-ai/delivery-sdk";
+
+import packageInfo from "../../package.json";
 import { ArticleExampleContentType } from "../models/article_example_content_type";
-import { camelCasePropertyNameResolver, createDeliveryClient, IDeliveryClient } from "@kontent-ai/delivery-sdk";
 import { LandingPageExampleContentType } from "../models/landing_page_example_content_type";
 import { ProductExampleContentType } from "../models/product_example_content_type";
-import packageInfo from "../../package.json";
 
 const sourceTrackingHeaderName = "X-KC-SOURCE";
 
@@ -16,7 +17,7 @@ const createClient = (environmentId: string, previewApiKey: string) =>
     defaultQueryConfig: {
       usePreviewMode: true,
     },
-    globalHeaders: (_queryConfig) => [
+    globalHeaders: () => [
       {
         header: sourceTrackingHeaderName,
         value: `${packageInfo.name};${packageInfo.version}`,
