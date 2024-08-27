@@ -1,8 +1,8 @@
 import { get, RequestContext } from "../utils/fetch";
 
-export type ProjectContainer = {
+export type ProjectContainer = Readonly<{
   projectContainerId: string;
-};
+}>;
 
 export const getProjectContainerForEnvironment = (
   authToken: string,

@@ -1,8 +1,8 @@
 import { get, post, RequestContext } from "../utils/fetch";
 
-export type TokenSeedResponse = {
+export type TokenSeedResponse = Readonly<{
   token_seed_id: string;
-};
+}>;
 
 export const getPreviewApiTokenSeed = (
   authToken: string,
@@ -37,9 +37,9 @@ export const getPreviewApiTokenSeed = (
     });
 };
 
-export type KeyFromSeedResponse = {
+export type KeyFromSeedResponse = Readonly<{
   api_key: string;
-};
+}>;
 
 export const getKeyForTokenSeed = (
   authToken: string,

@@ -5,9 +5,9 @@ export enum ErrorPageType {
   UnableToGetPreviewApiKey = "unableToGetPreviewApiKey",
 }
 
-type ErrorPageProps = {
-  readonly type: ErrorPageType;
-};
+type ErrorPageProps = Readonly<{
+  type: ErrorPageType;
+}>;
 
 const EnvironmentIdUrlTemplate = "https://getting-started.sample.kontent.ai/<your_environment_id>";
 

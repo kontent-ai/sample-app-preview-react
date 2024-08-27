@@ -7,19 +7,19 @@ import { Loading } from "../Loading";
 import { PageContent } from "../PageContent";
 import { ProductCard } from "./ProductCard";
 
-interface IProductsPageProps {
-  readonly environmentId: string;
-  readonly products: ReadonlyArray<ProductExampleContentType>;
-}
+type ProductsPageProps = Readonly<{
+  environmentId: string;
+  products: ReadonlyArray<ProductExampleContentType>;
+}>;
 
-const ProductsPage: React.FC<IProductsPageProps> = (props) => {
+const ProductsPage: React.FC<ProductsPageProps> = (props) => {
   const { products } = props;
 
   return (
     <PageContent>
       <div className="flex flex-col gap-6 items-center">
         <h2 className="text-4xl">Products</h2>
-        {products.map((product: ProductExampleContentType) => (
+        {products.map(product => (
           <ProductCard
             title={product.elements.name.value}
             pictureUrl={product.elements.image.value[0] ? product.elements.image.value[0].url : ""}
