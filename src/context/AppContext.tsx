@@ -28,7 +28,7 @@ export const AppContextComponent: React.FC<PropsWithChildren<{}>> = (props) => {
   const [previewApiKeyLoadingStatus, setPreviewApiKeyLoadingStatus] = useState(LoadingStatus.NotLoaded);
   const [dataLoadingStatus, setDataLoadingStatus] = useState(LoadingStatus.NotLoaded);
 
-  const { getAccessTokenSilently } = useAuth0();
+  const { getAccessTokenSilently, loginWithRedirect } = useAuth0();
 
   useEffect(() => {
     if (!environmentId) {
@@ -59,8 +59,17 @@ export const AppContextComponent: React.FC<PropsWithChildren<{}>> = (props) => {
 
         setPreviewApiKey(res);
         setPreviewApiKeyLoadingStatus(LoadingStatus.Finished);
+      }).catch(err => {
+        // need to handle those errors https://github.com/auth0/auth0-react/blob/main/EXAMPLES.md#call-an-api
+        if (err.error === "login_required") {
+          loginWithRedirect();
+        }
+        if (err.error === "consent_required") {
+          loginWithRedirect();
+        }
+        throw err;
       });
-  }, [dataLoadingStatus, environmentId, getAccessTokenSilently, previewApiKeyLoadingStatus]);
+  }, [dataLoadingStatus, environmentId, getAccessTokenSilently, loginWithRedirect, previewApiKeyLoadingStatus]);
 
   if (!environmentId) {
     return <ErrorPage type={ErrorPageType.MissingEnvironmentId} />;
