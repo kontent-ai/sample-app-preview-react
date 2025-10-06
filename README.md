@@ -1,3 +1,8 @@
+> [!Warning]
+> Deprecation Notice: This repository is no longer maintained.
+>
+> We encourage you to explore our latest solutions [Kickstart React app](https://github.com/kontent-ai/kickstart-react-app).
+
 # Kontent.ai sample React web application
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
